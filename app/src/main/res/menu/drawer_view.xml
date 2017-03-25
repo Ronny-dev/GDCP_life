@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <group android:checkableBehavior="single">
+        <item android:title="交友">
+            <menu>
+                <item
+                    android:id="@+id/nav_message"
+                    android:icon="@drawable/ic_launcher"
+                    android:title="聊天" />
+                <item
+                    android:id="@+id/nav_contacts"
+                    android:icon="@drawable/ic_launcher"
+                    android:title="好友" />
+            </menu>
+        </item>
+        <item android:title="Version">
+            <menu>
+                <item
+                    android:id="@+id/nav_schedule"
+                    android:icon="@drawable/ic_launcher"
+                    android:title="日程" />
+                <item
+                    android:id="@+id/nav_weather"
+                    android:icon="@drawable/ic_launcher"
+                    android:title="天气" />
+                <item
+                    android:id="@+id/nav_computerroom"
+                    android:icon="@drawable/ic_launcher"
+                    android:title="课程" />
+                <item
+                    android:id="@+id/nav_shop"
+                    android:icon="@drawable/ic_launcher"
+                    android:title="购物" />
+                <item
+                    android:id="@+id/nav_jw2012"
+                    android:icon="@drawable/ic_launcher"
+                    android:title="教务" />
+                <item
+                    android:id="@+id/nav_card"
+                    android:icon="@drawable/ic_launcher"
+                    android:title="卡务" />
+                ic_launcher
+            </menu>
+        </item>
+    </group>
+</menu>

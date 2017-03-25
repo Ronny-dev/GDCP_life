@@ -112,14 +112,14 @@
                     android:text="必修" />
             </LinearLayout>
 
-            <view.ListViewForScrollView
+            <com.example.ronny_xie.gdcp.view.ListViewForScrollView
                 android:id="@+id/jwxscj_listview_bixiu"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:divider="@null"
                 android:focusable="false"
                 android:listSelector="#ffffff" >
-            </view.ListViewForScrollView>
+            </com.example.ronny_xie.gdcp.view.ListViewForScrollView>
 
             <LinearLayout
                 android:id="@+id/jwxscj_linearlayout_xuanxiu"
@@ -134,14 +134,14 @@
                     android:text="选修" />
             </LinearLayout>
 
-            <view.ListViewForScrollView
+            <com.example.ronny_xie.gdcp.view.ListViewForScrollView
                 android:id="@+id/jwxscj_listview_xuanxiu"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:divider="@null"
                 android:focusable="false"
                 android:listSelector="#ffffff" >
-            </view.ListViewForScrollView>
+            </com.example.ronny_xie.gdcp.view.ListViewForScrollView>
 
             <LinearLayout
                 android:id="@+id/jwxscj_linearlayout_below"

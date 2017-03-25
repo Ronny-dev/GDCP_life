@@ -27,7 +27,6 @@ public class shopActivity2 extends Activity {
 		requestWindowFeature(Window.FEATURE_NO_TITLE);
 		setContentView(R.layout.shopfragment);
 		super.onCreate(savedInstanceState);
-		initmenu();
 		handler = new Handler() {
 			@SuppressWarnings("unchecked")
 			@Override
@@ -56,25 +55,4 @@ public class shopActivity2 extends Activity {
 	public void back_buy(View v){
 		finish();
 	}
-	private void initmenu() {
-		menu = new SlidingMenu(this);
-		menu.setMode(SlidingMenu.LEFT);
-		// 设置触摸屏幕的模式
-		menu.setTouchModeAbove(SlidingMenu.LEFT);
-		menu.setBehindOffsetRes(R.dimen.setMenu_MainWidth);
-		menu.setBehindWidth(1);//设置SlidingMenu菜单的宽度
-		menu.setShadowDrawable(R.drawable.ic_launcher);
-		menu.setTouchModeAbove(SlidingMenu.TOUCHMODE_FULLSCREEN);
-		// 设置渐入渐出效果的值
-		menu.setFadeDegree(0.35f);
-		menu.attachToActivity(this, SlidingMenu.RIGHT);	
-		menu.setOnOpenListener(new OnOpenListener() {
-			
-			@Override
-			public void onOpen() {
-				finish();
-			}
-		});
-	}
-	private SlidingMenu menu;
 }

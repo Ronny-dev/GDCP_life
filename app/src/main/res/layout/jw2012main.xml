@@ -93,10 +93,10 @@
                 android:textSize="24dp"
                 android:visibility="invisible" />
 
-            <view.ListViewForScrollView
+            <com.example.ronny_xie.gdcp.view.ListViewForScrollView
                 android:id="@+id/jw_listView1"
                 android:layout_width="match_parent"
-                android:layout_height="300dp"></view.ListViewForScrollView>
+                android:layout_height="300dp"></com.example.ronny_xie.gdcp.view.ListViewForScrollView>
 
             <TextView
                 android:id="@+id/jw_textView2"
@@ -107,10 +107,10 @@
                 android:textSize="24dp"
                 android:visibility="invisible" />
 
-            <view.ListViewForScrollView
+            <com.example.ronny_xie.gdcp.view.ListViewForScrollView
                 android:id="@+id/jw_listView2"
                 android:layout_width="match_parent"
-                android:layout_height="300dp"></view.ListViewForScrollView>
+                android:layout_height="300dp"></com.example.ronny_xie.gdcp.view.ListViewForScrollView>
         </LinearLayout>
     </LinearLayout>
 

@@ -94,7 +94,6 @@ public class jw_main extends Activity {
         initGDCPhtmldata();// 获取广交官网上的数据
         initClickView();// 获取点击的view
         onClickListener();// 监听点击事件
-        initmenu();//设置右滑退出
     }
 
     // 每一个listview项的点击跳转网页的事件侦听
@@ -505,22 +504,4 @@ public class jw_main extends Activity {
         isRun = true;
         super.onResume();
     }
-
-    private void initmenu() {
-        menu = new SlidingMenu(this);
-        menu.setMode(SlidingMenu.LEFT);
-        // 设置触摸屏幕的模式
-        menu.setTouchModeAbove(SlidingMenu.LEFT);
-        menu.setBehindOffsetRes(R.dimen.setMenu_MainWidth);
-        menu.setBehindWidth(1);//设置SlidingMenu菜单的宽度
-        menu.setShadowDrawable(R.drawable.ic_launcher);
-        menu.setTouchModeAbove(SlidingMenu.TOUCHMODE_FULLSCREEN);
-        // 设置渐入渐出效果的值
-        menu.setFadeDegree(0.35f);
-        menu.attachToActivity(this, SlidingMenu.RIGHT);
-        menu.setOnOpenListener(new SlidingMenu.OnOpenListener() {
-            @Override
-            public void onOpen() {onBackPressed();}});
-    }
-    private SlidingMenu menu;
 }

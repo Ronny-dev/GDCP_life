@@ -46,4 +46,16 @@
         <item name="android:indeterminateDrawable">@android:drawable/progress_indeterminate_horizontal</item>
         <item name="android:progressDrawable">@drawable/progressbar_nor</item>
     </style>
+    <style name="MyTheme" parent="Theme.AppCompat.Light.NoActionBar">
+        <!-- Toolbar颜色 -->
+        <item name="android:colorPrimary">#4169E1</item>
+        <!-- 状态栏颜色 -->
+        <item name="android:colorPrimaryDark">#ffffff</item>
+        <!-- 返回键样式 -->
+        <item name="drawerArrowStyle">@style/AppTheme.DrawerArrowToggle</item>
+    </style>
+
+    <style name="AppTheme.DrawerArrowToggle" parent="Base.Widget.AppCompat.DrawerArrowToggle">
+        <item name="color">@android:color/white</item>
+    </style>
 </resources>

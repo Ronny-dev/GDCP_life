@@ -1,6 +1,7 @@
 package com.example.ronny_xie.gdcp.mainActivity;
 
 import java.util.List;
+
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.NotificationManager;
@@ -9,18 +10,25 @@ import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
-import android.os.Handler;
+import android.support.design.widget.NavigationView;
+import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v4.widget.DrawerLayout;
 import android.util.Log;
+import android.view.DragEvent;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.Window;
+import android.view.WindowInsets;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
+
 import com.example.ronny_xie.gdcp.R;
 import com.example.ronny_xie.gdcp.loginActivity.MyApplication;
 import com.example.ronny_xie.gdcp.loginActivity.WelcomePage;
@@ -53,6 +61,8 @@ import com.example.ronny_xie.gdcp.Fragment.fragment_jw;
 import com.example.ronny_xie.gdcp.Fragment.fragment_card;
 import com.example.ronny_xie.gdcp.shop.fragment_shop;
 
+import static com.example.ronny_xie.gdcp.R.id.nav_header_name;
+
 public class MainActivity extends FragmentActivity {
     private MessageFragment messageFragment;
     private ContactsFragment contactsFragment;
@@ -70,7 +80,7 @@ public class MainActivity extends FragmentActivity {
     private GotyeAPI api;
     private GotyeUser user;
     private TextView msgTip;
-
+    private static final String TAG = "MainActivity";
     @SuppressLint("NewApi")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -82,12 +92,96 @@ public class MainActivity extends FragmentActivity {
         beep = new BeepManager(MainActivity.this);
         beep.updatePrefs();
 //        initMenu();
+        initNav();
         initViews();
         fragmentManager = getSupportFragmentManager();// getFragmentManager();
         setTabSelection(0);
         clearNotify();
     }
 
+    private void initNav() {
+        final DrawerLayout drawerLayout = (DrawerLayout) findViewById(R.id.navigation_drawerlayout);
+        final NavigationView navigationView = (NavigationView) findViewById(R.id.nv_main_navigation);
+        //获取头部布局
+        View headerView = navigationView.getHeaderView(0);
+        ImageView nav_header_image = (ImageView) headerView.findViewById(R.id.nav_header_image);
+        TextView nav_header_name = (TextView) headerView.findViewById(R.id.nav_header_name);
+        TextView nav_header_sign = (TextView) headerView.findViewById(R.id.nav_header_sign);
+        FrameLayout frameLayout = (FrameLayout) headerView.findViewById(R.id.nav_header_framelayout);
+        ImageView nav_header_leave = (ImageView) headerView.findViewById(R.id.nav_leave_image);
+        //点击nav的header部分跳转到设置
+        frameLayout.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                setTabSelection(3);
+                drawerLayout.closeDrawer(navigationView);
+            }
+        });
+        //点击nav上部分退出按钮
+        nav_header_leave.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                int status = api.isOnline();
+                int code = api.logout();
+                int x = code;
+                Log.d("", "code" + code + "" + x);
+                if (code == GotyeStatusCode.CodeNotLoginYet) {
+                    Intent intent1 = new Intent(getApplicationContext(),
+                            login.class);
+                    startActivity(intent1);
+                    finish();
+                }
+            }
+        });
+        if (user != api.getLoginUser()) {
+            user = api.getLoginUser();
+            setUserInfo(user,nav_header_name,nav_header_image);
+            SharedPreferences share = getSharedPreferences("signal",
+                    Activity.MODE_PRIVATE);
+            String sign = share.getString(user.getName().toString(),
+                    "还没给我设置签名噢~");
+            nav_header_sign.setText(sign);
+        }
+
+        navigationView.setItemIconTintList(null);//设置图标颜为默认
+        navigationView.getMenu().getItem(0).setChecked(true);//设置默认选中为第一个
+        navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(MenuItem item) {
+                item.setCheckable(true);
+                item.setChecked(true);
+                switch (item.getItemId()) {
+                    case R.id.nav_message:
+                        nav_select(0);
+                        break;
+                    case R.id.nav_contacts:
+                        nav_select(1);
+                        break;
+                    case R.id.nav_schedule:
+                        nav_select(2);
+                        break;
+                    case R.id.nav_weather:
+                        nav_select(3);
+                        break;
+                    case R.id.nav_computerroom:
+                        nav_select(4);
+                        break;
+                    case R.id.nav_shop:
+                        nav_select(5);
+                        break;
+                    case R.id.nav_jw2012:
+                        nav_select(6);
+                        break;
+                    case R.id.nav_card:
+                        nav_select(7);
+                        break;
+                }
+                drawerLayout.closeDrawer(navigationView);
+                return true;
+            }
+        });
+    }
+/*
     //操作menu菜单
     private void initMenu() {
         menu = new SlidingMenu(this);
@@ -104,7 +198,7 @@ public class MainActivity extends FragmentActivity {
         menu.setMenu(R.layout.menu_main);
         // 读取背景地址
         ImageView backgroundImage = (ImageView) findViewById(R.id.menu_background_image);
-        menu_backgroundUtils.getMenuBackground(getApplicationContext(),backgroundImage);
+        menu_backgroundUtils.getMenuBackground(getApplicationContext(), backgroundImage);
         // ---------------------------------
         TextView menu_exit = (TextView) findViewById(R.id.menu_text_exit);
         TextView menu_setting = (TextView) findViewById(R.id.menu_text_set);
@@ -129,7 +223,7 @@ public class MainActivity extends FragmentActivity {
                 // 每次打开侧拉栏，初始化读取一次用户信息
                 if (user != api.getLoginUser()) {
                     user = api.getLoginUser();
-                    setUserInfo(user);
+
                     SharedPreferences share = getSharedPreferences("signal",
                             Activity.MODE_PRIVATE);
                     String sign = share.getString(user.getName().toString(),
@@ -163,112 +257,69 @@ public class MainActivity extends FragmentActivity {
             }
         });
     }
-
+*/
     //操作menu的个人信息
     boolean hasRequest = false;
 
-    private void setUserInfo(GotyeUser user) {
+    private void setUserInfo(GotyeUser user,TextView name,ImageView image) {
         if (user.getIcon() == null && !hasRequest) {
             hasRequest = true;
             api.getUserDetail(user, true);
         } else {
             Bitmap bm = BitmapUtil.getBitmap(user.getIcon().getPath());
             if (bm != null) {
-                menu_image.setImageBitmap(bm);
+                image.setImageBitmap(bm);
                 ImageCache.getInstance().put(user.getName(), bm);
             } else {
                 api.downloadMedia(user.getIcon());
             }
         }
-        menu_name.setText(user.getNickname());
-        menu_id.setText(user.getName());
+        name.setText(user.getNickname());
+//        id.setText(user.getName());
     }
 
-    public void btn_1(View v) {
+    Fragment fragment_list[] = {messageFragment, contactsFragment, fragment_schedule, fragment_weather,
+            fragment_competerRoom, fragment_shop, fragment_jw, fragment_card};
+    Fragment lastFragment;
+
+    public void nav_select(int i) {
         transaction = fragmentManager.beginTransaction();
-        hideFragments(transaction);
-        if (fragment_weather == null) {
-            fragment_weather = new fragment_weather();
-            transaction.add(R.id.content, fragment_weather);
+        if (fragment_list[i] == null) {
+            if (i == 0) {
+                fragment_list[i] = new MessageFragment();
+            } else if (i == 1) {
+                fragment_list[i] = new ContactsFragment();
+            } else if (i == 2) {
+                fragment_list[i] = new fragment_schedule();
+            } else if (i == 3) {
+                fragment_list[i] = new fragment_weather();
+            } else if (i == 4) {
+                fragment_list[i] = new fragment_competerRoom();
+            } else if (i == 5) {
+                fragment_list[i] = new fragment_shop();
+            } else if (i == 6) {
+                fragment_list[i] = new fragment_jw();
+            } else if (i == 7) {
+                fragment_list[i] = new fragment_card();
+            }
+            transaction.add(R.id.content, fragment_list[i]);
         } else {
-            transaction.show(fragment_weather);
+            transaction.show(fragment_list[i]);
         }
+        hideFragments(transaction, i);
         transaction.commit();
-        menu.showContent();
+        lastFragment = fragment_list[i];
     }
 
-    public void btn_2(View v) {
-        System.out.println("点击了第二");
-        transaction = fragmentManager.beginTransaction();
-        hideFragments(transaction);
-        if (fragment_competerRoom == null) {
-            fragment_competerRoom = new fragment_competerRoom();
-            transaction.add(R.id.content, fragment_competerRoom);
-        } else {
-            transaction.show(fragment_competerRoom);
+    @SuppressLint("NewApi")
+    private void hideFragments(FragmentTransaction transaction, int i) {
+        if (lastFragment != null) {
+            if (lastFragment != fragment_list[i]) {
+                transaction.hide(lastFragment);
+            }
         }
-        transaction.commit();
-        menu.showContent();
     }
 
-    public void btn_3(View v) {
-        // intent启动
-        // Todo 位置信息除去
-    }
-
-    public void btn_4(View v) {
-        transaction = fragmentManager.beginTransaction();
-        hideFragments(transaction);
-        if (fragment_shop == null) {
-            fragment_shop = new fragment_shop();
-            transaction.add(R.id.content, fragment_shop);
-        } else {
-            transaction.show(fragment_shop);
-        }
-        transaction.commit();
-        menu.showContent();
-    }
-
-    public void btn_5(View v) {
-        System.out.println("点击了");
-        transaction = fragmentManager.beginTransaction();
-        hideFragments(transaction);
-        if (fragment_jw == null) {
-            fragment_jw = new fragment_jw();
-            transaction.add(R.id.content, fragment_jw);
-        } else {
-            transaction.show(fragment_jw);
-        }
-        transaction.commit();
-        menu.showContent();
-    }
-
-    public void btn_6(View v) {
-        System.out.println("点击了");
-        transaction = fragmentManager.beginTransaction();
-        hideFragments(transaction);
-        if (fragment_card == null) {
-            fragment_card = new fragment_card();
-            transaction.add(R.id.content, fragment_card);
-        } else {
-            transaction.show(fragment_card);
-        }
-        transaction.commit();
-        menu.showContent();
-    }
-
-    public void btn_7(View v) {
-        transaction = fragmentManager.beginTransaction();
-        hideFragments(transaction);
-        if (fragment_schedule == null) {
-            fragment_schedule = new fragment_schedule();
-            transaction.add(R.id.content, fragment_schedule);
-        } else {
-            transaction.show(fragment_schedule);
-        }
-        transaction.commit();
-        menu.showContent();
-    }
 
     private boolean returnNotify = false;
 
@@ -295,27 +346,19 @@ public class MainActivity extends FragmentActivity {
         msgTip = (TextView) findViewById(R.id.new_msg_tip);
     }
 
-    public void btn_friend(View v) {
-        setTabSelection(1);
-        menu.showContent();
-    }
-
-    public void btn_chat(View v) {
-        setTabSelection(0);
-        menu.showContent();
-    }
 
     @SuppressLint("NewApi")
     private void setTabSelection(int index) {
         updateUnReadTip();
         currentPosition = index;
         transaction = fragmentManager.beginTransaction();
-        hideFragments(transaction);
+        hideFragments(transaction, index);
         switch (index) {
             case 0:
                 if (messageFragment == null) {
                     messageFragment = new MessageFragment();
                     transaction.add(R.id.content, messageFragment);
+                    lastFragment = messageFragment;
                 } else {
                     transaction.show(messageFragment);
                 }
@@ -324,6 +367,7 @@ public class MainActivity extends FragmentActivity {
                 if (contactsFragment == null) {
                     contactsFragment = new ContactsFragment();
                     transaction.add(R.id.content, contactsFragment);
+                    lastFragment = messageFragment;
                 } else {
                     transaction.show(contactsFragment);
                 }
@@ -333,6 +377,7 @@ public class MainActivity extends FragmentActivity {
                 if (settingFragment == null) {
                     settingFragment = new SettingFragment();
                     transaction.add(R.id.content, settingFragment);
+                    lastFragment = messageFragment;
                 } else {
                     transaction.show(settingFragment);
                 }
@@ -341,36 +386,6 @@ public class MainActivity extends FragmentActivity {
         transaction.commit();
     }
 
-    @SuppressLint("NewApi")
-    private void hideFragments(FragmentTransaction transaction) {
-        if (messageFragment != null) {
-            transaction.hide(messageFragment);
-        }
-        if (contactsFragment != null) {
-            transaction.hide(contactsFragment);
-        }
-        if (settingFragment != null) {
-            transaction.hide(settingFragment);
-        }
-        if (fragment_weather != null) {
-            transaction.hide(fragment_weather);
-        }
-        if (fragment_competerRoom != null) {
-            transaction.hide(fragment_competerRoom);
-        }
-        if (fragment_shop != null) {
-            transaction.hide(fragment_shop);
-        }
-        if (fragment_jw != null) {
-            transaction.hide(fragment_jw);
-        }
-        if (fragment_card != null) {
-            transaction.hide(fragment_card);
-        }
-        if (fragment_schedule != null) {
-            transaction.hide(fragment_schedule);
-        }
-    }
 
     // 更新提醒
     public void updateUnReadTip() {

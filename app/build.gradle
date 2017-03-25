@@ -42,5 +42,5 @@ dependencies {
     compile files('libs/jsoup-1.7.3.jar')
     compile files('libs/gotyeapi.jar')
     compile files('libs/glide-3.6.1.jar')
-    compile 'com.github.vajro:MaterialDesignLibrary:1.6'
+    compile 'com.android.support:design:24.1.1'
 }

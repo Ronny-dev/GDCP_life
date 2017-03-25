@@ -441,10 +441,10 @@
                         android:textColor="#fff"
                         android:textSize="20sp" />
 
-                    <view.ListViewForScrollView
+                    <com.example.ronny_xie.gdcp.view.ListViewForScrollView
                         android:id="@+id/fragment_weibo_listview"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"></view.ListViewForScrollView>
+                        android:layout_height="wrap_content"></com.example.ronny_xie.gdcp.view.ListViewForScrollView>
                 </LinearLayout>
 
                 <LinearLayout
