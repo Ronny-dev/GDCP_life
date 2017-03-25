@@ -1,0 +1,36 @@
+<resources>
+    <string name="app_name">掌上广交</string>
+    <string name="action_settings">Settings</string>
+    <string name="text_ack_msg">已读</string>
+    <string name="text_delivered_msg">已发送</string>
+    <string name="error_network">搜索失败,请检查网络连接！</string>
+    <string name="error_key">key验证无效！</string>
+    <string name="error_other">未知错误，请稍后重试!错误码为</string>
+    <string name="no_result">对不起，没有搜索到相关数据！</string>
+    <string name="province">省</string>
+    <string name="city">市</string>
+    <string name="district">区/县</string>
+
+    <style name="PopupAnimation" mce_bogus="1" parent="android:Animation">
+        <item name="android:windowEnterAnimation">@anim/slide_in_from_bottom</item>
+        <item name="android:windowExitAnimation">@anim/slide_out_to_bottom</item>
+    </style>
+
+    <string-array name="spinner_arr">
+        <item>Location</item>
+        <item>精准网格定位</item>
+        <item>搜索周边</item>
+        <item>线路查询</item>
+        <item>出门线路规划</item>
+    </string-array>
+    <string-array name="spinner_jiaotong">
+        <item>矢量地图模式</item>
+        <item>卫星地图模式</item>
+        <item>夜景地图模式</item>
+        <item>实时交通情况</item>
+    </string-array>
+
+    <drawable name="clr_normal">#00FFFF</drawable>
+    <drawable name="clr_pressed">#999999</drawable>
+
+</resources>

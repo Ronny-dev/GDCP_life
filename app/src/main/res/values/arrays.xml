@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="weather_qu">
+        <item>---请选择区名---</item>
+        <item>天河区</item>
+        <item>白云区</item>
+        <item>越秀区</item>
+        <item>海珠区</item>
+        <item>荔湾区</item>
+        <item>番禺区</item>
+        <item>萝岗区</item>
+        <item>南沙区</item>
+        <item>增城区</item>
+        <item>花都区</item>
+        <item>从化区</item>
+    </string-array>
+</resources>

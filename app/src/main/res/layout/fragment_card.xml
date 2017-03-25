@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+
+    <RelativeLayout
+        android:id="@+id/fragment_card_image_password"
+        android:layout_width="200dp"
+        android:layout_height="300dp"
+        android:layout_gravity="center_horizontal" >
+
+        <TextView
+            android:id="@+id/one"
+            android:layout_width="52dp"
+            android:layout_height="52dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="53dp" />
+
+        <TextView
+            android:id="@+id/two"
+            android:layout_width="52dp"
+            android:layout_height="52dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="53dp"
+            android:layout_toRightOf="@id/one" />
+
+        <TextView
+            android:id="@+id/three"
+            android:layout_width="52dp"
+            android:layout_height="52dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="53dp"
+            android:layout_toRightOf="@id/two" />
+
+        <TextView
+            android:id="@+id/four"
+            android:layout_width="52dp"
+            android:layout_height="52dp"
+            android:layout_below="@id/one"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="8dp" />
+
+        <TextView
+            android:id="@+id/five"
+            android:layout_width="52dp"
+            android:layout_height="52dp"
+            android:layout_below="@id/two"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="8dp"
+            android:layout_toRightOf="@id/four" />
+
+        <TextView
+            android:id="@+id/six"
+            android:layout_width="52dp"
+            android:layout_height="52dp"
+            android:layout_below="@id/three"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="8dp"
+            android:layout_toRightOf="@id/five" />
+
+        <TextView
+            android:id="@+id/seven"
+            android:layout_width="52dp"
+            android:layout_height="52dp"
+            android:layout_below="@id/four"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="8dp" />
+
+        <TextView
+            android:id="@+id/eight"
+            android:layout_width="52dp"
+            android:layout_height="52dp"
+            android:layout_below="@id/five"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="8dp"
+            android:layout_toRightOf="@id/seven" />
+
+        <TextView
+            android:id="@+id/nine"
+            android:layout_width="52dp"
+            android:layout_height="52dp"
+            android:layout_below="@id/six"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="8dp"
+            android:layout_toRightOf="@id/eight" />
+
+        <TextView
+            android:id="@+id/zero"
+            android:layout_width="52dp"
+            android:layout_height="52dp"
+            android:layout_below="@id/seven"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="8dp" />
+
+        <TextView
+            android:id="@+id/click"
+            android:layout_width="115dp"
+            android:layout_height="52dp"
+            android:layout_below="@id/eight"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="8dp"
+            android:layout_toRightOf="@id/zero"
+            android:background="#00ff00" />
+    </RelativeLayout>
+
+    <Button
+        android:id="@+id/fragment_card_button"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="登录" />
+
+</LinearLayout>
