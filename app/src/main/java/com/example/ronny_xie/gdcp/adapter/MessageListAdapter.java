@@ -5,6 +5,7 @@ import java.util.List;
 import com.example.ronny_xie.gdcp.Fragment.MessageFragment;
 import android.annotation.SuppressLint;
 import android.graphics.Bitmap;
+import android.graphics.drawable.Icon;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -31,7 +32,7 @@ public class MessageListAdapter extends BaseAdapter {
 	private MessageFragment messageFragment;
 	private List<GotyeChatTarget> sessions;
 	private GotyeAPI api;
-
+	private static final String TAG = "MessageListAdapter";
 	public MessageListAdapter(MessageFragment messageFragment,List<GotyeChatTarget> sessions) {
 		this.messageFragment = messageFragment;
 		this.sessions = sessions;
@@ -114,7 +115,6 @@ public class MessageListAdapter extends BaseAdapter {
 			} else {
 				viewHolder.count.setVisibility(View.GONE);
 			}
-
 		} else {
 			String title = "", content = "";
 			viewHolder.content.setVisibility(View.VISIBLE);
@@ -139,17 +139,36 @@ public class MessageListAdapter extends BaseAdapter {
 				content = "自定义消息";
 			}
 
+			//这里是界面的列表
 			if (session.getType() == GotyeChatTargetType.GotyeChatTargetTypeUser) {
 				setIcon(viewHolder.icon, session);
 				GotyeUser user = api.getUserDetail(session, false);
 				if (user != null) {
-					if (TextUtils.isEmpty(user.getNickname())) {
-						title = "好友：" + user.getName();
+
+					GotyeUser tempUser = api.getUserDetail(user, true);
+					Bitmap bmp = ImageCache.getInstance().get(user.getName());
+					if (bmp != null) {
+
+						viewHolder.icon.setImageBitmap(bmp);
 					} else {
-						title = "好友：" + user.getNickname();
+						if (tempUser.getIcon() != null) {
+							Bitmap bm = BitmapUtil.getBitmap(user.getIcon().getPath());
+							if (bm != null) {
+								viewHolder.icon.setImageBitmap(bm);
+								ImageCache.getInstance().put(user.getName(), bm);
+							} else {
+								api.downloadMedia(user.getIcon());
+							}
+						}
+					}
+
+					if (TextUtils.isEmpty(user.getNickname())) {
+						title = "" + user.getName();
+					} else {
+						title = "" + user.getNickname();
 					}
 				} else {
-					title = "好友：" + session.getName();
+					title = "" + session.getName();
 				}
 			} else if (session.getType() == GotyeChatTargetType.GotyeChatTargetTypeRoom) {
 				setIcon(viewHolder.icon, session);

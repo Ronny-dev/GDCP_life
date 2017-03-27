@@ -55,7 +55,7 @@
         android:layout_height="wrap_content"
         android:layout_above="@+id/bottom_layout"
         android:layout_below="@+id/real_time_talk_layout"
-        android:background="#000000"
+        android:background="#dddddd"
         android:cacheColorHint="@android:color/transparent"
         android:divider="@android:color/transparent"
         android:dividerHeight="0dp"
@@ -79,8 +79,8 @@
 
             <ImageView
                 android:id="@+id/send_voice"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
                 android:layout_alignParentLeft="true"
                 android:layout_centerVertical="true"
                 android:src="@drawable/voice_btn_selector" />
@@ -119,11 +119,12 @@
 
             <ImageView
                 android:id="@+id/more_type"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="45dp"
+                android:layout_height="30dp"
                 android:layout_alignParentRight="true"
                 android:layout_centerVertical="true"
                 android:src="@drawable/send_selector" />
+
         </RelativeLayout>
 
         <LinearLayout

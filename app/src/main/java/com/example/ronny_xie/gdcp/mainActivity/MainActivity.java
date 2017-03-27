@@ -1,15 +1,22 @@
 package com.example.ronny_xie.gdcp.mainActivity;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.util.List;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.NotificationManager;
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Environment;
+import android.preference.PreferenceManager;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
@@ -81,6 +88,7 @@ public class MainActivity extends FragmentActivity {
     private GotyeUser user;
     private TextView msgTip;
     private static final String TAG = "MainActivity";
+
     @SuppressLint("NewApi")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -135,7 +143,7 @@ public class MainActivity extends FragmentActivity {
         });
         if (user != api.getLoginUser()) {
             user = api.getLoginUser();
-            setUserInfo(user,nav_header_name,nav_header_image);
+            setUserInfo(user, nav_header_name, nav_header_image);
             SharedPreferences share = getSharedPreferences("signal",
                     Activity.MODE_PRIVATE);
             String sign = share.getString(user.getName().toString(),
@@ -181,87 +189,88 @@ public class MainActivity extends FragmentActivity {
             }
         });
     }
-/*
-    //操作menu菜单
-    private void initMenu() {
-        menu = new SlidingMenu(this);
-        menu.setMode(SlidingMenu.LEFT);
-        // 设置触摸屏幕的模式
-        menu.setTouchModeAbove(SlidingMenu.LEFT);
-        menu.setBehindOffsetRes(R.dimen.setMenu_MainWidth);
-        menu.setShadowDrawable(R.drawable.ic_launcher);
-        menu.setTouchModeAbove(SlidingMenu.TOUCHMODE_FULLSCREEN);
-        // 设置渐入渐出效果的值
-        menu.setFadeDegree(0.35f);
-        menu.attachToActivity(this, SlidingMenu.RIGHT);
-        // 为侧滑菜单设置布局
-        menu.setMenu(R.layout.menu_main);
-        // 读取背景地址
-        ImageView backgroundImage = (ImageView) findViewById(R.id.menu_background_image);
-        menu_backgroundUtils.getMenuBackground(getApplicationContext(), backgroundImage);
-        // ---------------------------------
-        TextView menu_exit = (TextView) findViewById(R.id.menu_text_exit);
-        TextView menu_setting = (TextView) findViewById(R.id.menu_text_set);
-        menu_name = (TextView) findViewById(R.id.menu_text);
-        menu_id = (TextView) findViewById(R.id.menu_id);
-        menu_image = (CicrcularImageView) findViewById(R.id.menu_image);
-        menu_signal = (TextView) findViewById(R.id.menu_text_sign);
-        RelativeLayout menu_rl = (RelativeLayout) findViewById(R.id.menu_rl);
-        menu_rl.setOnClickListener(new OnClickListener() {
 
-            @Override
-            public void onClick(View v) {
-                setTabSelection(0);
-                menu.showContent();
-            }
-        });
-        user = api.getLoginUser();
-        menu.setOnOpenListener(new OnOpenListener() {
+    /*
+        //操作menu菜单
+        private void initMenu() {
+            menu = new SlidingMenu(this);
+            menu.setMode(SlidingMenu.LEFT);
+            // 设置触摸屏幕的模式
+            menu.setTouchModeAbove(SlidingMenu.LEFT);
+            menu.setBehindOffsetRes(R.dimen.setMenu_MainWidth);
+            menu.setShadowDrawable(R.drawable.ic_launcher);
+            menu.setTouchModeAbove(SlidingMenu.TOUCHMODE_FULLSCREEN);
+            // 设置渐入渐出效果的值
+            menu.setFadeDegree(0.35f);
+            menu.attachToActivity(this, SlidingMenu.RIGHT);
+            // 为侧滑菜单设置布局
+            menu.setMenu(R.layout.menu_main);
+            // 读取背景地址
+            ImageView backgroundImage = (ImageView) findViewById(R.id.menu_background_image);
+            menu_backgroundUtils.getMenuBackground(getApplicationContext(), backgroundImage);
+            // ---------------------------------
+            TextView menu_exit = (TextView) findViewById(R.id.menu_text_exit);
+            TextView menu_setting = (TextView) findViewById(R.id.menu_text_set);
+            menu_name = (TextView) findViewById(R.id.menu_text);
+            menu_id = (TextView) findViewById(R.id.menu_id);
+            menu_image = (CicrcularImageView) findViewById(R.id.menu_image);
+            menu_signal = (TextView) findViewById(R.id.menu_text_sign);
+            RelativeLayout menu_rl = (RelativeLayout) findViewById(R.id.menu_rl);
+            menu_rl.setOnClickListener(new OnClickListener() {
 
-            @Override
-            public void onOpen() {
-                // 每次打开侧拉栏，初始化读取一次用户信息
-                if (user != api.getLoginUser()) {
-                    user = api.getLoginUser();
-
-                    SharedPreferences share = getSharedPreferences("signal",
-                            Activity.MODE_PRIVATE);
-                    String sign = share.getString(user.getName().toString(),
-                            "还没给我设置签名噢~");
-                    menu_signal.setText(sign);
+                @Override
+                public void onClick(View v) {
+                    setTabSelection(0);
+                    menu.showContent();
                 }
-            }
-        });
-        menu_exit.setOnClickListener(new OnClickListener() {
+            });
+            user = api.getLoginUser();
+            menu.setOnOpenListener(new OnOpenListener() {
 
-            @Override
-            public void onClick(View v) {
-                int status = api.isOnline();
-                int code = api.logout();
-                int x = code;
-                Log.d("", "code" + code + "" + x);
-                if (code == GotyeStatusCode.CodeNotLoginYet) {
-                    Intent intent1 = new Intent(getApplicationContext(),
-                            login.class);
-                    startActivity(intent1);
-                    finish();
+                @Override
+                public void onOpen() {
+                    // 每次打开侧拉栏，初始化读取一次用户信息
+                    if (user != api.getLoginUser()) {
+                        user = api.getLoginUser();
+
+                        SharedPreferences share = getSharedPreferences("signal",
+                                Activity.MODE_PRIVATE);
+                        String sign = share.getString(user.getName().toString(),
+                                "还没给我设置签名噢~");
+                        menu_signal.setText(sign);
+                    }
                 }
-            }
-        });
-        menu_setting.setOnClickListener(new OnClickListener() {
+            });
+            menu_exit.setOnClickListener(new OnClickListener() {
 
-            @Override
-            public void onClick(View v) {
-                setTabSelection(2);
-                menu.showContent();
-            }
-        });
-    }
-*/
+                @Override
+                public void onClick(View v) {
+                    int status = api.isOnline();
+                    int code = api.logout();
+                    int x = code;
+                    Log.d("", "code" + code + "" + x);
+                    if (code == GotyeStatusCode.CodeNotLoginYet) {
+                        Intent intent1 = new Intent(getApplicationContext(),
+                                login.class);
+                        startActivity(intent1);
+                        finish();
+                    }
+                }
+            });
+            menu_setting.setOnClickListener(new OnClickListener() {
+
+                @Override
+                public void onClick(View v) {
+                    setTabSelection(2);
+                    menu.showContent();
+                }
+            });
+        }
+    */
     //操作menu的个人信息
     boolean hasRequest = false;
 
-    private void setUserInfo(GotyeUser user,TextView name,ImageView image) {
+    private void setUserInfo(GotyeUser user, TextView name, ImageView image) {
         if (user.getIcon() == null && !hasRequest) {
             hasRequest = true;
             api.getUserDetail(user, true);
@@ -445,17 +454,71 @@ public class MainActivity extends FragmentActivity {
     //图片返回值操作
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        Log.i(TAG, "onActivityResult: "+requestCode+"aaa"+resultCode);
         // 选取图片的返回值
-        if (resultCode == RESULT_OK) {
+        if (requestCode == 1) {
+            Log.i(TAG, "setImageToHeadView: 222222222");
             if (data != null) {
                 Uri selectedImage = data.getData();
                 if (selectedImage != null) {
-                    String path = URIUtil.uriToPath(this, selectedImage);
-                    setPicture(path);
+//                    String path = URIUtil.uriToPath(this, selectedImage);
+//                    setPicture(path);
+                    cropRawPhoto(data.getData());//直接裁剪图片
                 }
+            }
+        } if (requestCode == 10086) {
+            if (data != null) {
+                setImageToHeadView(data);
+//                String path = URIUtil.uriToPath(getApplicationContext(),data.getData());
+                setPicture(getApplication().getFilesDir() + "/Ask/okkk.jpg");
             }
         }
         super.onActivityResult(requestCode, resultCode, data);
+    }
+
+    public void cropRawPhoto(Uri uri) {
+
+        Intent intent = new Intent("com.android.camera.action.CROP");
+        intent.setDataAndType(uri, "image/*");
+
+        //把裁剪的数据填入里面
+
+        // 设置裁剪
+        intent.putExtra("crop", "true");
+
+        // aspectX , aspectY :宽高的比例
+        intent.putExtra("aspectX", 1);
+        intent.putExtra("aspectY", 1);
+
+        // outputX , outputY : 裁剪图片宽高
+        intent.putExtra("outputX", 300);
+        intent.putExtra("outputY", 300);
+        intent.putExtra("return-data", true);
+        startActivityForResult(intent, 10086);
+    }
+
+    private void setImageToHeadView(Intent intent) {
+        Bundle extras = intent.getExtras();
+        if (extras != null) {
+            Bitmap photo = extras.getParcelable("data");
+            File nf = new File(getApplication().getFilesDir() + "/Ask");
+            nf.mkdir();
+            File f = new File(getApplication().getFilesDir() + "/Ask", "okkk.jpg");
+            Log.i(TAG, "setImageToHeadView: 11111111" + f.getAbsolutePath().toString());
+            FileOutputStream out = null;
+            try {
+                out = new FileOutputStream(f);
+                photo.compress(Bitmap.CompressFormat.JPEG, 90, out);
+                try {
+                    out.flush();
+                    out.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            } catch (FileNotFoundException e) {
+                e.printStackTrace();
+            }
+        }
     }
 
     //设置图片

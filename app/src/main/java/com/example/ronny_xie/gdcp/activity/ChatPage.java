@@ -120,7 +120,6 @@ public class ChatPage extends Activity implements OnClickListener {
         currentLoginUser = api.getLoginUser();
         // api.addListener(this);
         api.addListener(mDelegate);
-        initmenu();
         o_user = user = (GotyeUser) getIntent().getSerializableExtra("user");
         o_room = room = (GotyeRoom) getIntent().getSerializableExtra("room");
         o_group = group = (GotyeGroup) getIntent()
@@ -665,10 +664,6 @@ public class ChatPage extends Activity implements OnClickListener {
                     ToastUtil.show(this, "正在实时语音,无法操作");
                     return;
                 }
-                // if(makingVoiceMessage){
-                // ToastUtil.show(this, "正在语音短消息,无法操作");
-                // return;
-                // }
                 onBackPressed();
                 break;
             case R.id.send_voice:
@@ -708,12 +703,6 @@ public class ChatPage extends Activity implements OnClickListener {
                             moreTypeLayout.findViewById(R.id.real_time_voice_chat)
                                     .setVisibility(View.VISIBLE);
                         }
-
-                        // else if(chatType == 0){
-                        // moreTypeLayout.findViewById(R.id.voice_to_text)
-                        // .setVisibility(View.VISIBLE);
-                        // }
-
                     }
                 }
                 break;
@@ -1222,26 +1211,4 @@ public class ChatPage extends Activity implements OnClickListener {
     };
 
 
-    private void initmenu() {
-        menu = new SlidingMenu(this);
-        menu.setMode(SlidingMenu.LEFT);
-        // 设置触摸屏幕的模式
-        menu.setTouchModeAbove(SlidingMenu.LEFT);
-        menu.setBehindOffsetRes(R.dimen.setMenu_MainWidth);
-        menu.setBehindWidth(1);//设置SlidingMenu菜单的宽度
-        menu.setShadowDrawable(R.drawable.ic_launcher);
-        menu.setTouchModeAbove(SlidingMenu.TOUCHMODE_FULLSCREEN);
-        // 设置渐入渐出效果的值
-        menu.setFadeDegree(0.35f);
-        menu.attachToActivity(this, SlidingMenu.RIGHT);
-        menu.setOnOpenListener(new OnOpenListener() {
-
-            @Override
-            public void onOpen() {
-                onBackPressed();
-            }
-        });
-    }
-
-    private SlidingMenu menu;
 }

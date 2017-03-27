@@ -9,8 +9,8 @@
     <RelativeLayout
         android:id="@+id/title_bar"
         android:layout_width="match_parent"
-        android:layout_height="55dp"
-        android:background="#1E88E5">
+        android:layout_height="58dp"
+        android:background="@color/app_color">
 
         <ImageView
             android:id="@+id/back"
@@ -20,32 +20,34 @@
             android:layout_centerVertical="true"
             android:clickable="true"
             android:scaleType="centerInside"
-            android:src="@drawable/back" />
+            />
 
         <TextView
             android:id="@+id/title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_centerInParent="true"
-            android:textColor="#ffffff"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="16dp"
+            android:textColor="@color/white"
+            android:text="掌上广交"
             android:textSize="20sp" />
 
         <ImageView
             android:id="@+id/right_menu"
-            android:layout_width="25dp"
-            android:layout_height="25dp"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
             android:background="@drawable/common_tab_bg"
             android:onClick="info"
-            android:layout_marginRight="10dp"
+            android:layout_marginRight="16dp"
             android:scaleType="centerInside" />
         <ImageView
             android:layout_centerVertical="true"
             android:id="@+id/right_menu2"
-            android:layout_width="25dp"
-            android:layout_height="25dp"
-            android:layout_marginRight="15dp"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:layout_marginRight="20dp"
             android:layout_toLeftOf="@id/right_menu"
             android:background="@drawable/common_tab_bg"
             android:clickable="true"

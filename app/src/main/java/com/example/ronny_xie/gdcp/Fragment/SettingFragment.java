@@ -60,7 +60,7 @@ public class SettingFragment extends Fragment {
 	private GotyeAPI api;
 	private EditText signal;
 	private RelativeLayout menu_background_setting;
-	
+	private static final String TAG = "SettingFragment";
 	@SuppressLint("InflateParams")
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -289,6 +289,7 @@ public class SettingFragment extends Fragment {
 		forModify.setNickname(name);
 		forModify.setInfo(user.getInfo());
 		forModify.setGender(user.getGender());
+		Log.i(TAG, "modifyUserIcon: 22222222"+smallImagePath);
 		api.reqModifyUserInfo(forModify,smallImagePath);
 	}
 

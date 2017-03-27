@@ -56,7 +56,7 @@
         android:paddingRight="20dp" >
     </ListView>
 
-    <view.SideBar
+    <com.example.ronny_xie.gdcp.view.SideBar
         android:id="@+id/sidrbar"
         android:layout_width="18.0dip"
         android:layout_height="fill_parent"

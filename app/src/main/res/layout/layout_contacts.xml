@@ -21,9 +21,9 @@
     <LinearLayout
         android:id="@+id/serach_layout"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="45dp"
         android:layout_below="@+id/error_tip"
-        android:background="#eeeeee"
+        android:background="#ffffff"
         android:orientation="vertical"
         android:paddingLeft="20dp"
         android:paddingRight="20dp">

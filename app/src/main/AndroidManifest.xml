@@ -32,8 +32,8 @@
         android:persistent="true"
         android:theme="@style/AppTheme">
         <meta-data
-        android:name="com.amap.api.v2.apikey"
-        android:value="d4ec5d2359e3e95d514df027a5602d51" />
+            android:name="com.amap.api.v2.apikey"
+            android:value="d4ec5d2359e3e95d514df027a5602d51" />
 
         <activity android:name=".loginActivity.login"></activity>
         <activity android:name=".loginActivity.welcome">
