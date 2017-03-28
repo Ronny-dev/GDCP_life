@@ -219,7 +219,8 @@ public class ChatPage extends Activity implements OnClickListener {
                 .setOnClickListener(this);
         moreTypeLayout.findViewById(R.id.real_time_voice_chat)
                 .setOnClickListener(this);
-
+        ImageView view_more = (ImageView) findViewById(R.id.more_);
+        view_more.setOnClickListener(this);
         voice_text_chage.setOnClickListener(this);
         showMoreType.setOnClickListener(this);
         textMessage.setOnEditorActionListener(new OnEditorActionListener() {
@@ -670,17 +671,17 @@ public class ChatPage extends Activity implements OnClickListener {
                 if (pressToVoice.getVisibility() == View.VISIBLE) {
                     pressToVoice.setVisibility(View.GONE);
                     textMessage.setVisibility(View.VISIBLE);
-                    voice_text_chage
-                            .setImageResource(R.drawable.voice_btn_selector);
+                    voice_text_chage.setImageResource(R.drawable.voice_btn_selector);
                     showMoreType.setImageResource(R.drawable.send_selector);
                     moreTypeForSend = true;
                     moreTypeLayout.setVisibility(View.GONE);
+                    showMoreType.setVisibility(View.VISIBLE);
                 } else {
+                    showMoreType.setVisibility(View.GONE);
                     pressToVoice.setVisibility(View.VISIBLE);
                     textMessage.setVisibility(View.GONE);
 
-                    voice_text_chage
-                            .setImageResource(R.drawable.change_to_text_press);
+                    voice_text_chage.setImageResource(R.drawable.change_to_text_press);
 
                     showMoreType.setImageResource(R.drawable.more_type_selector);
                     moreTypeForSend = false;
@@ -694,15 +695,27 @@ public class ChatPage extends Activity implements OnClickListener {
                     String str = textMessage.getText().toString();
                     sendTextMessage(str);
                     textMessage.setText("");
+                }
+//                else {
+//                    if (moreTypeLayout.getVisibility() == View.VISIBLE) {
+//                        moreTypeLayout.setVisibility(View.GONE);
+//                    } else {
+//                        moreTypeLayout.setVisibility(View.VISIBLE);
+//                        if (chatType == 1 && api.supportRealtime(room) == true) {
+//                            moreTypeLayout.findViewById(R.id.real_time_voice_chat)
+//                                    .setVisibility(View.VISIBLE);
+//                        }
+//                    }
+//                }
+                break;
+            case R.id.more_:
+                if (moreTypeLayout.getVisibility() == View.VISIBLE) {
+                    moreTypeLayout.setVisibility(View.GONE);
                 } else {
-                    if (moreTypeLayout.getVisibility() == View.VISIBLE) {
-                        moreTypeLayout.setVisibility(View.GONE);
-                    } else {
-                        moreTypeLayout.setVisibility(View.VISIBLE);
-                        if (chatType == 1 && api.supportRealtime(room) == true) {
-                            moreTypeLayout.findViewById(R.id.real_time_voice_chat)
-                                    .setVisibility(View.VISIBLE);
-                        }
+                    moreTypeLayout.setVisibility(View.VISIBLE);
+                    if (chatType == 1 && api.supportRealtime(room) == true) {
+                        moreTypeLayout.findViewById(R.id.real_time_voice_chat)
+                                .setVisibility(View.VISIBLE);
                     }
                 }
                 break;

@@ -83,6 +83,9 @@ public class SettingFragment extends Fragment {
 		}else{
 			setErrorTip(1);
 		}
+		Log.i(TAG, "onActivityCreated: info"+user.getInfo());
+		Log.i(TAG, "onActivityCreated: name"+user.getName());
+		Log.i(TAG, "onActivityCreated: id"+user.getId());
 	}
 
 	private void initView() {

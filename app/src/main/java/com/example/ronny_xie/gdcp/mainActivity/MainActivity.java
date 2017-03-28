@@ -5,18 +5,16 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.List;
+import java.util.logging.Handler;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.NotificationManager;
-import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
-import android.os.Environment;
-import android.preference.PreferenceManager;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
@@ -24,7 +22,6 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.widget.DrawerLayout;
 import android.util.Log;
-import android.view.DragEvent;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -68,7 +65,8 @@ import com.example.ronny_xie.gdcp.Fragment.fragment_jw;
 import com.example.ronny_xie.gdcp.Fragment.fragment_card;
 import com.example.ronny_xie.gdcp.shop.fragment_shop;
 
-import static com.example.ronny_xie.gdcp.R.id.nav_header_name;
+import static com.example.ronny_xie.gdcp.R.id.username;
+
 
 public class MainActivity extends FragmentActivity {
     private MessageFragment messageFragment;
@@ -85,7 +83,7 @@ public class MainActivity extends FragmentActivity {
     private int currentPosition = 0;
     private BeepManager beep;
     private GotyeAPI api;
-    private GotyeUser user;
+    private static GotyeUser user;
     private TextView msgTip;
     private static final String TAG = "MainActivity";
 
@@ -143,6 +141,7 @@ public class MainActivity extends FragmentActivity {
         });
         if (user != api.getLoginUser()) {
             user = api.getLoginUser();
+            Log.i(TAG, "initNav: " + user.getNickname());
             setUserInfo(user, nav_header_name, nav_header_image);
             SharedPreferences share = getSharedPreferences("signal",
                     Activity.MODE_PRIVATE);
@@ -166,19 +165,19 @@ public class MainActivity extends FragmentActivity {
                         nav_select(1);
                         break;
                     case R.id.nav_schedule:
-                        nav_select(2);
-                        break;
-                    case R.id.nav_weather:
-                        nav_select(3);
-                        break;
-                    case R.id.nav_computerroom:
                         nav_select(4);
                         break;
-                    case R.id.nav_shop:
+                    case R.id.nav_weather:
                         nav_select(5);
                         break;
-                    case R.id.nav_jw2012:
+                    case R.id.nav_computerroom:
                         nav_select(6);
+                        break;
+                    case R.id.nav_shop:
+                        nav_select(7);
+                        break;
+                    case R.id.nav_jw2012:
+                        nav_select(8);
                         break;
                     case R.id.nav_card:
                         nav_select(7);
@@ -190,83 +189,7 @@ public class MainActivity extends FragmentActivity {
         });
     }
 
-    /*
-        //操作menu菜单
-        private void initMenu() {
-            menu = new SlidingMenu(this);
-            menu.setMode(SlidingMenu.LEFT);
-            // 设置触摸屏幕的模式
-            menu.setTouchModeAbove(SlidingMenu.LEFT);
-            menu.setBehindOffsetRes(R.dimen.setMenu_MainWidth);
-            menu.setShadowDrawable(R.drawable.ic_launcher);
-            menu.setTouchModeAbove(SlidingMenu.TOUCHMODE_FULLSCREEN);
-            // 设置渐入渐出效果的值
-            menu.setFadeDegree(0.35f);
-            menu.attachToActivity(this, SlidingMenu.RIGHT);
-            // 为侧滑菜单设置布局
-            menu.setMenu(R.layout.menu_main);
-            // 读取背景地址
-            ImageView backgroundImage = (ImageView) findViewById(R.id.menu_background_image);
-            menu_backgroundUtils.getMenuBackground(getApplicationContext(), backgroundImage);
-            // ---------------------------------
-            TextView menu_exit = (TextView) findViewById(R.id.menu_text_exit);
-            TextView menu_setting = (TextView) findViewById(R.id.menu_text_set);
-            menu_name = (TextView) findViewById(R.id.menu_text);
-            menu_id = (TextView) findViewById(R.id.menu_id);
-            menu_image = (CicrcularImageView) findViewById(R.id.menu_image);
-            menu_signal = (TextView) findViewById(R.id.menu_text_sign);
-            RelativeLayout menu_rl = (RelativeLayout) findViewById(R.id.menu_rl);
-            menu_rl.setOnClickListener(new OnClickListener() {
 
-                @Override
-                public void onClick(View v) {
-                    setTabSelection(0);
-                    menu.showContent();
-                }
-            });
-            user = api.getLoginUser();
-            menu.setOnOpenListener(new OnOpenListener() {
-
-                @Override
-                public void onOpen() {
-                    // 每次打开侧拉栏，初始化读取一次用户信息
-                    if (user != api.getLoginUser()) {
-                        user = api.getLoginUser();
-
-                        SharedPreferences share = getSharedPreferences("signal",
-                                Activity.MODE_PRIVATE);
-                        String sign = share.getString(user.getName().toString(),
-                                "还没给我设置签名噢~");
-                        menu_signal.setText(sign);
-                    }
-                }
-            });
-            menu_exit.setOnClickListener(new OnClickListener() {
-
-                @Override
-                public void onClick(View v) {
-                    int status = api.isOnline();
-                    int code = api.logout();
-                    int x = code;
-                    Log.d("", "code" + code + "" + x);
-                    if (code == GotyeStatusCode.CodeNotLoginYet) {
-                        Intent intent1 = new Intent(getApplicationContext(),
-                                login.class);
-                        startActivity(intent1);
-                        finish();
-                    }
-                }
-            });
-            menu_setting.setOnClickListener(new OnClickListener() {
-
-                @Override
-                public void onClick(View v) {
-                    setTabSelection(2);
-                    menu.showContent();
-                }
-            });
-        }
-    */
     //操作menu的个人信息
     boolean hasRequest = false;
 
@@ -287,7 +210,7 @@ public class MainActivity extends FragmentActivity {
 //        id.setText(user.getName());
     }
 
-    Fragment fragment_list[] = {messageFragment, contactsFragment, fragment_schedule, fragment_weather,
+    Fragment fragment_list[] = {messageFragment, contactsFragment, settingFragment, fragment_schedule, fragment_weather,
             fragment_competerRoom, fragment_shop, fragment_jw, fragment_card};
     Fragment lastFragment;
 
@@ -301,14 +224,16 @@ public class MainActivity extends FragmentActivity {
             } else if (i == 2) {
                 fragment_list[i] = new fragment_schedule();
             } else if (i == 3) {
-                fragment_list[i] = new fragment_weather();
+                fragment_list[i] = new SettingFragment();
             } else if (i == 4) {
-                fragment_list[i] = new fragment_competerRoom();
+                fragment_list[i] = new fragment_weather();
             } else if (i == 5) {
-                fragment_list[i] = new fragment_shop();
+                fragment_list[i] = new fragment_competerRoom();
             } else if (i == 6) {
-                fragment_list[i] = new fragment_jw();
+                fragment_list[i] = new fragment_shop();
             } else if (i == 7) {
+                fragment_list[i] = new fragment_jw();
+            } else if (i == 8) {
                 fragment_list[i] = new fragment_card();
             }
             transaction.add(R.id.content, fragment_list[i]);
@@ -454,7 +379,7 @@ public class MainActivity extends FragmentActivity {
     //图片返回值操作
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        Log.i(TAG, "onActivityResult: "+requestCode+"aaa"+resultCode);
+        Log.i(TAG, "onActivityResult: " + requestCode + "aaa" + resultCode);
         // 选取图片的返回值
         if (requestCode == 1) {
             Log.i(TAG, "setImageToHeadView: 222222222");
@@ -466,7 +391,8 @@ public class MainActivity extends FragmentActivity {
                     cropRawPhoto(data.getData());//直接裁剪图片
                 }
             }
-        } if (requestCode == 10086) {
+        }
+        if (requestCode == 10086) {
             if (data != null) {
                 setImageToHeadView(data);
 //                String path = URIUtil.uriToPath(getApplicationContext(),data.getData());

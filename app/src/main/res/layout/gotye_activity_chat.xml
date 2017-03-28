@@ -71,41 +71,38 @@
         android:layout_alignParentBottom="true"
         android:orientation="vertical">
 
-        <RelativeLayout
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="#ffffff"
+            android:orientation="horizontal"
             android:padding="5dp">
 
             <ImageView
                 android:id="@+id/send_voice"
-                android:layout_width="30dp"
+                android:layout_width="0dp"
+                android:layout_weight="2"
                 android:layout_height="30dp"
-                android:layout_alignParentLeft="true"
-                android:layout_centerVertical="true"
+                android:layout_gravity="center_vertical"
                 android:src="@drawable/voice_btn_selector" />
 
             <EditText
                 android:id="@+id/text_msg_input"
-                android:layout_width="match_parent"
+                android:layout_width="0dp"
+                android:layout_weight="15"
                 android:layout_height="40dp"
-                android:layout_centerVertical="true"
                 android:layout_marginLeft="2dp"
                 android:layout_marginRight="2dp"
-                android:layout_toLeftOf="@+id/more_type"
-                android:layout_toRightOf="@+id/send_voice"
                 android:background="@drawable/chat_input_bg"
                 android:imeOptions="actionSend"
                 android:paddingBottom="0dp"
-                android:paddingLeft="10dp"
-                android:paddingRight="5dp"
                 android:paddingTop="0dp" />
 
             <Button
                 android:id="@+id/press_to_voice_chat"
-                android:layout_width="match_parent"
+                android:layout_width="0dp"
+                android:layout_weight="15"
                 android:layout_height="40dp"
-                android:layout_centerVertical="true"
                 android:layout_marginLeft="2dp"
                 android:layout_marginRight="2dp"
                 android:layout_toLeftOf="@+id/more_type"
@@ -116,16 +113,21 @@
                 android:textColor="#ffffff"
                 android:textSize="20sp"
                 android:visibility="gone" />
-
+            <ImageView
+                android:id="@+id/more_"
+                android:layout_width="0dp"
+                android:layout_weight="2"
+                android:layout_height="30dp"
+                android:layout_gravity="center_vertical"
+                android:src="@drawable/more_type_selector" />
             <ImageView
                 android:id="@+id/more_type"
-                android:layout_width="45dp"
+                android:layout_width="0dp"
+                android:layout_weight="3"
                 android:layout_height="30dp"
-                android:layout_alignParentRight="true"
-                android:layout_centerVertical="true"
+                android:layout_gravity="center_vertical"
                 android:src="@drawable/send_selector" />
-
-        </RelativeLayout>
+        </LinearLayout>
 
         <LinearLayout
             android:id="@+id/more_type_layout"
