@@ -37,6 +37,7 @@ import com.example.ronny_xie.gdcp.R;
 import com.example.ronny_xie.gdcp.loginActivity.MyApplication;
 import com.example.ronny_xie.gdcp.loginActivity.WelcomePage;
 import com.example.ronny_xie.gdcp.loginActivity.login;
+import com.example.ronny_xie.gdcp.util.SharePreferenceUtil;
 import com.example.ronny_xie.gdcp.view.CicrcularImageView;
 import com.gotye.api.GotyeAPI;
 import com.gotye.api.GotyeChatTargetType;
@@ -65,8 +66,6 @@ import com.example.ronny_xie.gdcp.Fragment.fragment_jw;
 import com.example.ronny_xie.gdcp.Fragment.fragment_card;
 import com.example.ronny_xie.gdcp.shop.fragment_shop;
 
-import static com.example.ronny_xie.gdcp.R.id.username;
-
 
 public class MainActivity extends FragmentActivity {
     private MessageFragment messageFragment;
@@ -79,13 +78,13 @@ public class MainActivity extends FragmentActivity {
     private fragment_card fragment_card;
     private fragment_shop fragment_shop;
     private FragmentManager fragmentManager;
-    public static SlidingMenu menu;
     private int currentPosition = 0;
     private BeepManager beep;
     private GotyeAPI api;
-    private static GotyeUser user;
+    private GotyeUser user;
     private TextView msgTip;
     private static final String TAG = "MainActivity";
+    private String userName;
 
     @SuppressLint("NewApi")
     @Override
@@ -95,14 +94,33 @@ public class MainActivity extends FragmentActivity {
         api = GotyeAPI.getInstance();
         setContentView(R.layout.layout_main);
         api.addListener(mDelegate);
+        user = api.getLoginUser();
+        api.getUserDetail(user, true);
         beep = new BeepManager(MainActivity.this);
         beep.updatePrefs();
 //        initMenu();
-        initNav();
-        initViews();
+        initUserInfo();
+        initNav();//初始化侧拉
+        Log.i(TAG, "initUserName: " + user.getName() + "+++++" + user.getNickname());
+        initViews();//初始化界面
         fragmentManager = getSupportFragmentManager();// getFragmentManager();
         setTabSelection(0);
         clearNotify();
+    }
+
+    private void initUserInfo() {
+        SharedPreferences userSharePreference = SharePreferenceUtil.newSharePreference(getApplicationContext(), "username");
+        userName = SharePreferenceUtil.getString("userName", userSharePreference);
+        GotyeUser forModify = new GotyeUser(user.getName());
+        forModify.setNickname(userName);
+        forModify.setInfo("");
+        forModify.setGender(user.getGender());
+        String headPath = null;
+        int code = api.reqModifyUserInfo(forModify, headPath);
+        Log.i(TAG, "initUserInfo: "+userName);
+        Log.i(TAG, "initUserInfo: " + user.getNickname());
+        Log.i(TAG, "initUserInfo: " + user.getName());
+        Log.d("initText", "" + code);
     }
 
     private void initNav() {
@@ -141,7 +159,6 @@ public class MainActivity extends FragmentActivity {
         });
         if (user != api.getLoginUser()) {
             user = api.getLoginUser();
-            Log.i(TAG, "initNav: " + user.getNickname());
             setUserInfo(user, nav_header_name, nav_header_image);
             SharedPreferences share = getSharedPreferences("signal",
                     Activity.MODE_PRIVATE);
@@ -165,22 +182,22 @@ public class MainActivity extends FragmentActivity {
                         nav_select(1);
                         break;
                     case R.id.nav_schedule:
-                        nav_select(4);
+                        nav_select(3);
                         break;
                     case R.id.nav_weather:
-                        nav_select(5);
+                        nav_select(4);
                         break;
                     case R.id.nav_computerroom:
-                        nav_select(6);
+                        nav_select(5);
                         break;
                     case R.id.nav_shop:
-                        nav_select(7);
+                        nav_select(6);
                         break;
                     case R.id.nav_jw2012:
-                        nav_select(8);
+                        nav_select(7);
                         break;
                     case R.id.nav_card:
-                        nav_select(7);
+                        nav_select(8);
                         break;
                 }
                 drawerLayout.closeDrawer(navigationView);
@@ -190,7 +207,6 @@ public class MainActivity extends FragmentActivity {
     }
 
 
-    //操作menu的个人信息
     boolean hasRequest = false;
 
     private void setUserInfo(GotyeUser user, TextView name, ImageView image) {
@@ -206,7 +222,12 @@ public class MainActivity extends FragmentActivity {
                 api.downloadMedia(user.getIcon());
             }
         }
-        name.setText(user.getNickname());
+        if (userName != null) {
+            name.setText(userName);
+        } else {
+            name.setText(user.getName());
+            ToastUtil.show(this, "获取用户名称失败");
+        }
 //        id.setText(user.getName());
     }
 
@@ -459,6 +480,17 @@ public class MainActivity extends FragmentActivity {
 
     //Gotye内部操作
     private GotyeDelegate mDelegate = new GotyeDelegate() {
+        @Override
+        public void onModifyUserInfo(int code, GotyeUser user) {
+            Log.i(TAG, "onModifyUserInfo: " + code);
+            if (code == 0) {
+                Log.i(TAG, "initUserInfo2: "+userName);
+                Log.i(TAG, "initUserInfo2: " + user.getNickname());
+                Log.i(TAG, "initUserInfo2: " + user.getName());
+            } else {
+
+            }
+        }
 
         // 此处处理账号在另外设备登陆造成的被动下线
         @Override
@@ -563,26 +595,4 @@ public class MainActivity extends FragmentActivity {
         }
     };
     private FragmentTransaction transaction;
-    private TextView menu_name;
-    private CicrcularImageView menu_image;
-    private TextView menu_id;
-    private TextView menu_signal;
-    private boolean toclose = false;
-
-    //返回键操作
-    @Override
-    public void onBackPressed() {
-        if (menu.isMenuShowing()) {
-            if (toclose) {
-                super.onBackPressed();
-            } else {
-                ToastUtil.show(getApplicationContext(), "再次按下返回退出程序");
-                toclose = true;
-            }
-        } else {
-            ToastUtil.show(getApplicationContext(), "再次按下返回退出程序");
-            menu.showMenu();
-            toclose = true;
-        }
-    }
 }

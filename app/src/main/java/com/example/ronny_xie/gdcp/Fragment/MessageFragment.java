@@ -74,17 +74,6 @@ public class MessageFragment extends Fragment implements OnClickListener {
 		super.onActivityCreated(savedInstanceState);
 		GotyeAPI.getInstance().addListener(mDelegate);
 		initView();
-		initSlideListener();
-	}
-
-	private void initSlideListener() {
-		ImageView image_back = (ImageView) getView().findViewById(R.id.back);
-		image_back.setOnClickListener(new OnClickListener() {
-			@Override
-			public void onClick(View v) {
-				MainActivity.menu.showMenu();
-			}
-		});
 	}
 
 	private void initView() {

@@ -83,6 +83,7 @@ public class SettingFragment extends Fragment {
 		}else{
 			setErrorTip(1);
 		}
+		Log.i(TAG, "onActivityCreated: "+user.getNickname());
 		Log.i(TAG, "onActivityCreated: info"+user.getInfo());
 		Log.i(TAG, "onActivityCreated: name"+user.getName());
 		Log.i(TAG, "onActivityCreated: id"+user.getId());
@@ -117,7 +118,7 @@ public class SettingFragment extends Fragment {
 						forModify.setGender(user.getGender());
 						String headPath=null;
 					int code=api.reqModifyUserInfo(forModify, headPath);
-					Log.d("", ""+code);
+					Log.d("initText", ""+code);
 					ToastUtil.show(getActivity(), "设置成功");
 					}
 					return true;
@@ -292,7 +293,6 @@ public class SettingFragment extends Fragment {
 		forModify.setNickname(name);
 		forModify.setInfo(user.getInfo());
 		forModify.setGender(user.getGender());
-		Log.i(TAG, "modifyUserIcon: 22222222"+smallImagePath);
 		api.reqModifyUserInfo(forModify,smallImagePath);
 	}
 
@@ -341,6 +341,7 @@ public class SettingFragment extends Fragment {
 		
 		@Override
 		public void onModifyUserInfo(int code, GotyeUser user) {
+			Log.i(TAG, "onModifyUserInfo: "+code);
 			if (code == 0) {
 				setUserInfo(user);
 				// ToastUtil.show(getActivity(), "修改成功!");

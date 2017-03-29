@@ -23,6 +23,7 @@ import com.example.ronny_xie.gdcp.AsynkTask.javabean_weather_weibo;
 import com.example.ronny_xie.gdcp.AsynkTask.javabean_weather_worn;
 import com.example.ronny_xie.gdcp.AsynkTask.weather_util;
 import com.example.ronny_xie.gdcp.R;
+import com.example.ronny_xie.gdcp.util.AlerterUtil;
 import com.example.ronny_xie.gdcp.util.ProgressDialogUtil;
 import com.example.ronny_xie.gdcp.util.SharePreferenceUtil;
 import com.example.ronny_xie.gdcp.util.ToastUtil;
@@ -99,9 +100,11 @@ public class fragment_weather extends Fragment {
                     setScrollViewToTop();//让scrollview移动到顶部
                     ProgressDialogUtil.dismiss();
                     getRefresh();//定时提示刷新
+                    AlerterUtil.noTitleAlertrrr(getActivity(),"加载成功",R.drawable.alerter_ic_face);
                 }
                 if (msg.what == 1000) {
                     ToastUtil.show(getActivity(), "刷新失败，请重试");
+                    AlerterUtil.noTitleAlertrrr(getActivity(),"刷新失败",R.drawable.alerter_ic_notifications);
                 }
             }
         };

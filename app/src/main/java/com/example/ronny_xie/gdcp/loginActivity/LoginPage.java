@@ -26,11 +26,13 @@ import android.widget.Toast;
 import com.example.ronny_xie.gdcp.R;
 import com.example.ronny_xie.gdcp.mainActivity.MainActivity;
 import com.example.ronny_xie.gdcp.util.ProgressDialogUtil;
+import com.example.ronny_xie.gdcp.util.SharePreferenceUtil;
 import com.example.ronny_xie.gdcp.util.ToastUtil;
 import com.gotye.api.GotyeAPI;
 import com.gotye.api.GotyeUser;
 
 import static android.support.v7.widget.StaggeredGridLayoutManager.TAG;
+import static com.example.ronny_xie.gdcp.util.SharePreferenceUtil.newSharePreference;
 
 public class LoginPage extends Fragment {
     Button mButLogin, mButLogout;
@@ -64,9 +66,6 @@ public class LoginPage extends Fragment {
                     ProgressDialogUtil.dismiss();
                 } else if (msg.what == 2) {
                     if (checkUser()) {
-                        GotyeUser u = GotyeAPI.getInstance().getLoginUser();
-                        u = GotyeAPI.getInstance().getLoginUser();
-                        Log.d("", u.getName());
 
                         // 登录的时候要传入登录监听，当重复登录时会直接返回登录状态
                         saveUser(LoginPage.this.getActivity(), mUsername,
@@ -106,6 +105,9 @@ public class LoginPage extends Fragment {
                 } else if (msg.what == 1001) {
                     Log.i(TAG, "handleMessage: 1111111111111" + (String) msg.obj);
                     ToastUtil.show(getActivity(), (String) msg.obj + "，欢迎您登录");
+                    String userName = msg.obj.toString().replace("同学", "");
+                    SharedPreferences userSharePreference = SharePreferenceUtil.newSharePreference(getActivity(), "username");
+                    SharePreferenceUtil.saveString("userName", userName, userSharePreference);
                 }
             }
 

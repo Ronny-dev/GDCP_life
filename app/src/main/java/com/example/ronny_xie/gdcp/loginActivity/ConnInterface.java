@@ -531,8 +531,7 @@ public class ConnInterface {
 	 */
 	public static void ConnToCardSystem(HttpClient httpClient) {
 		try {
-			HttpGet getMainUrl = new HttpGet(
-					"http://card.gdcp.cn/pages/card/homeLogin.action");
+			HttpGet getMainUrl = new HttpGet("http://card.gdcp.cn/pages/card/homeLogin.action");
 			HttpResponse response = httpClient.execute(getMainUrl);
 			System.out.println(response);
 		} catch (Exception e) {
@@ -550,8 +549,7 @@ public class ConnInterface {
 	public static Drawable getPassImage(HttpClient httpClient) {
 		Drawable drawable = null;
 		try {
-			HttpGet getMainUrl = new HttpGet(
-					"http://card.gdcp.cn/getpasswdPhoto.action");
+			HttpGet getMainUrl = new HttpGet("http://card.gdcp.cn/getpasswdPhoto.action");
 			HttpResponse response = httpClient.execute(getMainUrl);
 			InputStream Stream = response.getEntity().getContent();
 			Bitmap bitmap = BitmapFactory.decodeStream(Stream);
@@ -571,8 +569,7 @@ public class ConnInterface {
 	 */
 	public static void GetCode(HttpClient httpClient) {
 		try {
-			HttpGet getMainUrl = new HttpGet(
-					"http://card.gdcp.cn/pages/card/getCheckpic.action?rand=2011.7839089697563");
+			HttpGet getMainUrl = new HttpGet("http://card.gdcp.cn/pages/card/getCheckpic.action?rand=2011.7839089697563");
 			HttpResponse execute = httpClient.execute(getMainUrl);
 			System.out.println(execute.getStatusLine().getStatusCode() + "");
 		} catch (Exception e) {
