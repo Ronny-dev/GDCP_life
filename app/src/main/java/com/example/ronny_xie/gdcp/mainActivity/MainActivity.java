@@ -23,6 +23,7 @@ import android.support.v4.app.FragmentTransaction;
 import android.support.v4.widget.DrawerLayout;
 import android.util.Log;
 import android.view.MenuItem;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.Window;
@@ -48,6 +49,9 @@ import com.gotye.api.GotyeMessageStatus;
 import com.gotye.api.GotyeNotify;
 import com.gotye.api.GotyeStatusCode;
 import com.gotye.api.GotyeUser;
+import com.oguzdev.circularfloatingactionmenu.library.FloatingActionButton;
+import com.oguzdev.circularfloatingactionmenu.library.FloatingActionMenu;
+import com.oguzdev.circularfloatingactionmenu.library.SubActionButton;
 import com.slidingmenu.lib.SlidingMenu;
 import com.slidingmenu.lib.SlidingMenu.OnOpenListener;
 import com.example.ronny_xie.gdcp.schedule.fragment_schedule;
@@ -78,6 +82,7 @@ public class MainActivity extends FragmentActivity {
     private fragment_card fragment_card;
     private fragment_shop fragment_shop;
     private FragmentManager fragmentManager;
+    private FragmentTransaction transaction;
     private int currentPosition = 0;
     private BeepManager beep;
     private GotyeAPI api;
@@ -243,9 +248,9 @@ public class MainActivity extends FragmentActivity {
             } else if (i == 1) {
                 fragment_list[i] = new ContactsFragment();
             } else if (i == 2) {
-                fragment_list[i] = new fragment_schedule();
-            } else if (i == 3) {
                 fragment_list[i] = new SettingFragment();
+            } else if (i == 3) {
+                fragment_list[i] = new fragment_schedule();
             } else if (i == 4) {
                 fragment_list[i] = new fragment_weather();
             } else if (i == 5) {
@@ -271,6 +276,9 @@ public class MainActivity extends FragmentActivity {
         if (lastFragment != null) {
             if (lastFragment != fragment_list[i]) {
                 transaction.hide(lastFragment);
+                if(settingFragment!=null){
+                    transaction.hide(settingFragment);
+                }
             }
         }
     }
@@ -594,5 +602,4 @@ public class MainActivity extends FragmentActivity {
             // }
         }
     };
-    private FragmentTransaction transaction;
 }

@@ -8,6 +8,7 @@ import org.apache.http.impl.client.DefaultHttpClient;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.os.Handler;
@@ -21,6 +22,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import com.example.ronny_xie.gdcp.R;
@@ -30,6 +32,8 @@ import com.example.ronny_xie.gdcp.util.SharePreferenceUtil;
 import com.example.ronny_xie.gdcp.util.ToastUtil;
 import com.gotye.api.GotyeAPI;
 import com.gotye.api.GotyeUser;
+
+import developer.shivam.library.DiagonalView;
 
 import static android.support.v7.widget.StaggeredGridLayoutManager.TAG;
 import static com.example.ronny_xie.gdcp.util.SharePreferenceUtil.newSharePreference;
@@ -46,11 +50,12 @@ public class LoginPage extends Fragment {
     private Handler handler;
     private EditText code;
     private static final String TAG = "LoginPage";
-
+    private View view;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.layout_login, null);
+        view = inflater.inflate(R.layout.layout_login, null);
+        return view;
     }
 
     @Override
@@ -126,6 +131,8 @@ public class LoginPage extends Fragment {
     }
 
     public void initView() {
+        ImageView icon = (ImageView) getActivity().findViewById(R.id.image_icon);
+        icon.bringToFront();
         code = (EditText) getView().findViewById(R.id.code);
         image = (ImageView) getView().findViewById(R.id.image);
         mButLogin = (Button) getView().findViewById(R.id.start);
