@@ -46,7 +46,7 @@ dependencies {
     //页面上部弹出对话框
     compile 'com.oguzdev:CircularFloatingActionMenu:1.0.2'
     //FAB按钮
-    compile 'com.github.developer-shivam:Diagonalify:1.1'
     //界面形状
     compile 'com.android.support:design:24.1.1'
+    compile project(':library')
 }

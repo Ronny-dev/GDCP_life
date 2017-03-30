@@ -51,6 +51,7 @@ public class LoginPage extends Fragment {
     private EditText code;
     private static final String TAG = "LoginPage";
     private View view;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -131,19 +132,17 @@ public class LoginPage extends Fragment {
     }
 
     public void initView() {
-        ImageView icon = (ImageView) getActivity().findViewById(R.id.image_icon);
-        icon.bringToFront();
-        code = (EditText) getView().findViewById(R.id.code);
-        image = (ImageView) getView().findViewById(R.id.image);
-        mButLogin = (Button) getView().findViewById(R.id.start);
-        mEdtName = (EditText) getView().findViewById(R.id.username);
-        mEdtPsd = (EditText) getView().findViewById(R.id.userpsd);
+        code = (EditText) getActivity().findViewById(R.id.code);
+        image = (ImageView) getActivity().findViewById(R.id.image);
+        mButLogin = (Button) getActivity().findViewById(R.id.start);
+        mEdtName = (EditText) getActivity().findViewById(R.id.username);
+        mEdtPsd = (EditText) getActivity().findViewById(R.id.userpsd);
         String user[] = getUser(LoginPage.this.getActivity());
         String hasUserName = user[0];
         String hasPassWord = user[1];
         mUsername = hasUserName;
-
         mPassword = hasPassWord;
+        bringViewToFront();
         if (mUsername != null) {
             mEdtName.setText(hasUserName);
             mEdtName.setSelection(mEdtName.getText().length());
@@ -190,6 +189,16 @@ public class LoginPage extends Fragment {
                 }
             }
         });
+    }
+
+    private void bringViewToFront() {
+        ImageView icon = (ImageView) getActivity().findViewById(R.id.image_icon);
+        icon.bringToFront();
+        LinearLayout login_linearlayout = (LinearLayout) getActivity().findViewById(R.id.login_linearlayout);
+        login_linearlayout.bringToFront();
+        code.bringToFront();
+        mEdtName.bringToFront();
+        mEdtPsd.bringToFront();
     }
 
     private boolean checkUser() {
