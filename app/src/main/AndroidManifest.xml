@@ -110,7 +110,7 @@
         <activity android:name=".jw2012Syetem.jwxscj_activity"></activity>
         <activity android:name=".jw2012Syetem.jwxskb_activity"></activity>
         <activity android:name=".jw2012Syetem.jwxsxx_activity"></activity>
-
+        <activity android:name=".card.card_login"></activity>
 
         <receiver android:name=".loginActivity.StartServiceReceiver">
             <intent-filter android:priority="1000">

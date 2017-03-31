@@ -2,29 +2,29 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#F5F5F5">
+    android:background="#E6E6E6">
 
     <include
         android:id="@+id/title_bar_layout"
         layout="@layout/main_bar_include" />
 
     <TextView
-        android:layout_below="@id/title_bar_layout"
         android:id="@+id/fragment_card_mianze"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_below="@id/title_bar_layout"
         android:gravity="center"
-        android:textSize="26sp"
-        android:text="免责须知" />
+        android:text="免责须知"
+        android:textSize="26sp" />
 
     <TextView
         android:id="@+id/fragment_card_login_textview"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginBottom="80dp"
+        android:layout_below="@id/fragment_card_mianze"
+        android:layout_marginBottom="50dp"
         android:layout_marginLeft="20dp"
         android:layout_marginRight="20dp"
-        android:layout_below="@id/fragment_card_mianze"
         android:background="@drawable/textview_shape"
         android:scrollbars="vertical"
         android:text="央视网消息(新闻联播)：欢迎仪式后，习近平主席在人民大会堂同尼科利奇总统举行会谈。两国元首一致同意，推动中塞全面战略伙伴关系不断取得新成果，更好造福两国人民。
@@ -41,11 +41,43 @@
 
 责任编辑：zhenfeichen" />
 
-    <Button
-        android:id="@+id/fragment_card_button"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        android:text="登录" />
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:orientation="horizontal">
 
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_weight="2"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <com.gc.materialdesign.views.CheckBox
+                android:id="@+id/fragment_card_login_checkbox"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="#1E88E5" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginLeft="10dp"
+                android:text="我同意"
+                android:textColor="#000000" />
+
+        </LinearLayout>
+
+        <com.gc.materialdesign.views.ButtonRectangle
+            android:id="@+id/fragment_card_login_button"
+            android:layout_width="0dp"
+            android:layout_weight="2"
+            android:layout_height="50dp"
+            android:enabled="true"
+            android:background="@color/app_color"
+            android:text="下一步" />
+    </LinearLayout>
 </RelativeLayout>

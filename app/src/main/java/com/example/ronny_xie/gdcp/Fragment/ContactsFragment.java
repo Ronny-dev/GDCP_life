@@ -487,8 +487,7 @@ public class ContactsFragment extends Fragment implements OnClickListener {
 		toolsLayout.findViewById(R.id.tools_group_chat)
 				.setOnClickListener(this);
 		toolsLayout.findViewById(R.id.chat_stanger).setOnClickListener(this);
-		tools = new PopupWindow(toolsLayout, LayoutParams.WRAP_CONTENT,
-				LayoutParams.WRAP_CONTENT, true);
+		tools = new PopupWindow(toolsLayout, LayoutParams.WRAP_CONTENT,LayoutParams.WRAP_CONTENT, true);
 		tools.setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
 		tools.setOutsideTouchable(false);
 		tools.showAsDropDown(v, 0, 30);
