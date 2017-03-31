@@ -19,10 +19,16 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
+import android.view.animation.AlphaAnimation;
+import android.view.animation.Animation;
+import android.view.animation.AnimationSet;
+import android.view.animation.TranslateAnimation;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.ronny_xie.gdcp.R;
@@ -51,6 +57,9 @@ public class LoginPage extends Fragment {
     private EditText code;
     private static final String TAG = "LoginPage";
     private View view;
+    private String username;
+    private DiagonalView diagonal_top;
+    private DiagonalView diagonal_bottom;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -88,6 +97,7 @@ public class LoginPage extends Fragment {
                         getActivity().startService(login);
                         ProgressDialogUtil.showProgress(
                                 LoginPage.this.getActivity(), "正在登录...");
+                        ToastUtil.show(getActivity(), username + "，欢迎您登录");
                     }
                 } else if (msg.what == 3) {
                     String a = (String) msg.obj;
@@ -110,14 +120,12 @@ public class LoginPage extends Fragment {
                     thread.start();
                 } else if (msg.what == 1001) {
                     Log.i(TAG, "handleMessage: 1111111111111" + (String) msg.obj);
-                    ToastUtil.show(getActivity(), (String) msg.obj + "，欢迎您登录");
+                    username = msg.obj.toString();
                     String userName = msg.obj.toString().replace("同学", "");
                     SharedPreferences userSharePreference = SharePreferenceUtil.newSharePreference(getActivity(), "username");
                     SharePreferenceUtil.saveString("userName", userName, userSharePreference);
                 }
             }
-
-            ;
         };
         Thread thread = new Thread(new Runnable() {
 
@@ -129,6 +137,54 @@ public class LoginPage extends Fragment {
             }
         });
         thread.start();
+        initAnimation();
+    }
+
+    private void initAnimation() {
+        diagonal_top = (DiagonalView) getActivity().findViewById(R.id.login_diagonal_top);
+        diagonal_bottom = (DiagonalView) getActivity().findViewById(R.id.login_diagonal_bottom);
+        AnimationSet top_set = new AnimationSet(true);
+        AnimationSet buttom_set = new AnimationSet(true);
+        Animation alphaAnimation = new AlphaAnimation((float) 0.1, 1);
+        Animation translateAnimation_top = new TranslateAnimation(-1000, 0, -300, -300);
+        top_set.setFillAfter(true);
+        translateAnimation_top.setInterpolator(getActivity(), android.R.anim.accelerate_decelerate_interpolator);
+        top_set.addAnimation(alphaAnimation);
+        top_set.addAnimation(translateAnimation_top);
+        top_set.setDuration(2000);
+        diagonal_top.setAnimation(top_set);
+
+        handler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                TranslateAnimation tran_top = new TranslateAnimation(0,0,-300,0);
+                tran_top.setDuration(1000);
+                diagonal_top.startAnimation(tran_top);
+            }
+        },2000);
+
+        Animation translateAnimation_buttom = new TranslateAnimation(1000, 0, 300, 300);
+        translateAnimation_buttom.setInterpolator(getActivity(), android.R.anim.accelerate_decelerate_interpolator);
+        buttom_set.setFillAfter(true);
+        buttom_set.addAnimation(translateAnimation_buttom);
+        buttom_set.addAnimation(alphaAnimation);
+        diagonal_bottom.setAnimation(translateAnimation_buttom);
+        buttom_set.setDuration(2000);
+        diagonal_bottom.setAnimation(buttom_set);
+        handler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                TranslateAnimation tran_top = new TranslateAnimation(0,0,300,0);
+                tran_top.setDuration(1000);
+                diagonal_bottom.startAnimation(tran_top);
+            }
+        },2000);
+
+        RelativeLayout tv_login_logo = (RelativeLayout) getActivity().findViewById(R.id.login_logo);
+        tv_login_logo.bringToFront();
+        AlphaAnimation alphaAnimation_login_tv = new AlphaAnimation(0.1f,1);
+        alphaAnimation_login_tv.setDuration(2000);
+        tv_login_logo.setAnimation(alphaAnimation_login_tv);
     }
 
     public void initView() {

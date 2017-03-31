@@ -34,6 +34,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
 import com.example.ronny_xie.gdcp.R;
 import com.example.ronny_xie.gdcp.loginActivity.MyApplication;
 import com.example.ronny_xie.gdcp.loginActivity.WelcomePage;
@@ -165,9 +166,9 @@ public class MainActivity extends FragmentActivity {
         if (user != api.getLoginUser()) {
             user = api.getLoginUser();
             setUserInfo(user, nav_header_name, nav_header_image);
-            SharedPreferences share = getSharedPreferences("signal",
+            SharedPreferences share = getSharedPreferences(user.getName().toString(),
                     Activity.MODE_PRIVATE);
-            String sign = share.getString(user.getName().toString(),
+            String sign = share.getString("sign",
                     "还没给我设置签名噢~");
             nav_header_sign.setText(sign);
         }
@@ -279,6 +280,7 @@ public class MainActivity extends FragmentActivity {
                 if(settingFragment!=null){
                     transaction.hide(settingFragment);
                 }
+                Glide.get(getApplicationContext()).clearMemory();
             }
         }
     }

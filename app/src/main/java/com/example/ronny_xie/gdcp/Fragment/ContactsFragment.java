@@ -481,7 +481,7 @@ public class ContactsFragment extends Fragment implements OnClickListener {
 
 	private void showTools(View v) {
 		View toolsLayout = LayoutInflater.from(getActivity()).inflate(
-				R.layout.layout_tools2, null);
+				R.layout.layout_tools2_popwindow, null);
 		toolsLayout.findViewById(R.id.tools_add).setOnClickListener(this);
 		toolsLayout.findViewById(R.id.tools_add_single).setOnClickListener(this);
 		toolsLayout.findViewById(R.id.tools_group_chat)

@@ -7,13 +7,29 @@
     android:focusableInTouchMode="true"
     tools:context=".loginActivity.login">
 
-    <ImageView
-        android:id="@+id/image_icon"
-        android:layout_width="85dp"
-        android:layout_height="85dp"
+    <RelativeLayout
+        android:id="@+id/login_logo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="90dp"
-        android:background="@drawable/ic_launcher" />
+        android:layout_marginTop="90dp">
+
+        <ImageView
+            android:id="@+id/image_icon"
+            android:layout_width="85dp"
+            android:layout_height="85dp"
+            android:layout_centerHorizontal="true"
+            android:background="@drawable/ic_launcher" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/image_icon"
+            android:layout_marginTop="10dp"
+            android:gravity="center"
+            android:text="掌上广交"
+            android:textSize="16sp" />
+    </RelativeLayout>
 
     <LinearLayout
         android:id="@+id/login_linearlayout"
@@ -95,18 +111,21 @@
     </LinearLayout>
 
     <developer.shivam.library.DiagonalView
-        android:layout_width="match_parent"
-        android:layout_height="200dp"
-        android:layout_alignParentTop="true"
-        android:src="@color/colorPrimary"
-        diagonal:angle="20"
-        diagonal:diagonalGravity="left|top" />
-
-    <developer.shivam.library.DiagonalView
+        android:id="@+id/login_diagonal_bottom"
         android:layout_width="match_parent"
         android:layout_height="200dp"
         android:layout_alignParentBottom="true"
         android:src="@color/colorPrimary"
-        diagonal:angle="20"
+        diagonal:angle="15"
         diagonal:diagonalGravity="left|bottom" />
+
+    <developer.shivam.library.DiagonalView
+        android:id="@+id/login_diagonal_top"
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:src="@color/colorPrimary"
+        diagonal:angle="15"
+        diagonal:diagonalGravity="left|top" />
 </RelativeLayout>

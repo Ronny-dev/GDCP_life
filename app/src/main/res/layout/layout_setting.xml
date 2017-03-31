@@ -74,12 +74,13 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
-                    android:text="昵称"
+                    android:text="姓名"
                     android:textColor="@color/gray"
                     android:textSize="18sp"
                     android:textStyle="bold" />
 
                 <EditText
+                    android:enabled="false"
                     android:id="@+id/nick_name"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -89,6 +90,7 @@
                     android:layout_toRightOf="@+id/nn_id"
                     android:background="@null"
                     android:gravity="right"
+                    android:textColor="#C0C0C0"
                     android:paddingRight="10dp"
                     android:singleLine="true" />
             </RelativeLayout>
@@ -161,7 +163,9 @@
                     android:gravity="right"
                     android:paddingRight="10dp"
                     android:singleLine="true"
-                    android:text="主人还没给我设置个性签名噢~" />
+                    android:hint="主人还没给我设置个性签名噢~"
+                    android:textColorHint="#CDCDCD"
+                    />
             </RelativeLayout>
 
             <ImageView

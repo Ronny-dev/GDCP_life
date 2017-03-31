@@ -60,7 +60,7 @@ import static android.R.attr.action;
 
 //此页面为回话历史页面，由客户端自己实现
 @SuppressLint("NewApi")
-public class MessageFragment extends Fragment implements OnClickListener {
+public class MessageFragment extends Fragment {
     private SwipeMenuListView listView;
     private MessageListAdapter adapter;
     private static final String TAG = "MessageFragment";
@@ -106,6 +106,36 @@ public class MessageFragment extends Fragment implements OnClickListener {
         SubActionButton button4 = itemBUilder.setContentView(itemIcon4).build();
         itemIcon4.setImageDrawable(getResources().getDrawable(R.drawable.fab_searchfriend));
 
+        button1.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                addSingelUser();
+                actionMenu.close(true);
+            }
+        });
+
+        button2.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent toCreateGroup = new Intent(getActivity(), CreateGroupSelectUser.class);
+                startActivity(toCreateGroup);
+            }
+        });
+        button3.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                addChatView();
+            }
+        });
+        button4.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent toSreach = new Intent(getActivity(), SearchPage.class);
+                toSreach.putExtra("search_type", 0);
+                startActivity(toSreach);
+            }
+        });
+
         actionMenu = new FloatingActionMenu
                 .Builder(getActivity())
                 .addSubActionView(button1)
@@ -123,7 +153,7 @@ public class MessageFragment extends Fragment implements OnClickListener {
                 } else {
                     actionMenu.close(true);
                     if (!isThread_run[0] && thread[0] != null) {
-                        thread[0].stop();
+                        thread[0] = null;
                         return;
                     }
                 }
@@ -155,12 +185,6 @@ public class MessageFragment extends Fragment implements OnClickListener {
     private void initView() {
         TextView title = (TextView) getView().findViewById(R.id.title);
         title.setText("消息");
-        ImageView iv_add = (ImageView) getView().findViewById(R.id.right_menu2);
-        iv_add.setBackgroundResource(R.drawable.add);
-        iv_add.setOnClickListener(this);
-        ImageView iv = (ImageView) getView().findViewById(R.id.right_menu);
-        iv.setOnClickListener(this);
-        iv.setBackgroundResource(R.drawable.tools_message);
         listView = (SwipeMenuListView) getView().findViewById(R.id.listview);
         SwipeMenuCreator creator = new SwipeMenuCreator() {
 
@@ -336,111 +360,54 @@ public class MessageFragment extends Fragment implements OnClickListener {
         }
     };
 
-    @Override
-    public void onClick(View v) {
-        switch (v.getId()) {
-            case R.id.right_menu:
-                showTools(v);
-                break;
-            case R.id.tools_add:
-                addUser();
-                break;
-            case R.id.tools_add_single:
-                addSingelUser();
-                break;
-            case R.id.tools_group_chat:
-                if (tools.isShowing()) {
-                    tools.dismiss();
-                    Intent toCreateGroup = new Intent(getActivity(),
-                            CreateGroupSelectUser.class);
-                    startActivity(toCreateGroup);
-                }
-                break;
-            case R.id.right_menu2:
-//			final PopupWindow popwindow3;
-//			final View toolsLayout = LayoutInflater.from(getActivity()).inflate(R.layout.main_addfriend_popwindows, null);
-//			popwindow3 = new PopupWindow(toolsLayout, ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT, true);
-//			popwindow3.setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-//			popwindow3.setOutsideTouchable(true);
-//			popwindow3.setFocusable(true);
-//			popwindow3.setTouchable(true);
-//			WindowManager manager = getActivity().getWindowManager();
-//			int width = manager.getDefaultDisplay().getWidth();
-//			popwindow3.setWidth(width);
-//			popwindow3.showAtLocation(v, Gravity.CENTER, 0, 0);
-//			popwindow3.setAnimationStyle(R.style.mypopwindow_anim_style);
-//			backgroundAlpha(0.6f);
-//			popwindow3.update();
-//			Button btnText = (Button) toolsLayout.findViewById(R.id.fragment_schedule_button_commit);
-//			btnText.setOnClickListener(new View.OnClickListener() {
-//				@Override
-//				public void onClick(View v) {
-//
-//					backgroundAlpha(1f);
-//					popwindow3.dismiss();
-//
-//				}
-//			});
-//			popwindow3.setOnDismissListener(new PopupWindow.OnDismissListener() {
-//				@Override
-//				public void onDismiss() {
-//					backgroundAlpha(1f);
-//				}
-//			});
-                //Todo 详情查看网页，使用shareButton
+    private void addChatView() {
+        AlertDialog.Builder builder = new Builder(getActivity());
+        builder.setIcon(android.R.drawable.ic_dialog_info);
+        builder.setTitle("请输入对方ID");
+        //创建一个EditText对象设置为对话框中显示的View对象
+        final View vv = View.inflate(getActivity(), R.layout.chat_stanger, null);
+        builder.setView(vv);
+        //用户选好要选的选项后，点击确定按钮
+        builder.setNegativeButton("取消", new DialogInterface.OnClickListener() {
 
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                return;
+            }
+        });
+        builder.setPositiveButton("确定", new DialogInterface.OnClickListener() {
 
-                AlertDialog.Builder builder = new Builder(getActivity());
-                builder.setIcon(android.R.drawable.ic_dialog_info);
-                builder.setTitle("请输入对方ID");
-                //创建一个EditText对象设置为对话框中显示的View对象
-                final View vv = View.inflate(getActivity(), R.layout.chat_stanger, null);
-                builder.setView(vv);
-                //用户选好要选的选项后，点击确定按钮
-                builder.setNegativeButton("取消", new DialogInterface.OnClickListener() {
-
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        return;
-                    }
-                });
-                builder.setPositiveButton("确定", new DialogInterface.OnClickListener() {
-
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        EditText tv = (EditText) vv.findViewById(R.id.chat_stanger_edittext);
-                        chat_stanger_ID = tv.getText().toString().trim();
-                        Intent tochat = new Intent(getActivity(),
-                                ChatPage.class);
-                        tochat.putExtra("user", new GotyeUser(chat_stanger_ID));
-                        startActivity(tochat);
-                    }
-                });
-                builder.show();
-                break;
-            default:
-                break;
-        }
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                EditText tv = (EditText) vv.findViewById(R.id.chat_stanger_edittext);
+                chat_stanger_ID = tv.getText().toString().trim();
+                Intent tochat = new Intent(getActivity(),
+                        ChatPage.class);
+                tochat.putExtra("user", new GotyeUser(chat_stanger_ID));
+                startActivity(tochat);
+            }
+        });
+        builder.show();
     }
 
     private PopupWindow tools;
 
-    private void showTools(View v) {
-        View toolsLayout = LayoutInflater.from(getActivity()).inflate(
-                R.layout.layout_tools, null);
-        toolsLayout.findViewById(R.id.tools_add).setOnClickListener(this);
-        toolsLayout.findViewById(R.id.tools_add_single)
-                .setOnClickListener(this);
-        toolsLayout.findViewById(R.id.tools_group_chat)
-                .setOnClickListener(this);
-        tools = new PopupWindow(toolsLayout, LayoutParams.WRAP_CONTENT,
-                LayoutParams.WRAP_CONTENT, true);
-        tools.setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-        tools.setOutsideTouchable(false);
-        tools.showAsDropDown(v, 0, 20);
-        tools.setAnimationStyle(R.style.mypopwindow_anim_style);
-        tools.update();
-    }
+//    private void showTools(View v) {
+//        View toolsLayout = LayoutInflater.from(getActivity()).inflate(
+//                R.layout.layout_tools, null);
+//        toolsLayout.findViewById(R.id.tools_add).setOnClickListener(this);
+//        toolsLayout.findViewById(R.id.tools_add_single)
+//                .setOnClickListener(this);
+//        toolsLayout.findViewById(R.id.tools_group_chat)
+//                .setOnClickListener(this);
+//        tools = new PopupWindow(toolsLayout, LayoutParams.WRAP_CONTENT,
+//                LayoutParams.WRAP_CONTENT, true);
+//        tools.setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+//        tools.setOutsideTouchable(false);
+//        tools.showAsDropDown(v, 0, 20);
+//        tools.setAnimationStyle(R.style.mypopwindow_anim_style);
+//        tools.update();
+//    }
 
     private void addUser() {
         if (tools.isShowing()) {
@@ -452,37 +419,34 @@ public class MessageFragment extends Fragment implements OnClickListener {
     }
 
     private void addSingelUser() {
-        if (tools.isShowing()) {
-            tools.dismiss();
 
-            final EditText input = new EditText(getActivity());
+        final EditText input = new EditText(getActivity());
 
-            new AlertDialog.Builder(getActivity())
-                    .setTitle("添加好友")
-                    .setIcon(android.R.drawable.ic_dialog_info)
-                    .setView(input)
-                    .setPositiveButton("确定",
-                            new DialogInterface.OnClickListener() {
+        new AlertDialog.Builder(getActivity())
+                .setTitle("添加好友")
+                .setIcon(android.R.drawable.ic_dialog_info)
+                .setView(input)
+                .setPositiveButton("确定",
+                        new DialogInterface.OnClickListener() {
 
-                                @Override
-                                public void onClick(DialogInterface dialog,
-                                                    int which) {
-                                    String name = input.getText().toString();
-                                    if (!TextUtils.isEmpty(name)) {
-                                        if (name.equals(currentLoginName)) {
-                                            ToastUtil.show(getActivity(),
-                                                    "不能添加自己");
-                                            return;
-                                        }
-                                        ProgressDialogUtil.showProgress(
-                                                getActivity(), "正在添加好友...");
-                                        api.reqAddFriend(new GotyeUser(name));
-                                        showAddFriendTip = true;
+                            @Override
+                            public void onClick(DialogInterface dialog,
+                                                int which) {
+                                String name = input.getText().toString();
+                                if (!TextUtils.isEmpty(name)) {
+                                    if (name.equals(currentLoginName)) {
+                                        ToastUtil.show(getActivity(),
+                                                "不能添加自己");
+                                        return;
                                     }
+                                    ProgressDialogUtil.showProgress(
+                                            getActivity(), "正在添加好友...");
+                                    api.reqAddFriend(new GotyeUser(name));
+                                    showAddFriendTip = true;
                                 }
-                            }).setNegativeButton("取消", null).show();
+                            }
+                        }).setNegativeButton("取消", null).show();
 
-        }
     }
 
     public String currentLoginName;
