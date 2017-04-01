@@ -32,6 +32,7 @@ import org.apache.http.impl.client.DefaultHttpClient;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
 import java.net.URL;
 
 
@@ -80,8 +81,7 @@ public class card_login extends Activity implements popwindox_card_psd.OnItemCli
         backgroundAlpha(0.6f);
         pop = new popwindox_card_psd(this);
         ImageView image = pop.getImageView();
-             //Todo 未完成
-//        Glide.with(this).load("http://ngrok_xiaojie.ngrok.cc/test/Card").into(image);
+        Glide.with(this).load("http://ngrok.xiaojie.ngrok.cc/test/Card.jpg").into(image);
         pop.showAtLocation(this.findViewById(R.id.fragment_card_login_button), Gravity.BOTTOM | Gravity.CENTER_HORIZONTAL, 0, 0);
         pop.setOnDismissListener(new PopupWindow.OnDismissListener() {
             @Override
