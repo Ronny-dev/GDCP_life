@@ -23,16 +23,16 @@ public class CardActivity extends Activity {
 		requestWindowFeature(Window.FEATURE_NO_TITLE);
 		setContentView(R.layout.card_activity);
 		super.onCreate(savedInstanceState);
-		Intent intent = getIntent();
-		html_data = intent.getStringExtra("data");
-		doc = Jsoup.parse(html_data);
+//		Intent intent = getIntent();
+//		html_data = intent.getStringExtra("data");
+//		doc = Jsoup.parse(html_data);
 		initView();
 		LoadImageToTitle();// 获取title的图片加载入iamge
 	}
 
 	private void LoadImageToTitle() {
 		Glide.with(CardActivity.this)
-				.load("http://img.coloranges.com/1701C/sRgnWelJ.jpg")
+				.load("https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1491646149469&di=a4fd10244cf80ea61c658bd9247c316a&imgtype=0&src=http%3A%2F%2Fnews.onlinedown.net%2Fd%2Ffile%2F20160814%2F0f4c37b97c0dfb995d144e997f7a107b.jpg")
 				.into(image_Title);
 	}
 
@@ -44,13 +44,12 @@ public class CardActivity extends Activity {
 		TextView kazhuangtai = (TextView) findViewById(R.id.kazhuangtai);
 		TextView dongjiezhuangtai = (TextView) findViewById(R.id.dongjiezhuangtai);
 		TextView guashizhuangtai = (TextView) findViewById(R.id.guashizhuangtai);
-		getTitlePersonData(tv_name, tv_belond);//设置标题栏的姓名的归属
-		getMiddleData(yue, kazhuangtai, dongjiezhuangtai, guashizhuangtai);//设置中间部分的数据
+//		getTitlePersonData(tv_name, tv_belond);//设置标题栏的姓名的归属
+//		getMiddleData(yue, kazhuangtai, dongjiezhuangtai, guashizhuangtai);//设置中间部分的数据
 	}
 
 
-	private void getMiddleData(TextView yue, TextView kazhuangtai,
-							   TextView dongjiezhuangtai, TextView guashizhuangtai) {
+	private void getMiddleData(TextView yue, TextView kazhuangtai,TextView dongjiezhuangtai, TextView guashizhuangtai) {
 		Elements elementsByClass = doc.getElementsByClass("neiwen");
 		String card_yue = elementsByClass.get(46).text().toString();
 		card_yue = card_yue.substring(0, card_yue.indexOf("（"));

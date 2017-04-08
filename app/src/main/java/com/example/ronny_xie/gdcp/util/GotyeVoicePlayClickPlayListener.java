@@ -5,6 +5,7 @@ import java.io.File;
 
 import android.app.Activity;
 import android.graphics.drawable.AnimationDrawable;
+import android.util.Log;
 import android.view.View;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
@@ -128,8 +129,6 @@ public class GotyeVoicePlayClickPlayListener implements View.OnClickListener {
 		@Override
 		public void onPlaying(int code, int position) {
 			// TODO Auto-generated method stub
-			
-
 		}
 
 		@Override

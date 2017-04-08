@@ -1,18 +1,20 @@
 package com.example.ronny_xie.gdcp.card;
 
 import android.app.Activity;
+import android.content.Context;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.graphics.Color;
 import android.graphics.drawable.BitmapDrawable;
-import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
+import android.icu.util.Calendar;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.text.method.ScrollingMovementMethod;
+import android.util.Log;
 import android.view.Gravity;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.ImageView;
@@ -20,8 +22,10 @@ import android.widget.PopupWindow;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.util.Util;
 import com.example.ronny_xie.gdcp.R;
-import com.example.ronny_xie.gdcp.mainActivity.MainActivity;
+import com.example.ronny_xie.gdcp.util.ProgressDialogUtil;
+import com.example.ronny_xie.gdcp.util.ToastUtil;
 import com.example.ronny_xie.gdcp.view.popwindox_card_psd;
 
 import org.apache.http.HttpResponse;
@@ -31,9 +35,9 @@ import org.apache.http.impl.client.DefaultHttpClient;
 
 import java.io.IOException;
 import java.io.InputStream;
-import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
-import java.net.URL;
+import java.util.Date;
+
+import static android.R.attr.data;
 
 
 /**
@@ -41,6 +45,9 @@ import java.net.URL;
  */
 
 public class card_login extends Activity implements popwindox_card_psd.OnItemClickListener {
+    private static final String TAG = "card_login";
+    public static Handler handler;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -50,6 +57,27 @@ public class card_login extends Activity implements popwindox_card_psd.OnItemCli
     }
 
     private void initView() {
+        handler = new Handler(new Handler.Callback() {
+            @Override
+            public boolean handleMessage(Message msg) {
+                if (msg.what == 1) {
+                    ProgressDialogUtil.dismiss();
+                    pop.dismiss();
+                    ToastUtil.show(getApplication(), "登录成功");
+                    Intent intent = new Intent(getApplication(), CardActivity.class);
+                    startActivity(intent);
+                } else if (msg.what == -1) {
+                    ProgressDialogUtil.dismiss();
+                    pop.dismiss();
+                    ToastUtil.show(getApplication(), "密码错误");
+                } else {
+                    ProgressDialogUtil.dismiss();
+                    pop.dismiss();
+                    ToastUtil.show(getApplication(), "未知错误，请重试");
+                }
+                return false;
+            }
+        });
         TextView tv_title = (TextView) findViewById(R.id.title);
         tv_title.setText("金融一卡通系统");
         TextView tv_login_read = (TextView) findViewById(R.id.fragment_card_login_textview);
@@ -78,10 +106,34 @@ public class card_login extends Activity implements popwindox_card_psd.OnItemCli
     private popwindox_card_psd pop;
 
     private void initPSD() {
+        final HttpClient httpClient = new DefaultHttpClient();
+        final Context context = this;
         backgroundAlpha(0.6f);
-        pop = new popwindox_card_psd(this);
-        ImageView image = pop.getImageView();
-        Glide.with(this).load("http://ngrok.xiaojie.ngrok.cc/test/Card.jpg").into(image);
+        pop = new popwindox_card_psd(context, httpClient);
+        final ImageView image = pop.getImageView();
+
+        Thread thread = new Thread(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    HttpGet getMainUrl = new HttpGet("http://ngrok.xiaojie.ngrok.cc/test/Card.jpg");
+                    HttpResponse response = null;
+                    response = httpClient.execute(getMainUrl);
+                    InputStream Stream = response.getEntity().getContent();
+                    Bitmap bitmap = BitmapFactory.decodeStream(Stream);
+                    final Drawable drawable = new BitmapDrawable(bitmap);
+                    runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            image.setBackground(drawable);
+                        }
+                    });
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        });
+        thread.start();
         pop.showAtLocation(this.findViewById(R.id.fragment_card_login_button), Gravity.BOTTOM | Gravity.CENTER_HORIZONTAL, 0, 0);
         pop.setOnDismissListener(new PopupWindow.OnDismissListener() {
             @Override
@@ -93,7 +145,44 @@ public class card_login extends Activity implements popwindox_card_psd.OnItemCli
 
     @Override
     public void setOnItemClick(View v) {
-
+        switch (v.getId()) {
+            case R.id.one:
+                ToastUtil.show(card_login.this, "1");
+                break;
+            case R.id.two:
+                ToastUtil.show(card_login.this, "2");
+                break;
+            case R.id.three:
+                ToastUtil.show(card_login.this, "3");
+                break;
+            case R.id.four:
+                ToastUtil.show(card_login.this, "4");
+                break;
+            case R.id.five:
+                ToastUtil.show(card_login.this, "5");
+                break;
+            case R.id.six:
+                ToastUtil.show(card_login.this, "6");
+                break;
+            case R.id.seven:
+                ToastUtil.show(card_login.this, "7");
+                break;
+            case R.id.eight:
+                ToastUtil.show(card_login.this, "8");
+                break;
+            case R.id.nine:
+                ToastUtil.show(card_login.this, "9");
+                break;
+            case R.id.zero:
+                ToastUtil.show(card_login.this, "0");
+                break;
+            case R.id.clean:
+                ToastUtil.show(this, "a");
+                break;
+            case R.id.close:
+                ToastUtil.show(this, "b");
+                break;
+        }
     }
 
     // 背景透明度

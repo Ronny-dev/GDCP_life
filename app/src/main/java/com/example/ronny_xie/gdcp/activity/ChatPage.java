@@ -7,25 +7,35 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.List;
+
 import com.example.ronny_xie.gdcp.R;
 import com.example.ronny_xie.gdcp.mainActivity.MainActivity;
 import com.example.ronny_xie.gdcp.adapter.ChatMessageAdapter;
+
+import android.Manifest;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
+import android.graphics.Bitmap;
 import android.graphics.drawable.AnimationDrawable;
+import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.provider.MediaStore;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.ContextMenu;
 import android.view.ContextMenu.ContextMenuInfo;
+import android.view.Gravity;
 import android.view.KeyEvent;
+import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.MenuItem.OnMenuItemClickListener;
 import android.view.MotionEvent;
@@ -41,12 +51,16 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.PopupWindow;
 import android.widget.TextView;
 import android.widget.TextView.OnEditorActionListener;
 import android.widget.Toast;
+
+import com.example.ronny_xie.gdcp.util.AnimUtil;
 import com.example.ronny_xie.gdcp.util.CommonUtils;
 import com.example.ronny_xie.gdcp.util.GotyeVoicePlayClickPlayListener;
 import com.example.ronny_xie.gdcp.util.ProgressDialogUtil;
+import com.example.ronny_xie.gdcp.util.RecordManager;
 import com.example.ronny_xie.gdcp.util.SendImageMessageTask;
 import com.example.ronny_xie.gdcp.util.ToastUtil;
 import com.example.ronny_xie.gdcp.util.URIUtil;
@@ -88,8 +102,8 @@ public class ChatPage extends Activity implements OnClickListener {
     private ImageView showMoreType;
     private LinearLayout moreTypeLayout;
 
-    // private PopupWindow menuWindow;
-    // private AnimationDrawable anim;
+    private PopupWindow menuWindow;
+    private AnimationDrawable anim;
     public int chatType = 0;
 
     private View realTalkView;
@@ -105,7 +119,7 @@ public class ChatPage extends Activity implements OnClickListener {
     private long playingId;
     private TextView title;
     // private VoiceRecognitionClient mASREngine;
-    // private PopupWindow mPopupWindow;
+    private PopupWindow mPopupWindow;
     public boolean makingVoiceMessage = false;
     public GotyeAPI api = GotyeAPI.getInstance();
     boolean isClick = false;
@@ -115,10 +129,7 @@ public class ChatPage extends Activity implements OnClickListener {
         super.onCreate(savedInstanceState);
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.gotye_activity_chat);
-        // mASREngine = VoiceRecognitionClient.getInstance(this);
-        // mASREngine.setTokenApis(Constants.API_KEY, Constants.SECRET_KEY);
         currentLoginUser = api.getLoginUser();
-        // api.addListener(this);
         api.addListener(mDelegate);
         o_user = user = (GotyeUser) getIntent().getSerializableExtra("user");
         o_room = room = (GotyeRoom) getIntent().getSerializableExtra("room");
@@ -166,6 +177,9 @@ public class ChatPage extends Activity implements OnClickListener {
                 System.out.println("这里是点击事件：" + adapter.getCount() + 1);
             }
         });
+        if (ContextCompat.checkSelfPermission(this, Manifest.permission.RECORD_AUDIO) != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.RECORD_AUDIO}, 10086);
+        }
     }
 
 
@@ -240,15 +254,14 @@ public class ChatPage extends Activity implements OnClickListener {
             public boolean onTouch(View v, MotionEvent event) {
                 switch (event.getAction()) {
                     case MotionEvent.ACTION_DOWN:
-                        // showPopupWindow2(pressToVoice);-------------------------------------------
+//                         showPopupWindow2(pressToVoice);
                         if (onRealTimeTalkFrom == 0) {
                             ToastUtil.show(ChatPage.this, "正在实时通话中...");
                             return false;
                         }
 
                         if (GotyeVoicePlayClickPlayListener.isPlaying) {
-                            GotyeVoicePlayClickPlayListener.currentPlayListener
-                                    .stopPlayVoice(true);
+                            GotyeVoicePlayClickPlayListener.currentPlayListener.stopPlayVoice(true);
                         }
                         int code = 0;
                         if (chatType == 0) {
@@ -265,6 +278,22 @@ public class ChatPage extends Activity implements OnClickListener {
                                     60 * 1000);
                         }
                         int c = code;
+                        RecordManager record = new RecordManager();
+                        record.startRecord();
+                        record.setOnAudioStatusUpdateListener(new RecordManager.OnAudioStatusUpdateListener() {
+                            @Override
+                            public void onUpdate(double db, long time) {
+                                Log.i("gggggggggggggggggg", "onUpdate: "+db);
+                            }
+
+                            @Override
+                            public void onStop(String filePath) {
+
+                            }
+                        });
+
+
+
                         pressToVoice.setText("松开 发送");
                         break;
                     case MotionEvent.ACTION_UP:
@@ -303,7 +332,7 @@ public class ChatPage extends Activity implements OnClickListener {
                 return false;
             }
         });
-        adapter = new ChatMessageAdapter(this, new ArrayList<GotyeMessage>(),pullListView);
+        adapter = new ChatMessageAdapter(this, new ArrayList<GotyeMessage>(), pullListView);
         pullListView.setAdapter(adapter);
         // pullListView.setSelection(adapter.getViewTypeCount());
         setListViewInfo();
@@ -457,7 +486,6 @@ public class ChatPage extends Activity implements OnClickListener {
         });
     }
 
-
     private void loadData() {
         List<GotyeMessage> messages = null;
         if (user != null) {
@@ -558,70 +586,68 @@ public class ChatPage extends Activity implements OnClickListener {
 
     }
 
-    // private void showTalkView() {
-    // dismissTalkView();
-    // View view = LayoutInflater.from(this).inflate(
-    // R.layout.gotye_audio_recorder_ring, null);
-    //
-    // anim = initRecordingView(view);
-    // anim.start();
-    // menuWindow = new PopupWindow(this);
-    // menuWindow.setContentView(view);
-    // menuWindow.setAnimationStyle(android.R.style.Animation_Dialog);
-    // // int width = (int) (view.getMeasuredWidth() * 3 * 1.0 / 2);
-    // Drawable dd = getResources().getDrawable(R.drawable.gotye_pls_talk);
-    // menuWindow.setWidth(dd.getIntrinsicWidth());
-    //
-    // menuWindow.setHeight(dd.getIntrinsicHeight());
-    // menuWindow.setBackgroundDrawable(null);
-    // menuWindow.showAtLocation(findViewById(R.id.gotye_chat_content),
-    // Gravity.CENTER, 0, 0);
-    // }
-    //
-    // private void dismissTalkView() {
-    // if (menuWindow != null && menuWindow.isShowing()) {
-    // menuWindow.dismiss();
-    // }
-    // if (anim != null && anim.isRunning()) {
-    // anim.stop();
-    // }
-    // }
-    //
-    // private AnimationDrawable initRecordingView(View layout) {
-    // ImageView speakingBg = (ImageView) layout
-    // .findViewById(R.id.background_image);
-    // speakingBg.setImageDrawable(getResources().getDrawable(
-    // R.drawable.gotye_pop_voice));
-    // layout.setBackgroundResource(R.drawable.gotye_pls_talk);
-    //
-    // AnimationDrawable anim = AnimUtil.getSpeakBgAnim(getResources());
-    // anim.selectDrawable(0);
-    //
-    // ImageView dot = (ImageView) layout.findViewById(R.id.speak_tip);
-    // dot.setBackgroundDrawable(anim);
-    // return anim;
-    // }
+    private void showTalkView() {
+        dismissTalkView();
+        View view = LayoutInflater.from(this).inflate(R.layout.gotye_audio_recorder_ring, null);
+        anim = initRecordingView(view);
+        anim.start();
+        menuWindow = new PopupWindow(this);
+        menuWindow.setContentView(view);
+        menuWindow.setAnimationStyle(android.R.style.Animation_Dialog);
+        // int width = (int) (view.getMeasuredWidth() * 3 * 1.0 / 2);
+        Drawable dd = getResources().getDrawable(R.drawable.gotye_pls_talk);
+        menuWindow.setWidth(dd.getIntrinsicWidth());
 
-    // public void showPopupWindow2(View view) {
-    // Context context = ChatPage.this;
-    // LayoutInflater mLayoutInflater = (LayoutInflater) context
-    // .getSystemService(LAYOUT_INFLATER_SERVICE);
-    // View view_popunwindow = mLayoutInflater.inflate(
-    // R.layout.chat_image_popwindow, null);
-    //
-    // int screenWidth=getResources().getDisplayMetrics().widthPixels;
-    // int screenHeight=getResources().getDisplayMetrics().heightPixels;
-    // mPopupWindow = new PopupWindow(view_popunwindow,
-    // screenWidth, screenHeight, false);
-    // mPopupWindow.setFocusable(true);
-    // mPopupWindow.setTouchable(true);
-    // mPopupWindow.setOutsideTouchable(false);
-    //
-    // mPopupWindow.setBackgroundDrawable(new BitmapDrawable(getResources(),
-    // (Bitmap) null));
-    // mPopupWindow.showAsDropDown(view, 0, 0);
-    // mPopupWindow.update();
-    // }
+        menuWindow.setHeight(dd.getIntrinsicHeight());
+        menuWindow.setBackgroundDrawable(null);
+        menuWindow.showAtLocation(findViewById(R.id.gotye_chat_content),
+                Gravity.CENTER, 0, 0);
+    }
+
+    private void dismissTalkView() {
+        if (menuWindow != null && menuWindow.isShowing()) {
+            menuWindow.dismiss();
+        }
+        if (anim != null && anim.isRunning()) {
+            anim.stop();
+        }
+    }
+
+    private AnimationDrawable initRecordingView(View layout) {
+        ImageView speakingBg = (ImageView) layout
+                .findViewById(R.id.background_image);
+        speakingBg.setImageDrawable(getResources().getDrawable(
+                R.drawable.gotye_pop_voice));
+        layout.setBackgroundResource(R.drawable.gotye_pls_talk);
+
+        AnimationDrawable anim = AnimUtil.getSpeakBgAnim(getResources());
+        anim.selectDrawable(0);
+
+        ImageView dot = (ImageView) layout.findViewById(R.id.speak_tip);
+        dot.setBackgroundDrawable(anim);
+        return anim;
+    }
+
+//     public void showPopupWindow2(View view) {
+//     Context context = ChatPage.this;
+//     LayoutInflater mLayoutInflater = (LayoutInflater) context
+//     .getSystemService(LAYOUT_INFLATER_SERVICE);
+//     View view_popunwindow = mLayoutInflater.inflate(
+//     R.layout.chat_image_popwindow, null);
+//
+//     int screenWidth=getResources().getDisplayMetrics().widthPixels;
+//     int screenHeight=getResources().getDisplayMetrics().heightPixels;
+//     mPopupWindow = new PopupWindow(view_popunwindow,
+//     screenWidth, screenHeight, false);
+//     mPopupWindow.setFocusable(true);
+//     mPopupWindow.setTouchable(true);
+//     mPopupWindow.setOutsideTouchable(false);
+//
+//     mPopupWindow.setBackgroundDrawable(new BitmapDrawable(getResources(),
+//     (Bitmap) null));
+//     mPopupWindow.showAsDropDown(view, 0, 0);
+//     mPopupWindow.update();
+//     }
 
     @Override
     protected void onDestroy() {
@@ -682,7 +708,6 @@ public class ChatPage extends Activity implements OnClickListener {
                     textMessage.setVisibility(View.GONE);
 
                     voice_text_chage.setImageResource(R.drawable.change_to_text_press);
-
                     showMoreType.setImageResource(R.drawable.more_type_selector);
                     moreTypeForSend = false;
                     hideKeyboard();
@@ -726,7 +751,7 @@ public class ChatPage extends Activity implements OnClickListener {
                 takePhoto();
                 break;
             case R.id.voice_to_text:
-                // showTalkView();
+//                showTalkView();
 
                 // if(isClick == true){
                 // pullListView.setBackgroundResource(getResources().getColor(R.color.transparent));
@@ -1223,5 +1248,15 @@ public class ChatPage extends Activity implements OnClickListener {
         }
     };
 
-
+    @Override
+    public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
+        if (requestCode == 10086) {
+            if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+            } else {
+                ToastUtil.show(this, "请求权限失败");
+                onBackPressed();
+            }
+        }
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+    }
 }

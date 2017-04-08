@@ -630,8 +630,7 @@ public class ConnInterface {
 	 */
 	public static String GetPersonDayHtml(HttpClient httpClient) {
 		try {
-			HttpGet getMainUrl = new HttpGet(
-					"http://card.gdcp.cn/accounttodayTrjn.action");
+			HttpGet getMainUrl = new HttpGet("http://card.gdcp.cn/accounttodayTrjn.action");
 			HttpResponse response = httpClient.execute(getMainUrl);
 			if (response.getStatusLine().getStatusCode() == 200) {
 				InputStream inStream = response.getEntity().getContent();
