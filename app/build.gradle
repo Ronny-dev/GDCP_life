@@ -47,6 +47,7 @@ dependencies {
     compile 'com.oguzdev:CircularFloatingActionMenu:1.0.2'
     //FAB按钮
     //界面形状
-    compile 'com.android.support:design:24.1.1'
+//    compile 'com.android.support:design:24.1.1'
+    compile 'com.android.support:design:25.1.0'
     compile project(':library')
 }

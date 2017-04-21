@@ -116,7 +116,7 @@ public class card_login extends Activity implements popwindox_card_psd.OnItemCli
             @Override
             public void run() {
                 try {
-                    HttpGet getMainUrl = new HttpGet("http://ngrok.xiaojie.ngrok.cc/test/Card.jpg");
+                    HttpGet getMainUrl = new HttpGet("http://ngrok.xiaojie.ngrok.cc/test/Card");
                     HttpResponse response = null;
                     response = httpClient.execute(getMainUrl);
                     InputStream Stream = response.getEntity().getContent();

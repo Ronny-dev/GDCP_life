@@ -41,8 +41,6 @@ import com.gotye.api.GotyeUser;
 
 import developer.shivam.library.DiagonalView;
 
-import static android.support.v7.widget.StaggeredGridLayoutManager.TAG;
-import static com.example.ronny_xie.gdcp.util.SharePreferenceUtil.newSharePreference;
 
 public class LoginPage extends Fragment {
     Button mButLogin, mButLogout;

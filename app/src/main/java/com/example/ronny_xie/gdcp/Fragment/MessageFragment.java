@@ -183,6 +183,13 @@ public class MessageFragment extends Fragment {
     }
 
     private void initView() {
+        ImageView imageView_back = (ImageView) getView().findViewById(R.id.back);
+        imageView_back.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
         TextView title = (TextView) getView().findViewById(R.id.title);
         title.setText("消息");
         listView = (SwipeMenuListView) getView().findViewById(R.id.listview);

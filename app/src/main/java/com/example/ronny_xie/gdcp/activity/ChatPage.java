@@ -19,9 +19,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
-import android.graphics.Bitmap;
 import android.graphics.drawable.AnimationDrawable;
-import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Bundle;
@@ -60,7 +58,6 @@ import com.example.ronny_xie.gdcp.util.AnimUtil;
 import com.example.ronny_xie.gdcp.util.CommonUtils;
 import com.example.ronny_xie.gdcp.util.GotyeVoicePlayClickPlayListener;
 import com.example.ronny_xie.gdcp.util.ProgressDialogUtil;
-import com.example.ronny_xie.gdcp.util.RecordManager;
 import com.example.ronny_xie.gdcp.util.SendImageMessageTask;
 import com.example.ronny_xie.gdcp.util.ToastUtil;
 import com.example.ronny_xie.gdcp.util.URIUtil;
@@ -78,8 +75,6 @@ import com.gotye.api.GotyeRoom;
 import com.gotye.api.GotyeStatusCode;
 import com.gotye.api.GotyeUser;
 import com.gotye.api.WhineMode;
-import com.slidingmenu.lib.SlidingMenu;
-import com.slidingmenu.lib.SlidingMenu.OnOpenListener;
 
 public class ChatPage extends Activity implements OnClickListener {
     public static final int REALTIMEFROM_OTHER = 2;
@@ -278,22 +273,6 @@ public class ChatPage extends Activity implements OnClickListener {
                                     60 * 1000);
                         }
                         int c = code;
-                        RecordManager record = new RecordManager();
-                        record.startRecord();
-                        record.setOnAudioStatusUpdateListener(new RecordManager.OnAudioStatusUpdateListener() {
-                            @Override
-                            public void onUpdate(double db, long time) {
-                                Log.i("gggggggggggggggggg", "onUpdate: "+db);
-                            }
-
-                            @Override
-                            public void onStop(String filePath) {
-
-                            }
-                        });
-
-
-
                         pressToVoice.setText("松开 发送");
                         break;
                     case MotionEvent.ACTION_UP:

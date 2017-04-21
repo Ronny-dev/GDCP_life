@@ -53,7 +53,7 @@ public class GroupRoomListPage extends Activity {
 		super.onCreate(savedInstanceState);
 		requestWindowFeature(Window.FEATURE_NO_TITLE);
 		setContentView(R.layout.layout_room_group_page);
-		title = (TextView) findViewById(R.id.title_tx);
+		title = (TextView) findViewById(R.id.title);
 		noDataTip = (TextView) findViewById(R.id.no_data);
 		currentLoginName = api.getLoginUser().getName();
 		api.addListener(mDelegate);

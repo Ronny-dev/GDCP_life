@@ -9,14 +9,14 @@
     <RelativeLayout
         android:id="@+id/title_bar_layout"
         android:layout_width="match_parent"
-        android:layout_height="50dp"
         android:layout_alignParentTop="true"
-        android:background="#1E88E5">
+        android:layout_height="58dp"
+        android:background="@color/app_color">
 
         <ImageView
             android:id="@+id/back"
             android:layout_width="45dp"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:layout_alignParentLeft="true"
             android:layout_centerVertical="true"
             android:background="@drawable/common_tab_bg"
@@ -29,7 +29,8 @@
             android:id="@+id/group_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_centerInParent="true"
+            android:layout_centerVertical="true"
+            android:layout_toRightOf="@id/back"
             android:text=""
             android:textColor="#ffffff"
             android:textSize="18sp" />

@@ -10,6 +10,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
+
 import com.bumptech.glide.Glide;
 import com.example.ronny_xie.gdcp.AsynkTask.adapter_gridView_popwindows;
 import com.example.ronny_xie.gdcp.AsynkTask.adapter_listview_popwindow3;
@@ -29,6 +30,7 @@ import com.example.ronny_xie.gdcp.util.SharePreferenceUtil;
 import com.example.ronny_xie.gdcp.util.ToastUtil;
 import com.example.ronny_xie.gdcp.view.ListViewForScrollView;
 import com.google.gson.Gson;
+
 import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
@@ -53,6 +55,7 @@ import android.widget.ScrollView;
 import android.widget.SimpleAdapter;
 import android.widget.Spinner;
 import android.widget.TextView;
+
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.jsoup.Jsoup;
@@ -100,11 +103,11 @@ public class fragment_weather extends Fragment {
                     setScrollViewToTop();//让scrollview移动到顶部
                     ProgressDialogUtil.dismiss();
                     getRefresh();//定时提示刷新
-                    AlerterUtil.noTitleAlertrrr(getActivity(),"加载成功",R.drawable.alerter_ic_face);
+                    AlerterUtil.noTitleAlertrrr(getActivity(), "加载成功", R.drawable.alerter_ic_face);
                 }
                 if (msg.what == 1000) {
                     ToastUtil.show(getActivity(), "刷新失败，请重试");
-                    AlerterUtil.noTitleAlertrrr(getActivity(),"刷新失败",R.drawable.alerter_ic_notifications);
+                    AlerterUtil.noTitleAlertrrr(getActivity(), "刷新失败", R.drawable.alerter_ic_notifications);
                 }
             }
         };
@@ -390,7 +393,7 @@ public class fragment_weather extends Fragment {
         try {
             HttpURLConnection conn = (HttpURLConnection) new URL(ResultDataTitleBackground).openConnection();
             conn.setConnectTimeout(3000);
-            if (conn.getResponseCode() != 200) {
+            if (conn.getResponseCode() != 200 && conn.getResponseCode() != 301) {
                 handler.sendEmptyMessage(1000);
                 return;
             }
@@ -400,6 +403,7 @@ public class fragment_weather extends Fragment {
                     Log.i(TAG, "run: 运行到设置glide图片");
                     imageBackground = (ImageView) getActivity().findViewById(R.id.fragment_weather_background);
                     Glide.with(getActivity()).load(ResultDataTitleBackground).centerCrop().into(imageBackground);
+                    Log.i("AAAAAA", "run: " + ResultDataTitleBackground.toString());
                 }
             });
         } catch (IOException e) {

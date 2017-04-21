@@ -8,9 +8,9 @@
     <RelativeLayout
         android:id="@+id/title_bar_layout"
         android:layout_width="match_parent"
-        android:layout_height="50dp"
         android:layout_alignParentTop="true"
-        android:background="@drawable/title_bar_bg" >
+        android:layout_height="58dp"
+        android:background="@color/app_color" >
 
         <ImageView
             android:id="@+id/back"
@@ -24,6 +24,7 @@
 
         <TextView
             android:id="@+id/room_name"
+            android:layout_toRightOf="@id/back"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"

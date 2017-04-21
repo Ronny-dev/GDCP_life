@@ -11,6 +11,7 @@ import org.jsoup.select.Elements;
 import com.bumptech.glide.Glide;
 import com.example.ronny_xie.gdcp.Fragment.fragment_jw;
 import com.example.ronny_xie.gdcp.R;
+import com.example.ronny_xie.gdcp.activity.MoreApplication;
 import com.example.ronny_xie.gdcp.loginActivity.ConnInterface;
 import com.example.ronny_xie.gdcp.loginActivity.LoginPage;
 import com.example.ronny_xie.gdcp.util.ProgressDialogUtil;
@@ -373,7 +374,8 @@ public class jw_main extends Activity {
 
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(jw_main.this, jwxsxx_activity.class);
+//                Intent intent = new Intent(jw_main.this, jwxsxx_activity.class);
+                Intent intent = new Intent(jw_main.this, MoreApplication.class);
                 startActivity(intent);
             }
         });

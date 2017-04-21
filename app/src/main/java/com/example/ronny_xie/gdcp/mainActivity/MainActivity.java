@@ -36,6 +36,7 @@ import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.example.ronny_xie.gdcp.R;
+import com.example.ronny_xie.gdcp.activity.MoreApplication;
 import com.example.ronny_xie.gdcp.card.card_login;
 import com.example.ronny_xie.gdcp.loginActivity.MyApplication;
 import com.example.ronny_xie.gdcp.loginActivity.WelcomePage;
@@ -206,9 +207,12 @@ public class MainActivity extends FragmentActivity {
                         break;
                     case R.id.nav_card:
 //                        nav_select(8);
-                        Intent intent = new Intent(getApplicationContext(),card_login.class);
-                        startActivity(intent);
+                        Intent intentCardLogin = new Intent(getApplicationContext(),card_login.class);
+                        startActivity(intentCardLogin);
                         break;
+                    case R.id.nav_more:
+                        Intent intentMoreActivity = new Intent(getApplicationContext(), MoreApplication.class);
+                        startActivity(intentMoreActivity);
                 }
                 drawerLayout.closeDrawer(navigationView);
                 return true;
