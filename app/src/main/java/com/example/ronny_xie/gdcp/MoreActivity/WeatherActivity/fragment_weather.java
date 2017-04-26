@@ -102,7 +102,7 @@ public class fragment_weather extends Activity {
                     alter("加载成功");
                 }
                 if (msg.what == 1000) {
-                    ToastUtil.show(getApplicationContext(), "刷新失败，请重试");
+                    ToastUtil.show(getBaseContext(), "刷新失败，请重试");
                     alter("刷新失败");
                 }
             }
@@ -155,7 +155,7 @@ public class fragment_weather extends Activity {
         nearWeather.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ProgressDialogUtil.showProgress(getApplicationContext(), "请稍后..");
+                ProgressDialogUtil.showProgress(fragment_weather.this, "请稍后..");
                 backgroundAlpha(0.6f);
                 newday_popwindow(v);
                 ProgressDialogUtil.dismiss();
@@ -299,7 +299,7 @@ public class fragment_weather extends Activity {
         this.runOnUiThread(new Runnable() {
             @Override
             public void run() {
-                listview_weibo.setAdapter(new adapter_weather_weibo(finalData, getApplicationContext()));
+                listview_weibo.setAdapter(new adapter_weather_weibo(finalData, getBaseContext()));
             }
         });
     }
@@ -343,7 +343,7 @@ public class fragment_weather extends Activity {
             public void run() {
                 String[] from = {"fragment_weather_image", "fragment_weather_text"};
                 int[] to = {R.id.fragment_weather_image, R.id.fragment_weather_text};
-                SimpleAdapter sim_adapter = new SimpleAdapter(getApplicationContext(), data_list, R.layout.weather_item, from, to);
+                SimpleAdapter sim_adapter = new SimpleAdapter(getBaseContext(), data_list, R.layout.weather_item, from, to);
                 gridView.setAdapter(sim_adapter);
             }
         });
@@ -398,7 +398,7 @@ public class fragment_weather extends Activity {
                 public void run() {
                     Log.i(TAG, "run: 运行到设置glide图片");
                     imageBackground = (ImageView) findViewById(R.id.fragment_weather_background);
-                    Glide.with(getApplicationContext()).load(ResultDataTitleBackground).centerCrop().into(imageBackground);
+                    Glide.with(getBaseContext()).load(ResultDataTitleBackground).centerCrop().into(imageBackground);
                     Log.i("AAAAAA", "run: " + ResultDataTitleBackground);
                 }
             });
@@ -490,9 +490,9 @@ public class fragment_weather extends Activity {
             public void run() {
                 tv_temperture.setText(finalTemp + "°C");
                 tv_rain_random.setText(finalRain);
-                Glide.with(getApplicationContext()).load("http://tqyb.com.cn" + finalNow_image).into(imageViewNow);
-                Glide.with(getApplicationContext()).load("http://tqyb.com.cn" + finalRain_image).into(imageViewRain);
-                lv_main.setAdapter(new adapter_weather_main(finalWeather_main_pads, getApplicationContext()));
+                Glide.with(getBaseContext()).load("http://tqyb.com.cn" + finalNow_image).into(imageViewNow);
+                Glide.with(getBaseContext()).load("http://tqyb.com.cn" + finalRain_image).into(imageViewRain);
+                lv_main.setAdapter(new adapter_weather_main(finalWeather_main_pads, getBaseContext()));
             }
         });
     }
@@ -500,25 +500,25 @@ public class fragment_weather extends Activity {
 
     private void initView() {
         gson = new Gson();
-        weather_more = (LinearLayout) this.findViewById(R.id.fragment_weather_weathermore_linearlayout);
-        nearWeather = (LinearLayout) this.findViewById(R.id.fragment_weather_nearweather_linearlayout);
-        swipe = (SwipeRefreshLayout) this.findViewById(R.id.fragment_weather_swiperefresh);
-        image_refresh = (ImageView) this.findViewById(R.id.fragment_weather_refresh_image);
-        tv_update = (TextView) this.findViewById(R.id.fragment_weather_timeupdate);
+        weather_more = (LinearLayout) findViewById(R.id.fragment_weather_weathermore_linearlayout);
+        nearWeather = (LinearLayout) findViewById(R.id.fragment_weather_nearweather_linearlayout);
+        swipe = (SwipeRefreshLayout) findViewById(R.id.fragment_weather_swiperefresh);
+        image_refresh = (ImageView) findViewById(R.id.fragment_weather_refresh_image);
+        tv_update = (TextView) findViewById(R.id.fragment_weather_timeupdate);
         sharePreference = SharePreferenceUtil.newSharePreference(this, "weather");
-        listview_weibo = (ListViewForScrollView) this.findViewById(R.id.fragment_weibo_listview);
-        gridView = (GridView) this.findViewById(R.id.fragment_weather_gridview);
-        tv_airTitle = (TextView) this.findViewById(R.id.fragment_weather_quality_title);
-        tv_aqi = (TextView) this.findViewById(R.id.fragment_weather_aqi_textview);
-        tv_pm25 = (TextView) this.findViewById(R.id.fragment_weather_pm25_textview);
-        lv_main = (ListView) this.findViewById(R.id.fragment_weather_main);
-        tvReportTIme = (TextView) this.findViewById(R.id.fragment_weather_reportTime);
-        tvShortReport = (TextView) this.findViewById(R.id.fragment_weather_shortReport);
-        imageViewRain = (ImageView) this.findViewById(R.id.fragment_weather_image_rain);
-        tv_rain_random = (TextView) this.findViewById(R.id.fragment_weather_rain_random_textview);
-        imageViewNow = (ImageView) this.findViewById(R.id.fragment_weather_image_now);
-        tv_temperture = (TextView) this.findViewById(R.id.fragment_weather_temperture_textview);
-        imageBackground = (ImageView) this.findViewById(R.id.fragment_weather_background);
+        listview_weibo = (ListViewForScrollView) findViewById(R.id.fragment_weibo_listview);
+        gridView = (GridView) findViewById(R.id.fragment_weather_gridview);
+        tv_airTitle = (TextView) findViewById(R.id.fragment_weather_quality_title);
+        tv_aqi = (TextView) findViewById(R.id.fragment_weather_aqi_textview);
+        tv_pm25 = (TextView) findViewById(R.id.fragment_weather_pm25_textview);
+        lv_main = (ListView) findViewById(R.id.fragment_weather_main);
+        tvReportTIme = (TextView) findViewById(R.id.fragment_weather_reportTime);
+        tvShortReport = (TextView) findViewById(R.id.fragment_weather_shortReport);
+        imageViewRain = (ImageView) findViewById(R.id.fragment_weather_image_rain);
+        tv_rain_random = (TextView) findViewById(R.id.fragment_weather_rain_random_textview);
+        imageViewNow = (ImageView) findViewById(R.id.fragment_weather_image_now);
+        tv_temperture = (TextView) findViewById(R.id.fragment_weather_temperture_textview);
+        imageBackground = (ImageView) findViewById(R.id.fragment_weather_background);
     }
 
     // popwindow内容
@@ -580,7 +580,7 @@ public class fragment_weather extends Activity {
                         if (!isSpinnerFirst[0]) {
                             PopupWindow popwindow3;
                             Log.i(TAG, "onItemSelected: " + position);
-                            final View toolsLayout = LayoutInflater.from(getApplicationContext()).inflate(R.layout.weather_popwindows3, null);
+                            final View toolsLayout = LayoutInflater.from(getBaseContext()).inflate(R.layout.weather_popwindows3, null);
                             popwindow2.dismiss();
                             Thread thread = new Thread(new Runnable() {
                                 @Override
@@ -638,10 +638,10 @@ public class fragment_weather extends Activity {
                             TextView tv = (TextView) toolsLayout.findViewById(R.id.fragment_popwindow3_text_main_date);
                             tv.setText("广州市" + spinner.getSelectedItem().toString() + "气象台 " + main.getPtime() + " 发布");
                             GridView gridView = (GridView) toolsLayout.findViewById(R.id.fragment_weather_gridview_popwindwos);
-                            gridView.setAdapter(new adapter_gridView_popwindows(getApplicationContext(), data_qu));
+                            gridView.setAdapter(new adapter_gridView_popwindows(getBaseContext(), data_qu));
                             ListView listView = (ListView) toolsLayout.findViewById(R.id.fragment_weather_listview_popwindow3);
                             LinearLayout linear = (LinearLayout) toolsLayout.findViewById(R.id.fragment_weather_popwindow3_linearlayout);
-                            listView.setAdapter(new adapter_listview_popwindow3(getApplicationContext(), data_qu, new Date().getHours()));
+                            listView.setAdapter(new adapter_listview_popwindow3(getBaseContext(), data_qu, new Date().getHours()));
                             linear.setVisibility(View.VISIBLE);
                         }
                     });

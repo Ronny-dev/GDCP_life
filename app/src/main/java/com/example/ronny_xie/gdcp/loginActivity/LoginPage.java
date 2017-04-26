@@ -88,7 +88,6 @@ public class LoginPage extends Fragment {
                         login.setAction(GotyeService.ACTION_LOGIN);
                         login.putExtra("name", mUsername);
                         if (TextUtils.isEmpty("")) {
-                            // login.putExtra("pwd", null);
                         } else {
                             login.putExtra("pwd", "");
                         }

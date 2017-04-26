@@ -13,7 +13,7 @@ public class jw_main_adapter extends BaseAdapter {
 	private ArrayList<String> title;
 	private Context context;
 
-	jw_main_adapter(ArrayList<String> title, Context context) {
+	public jw_main_adapter(ArrayList<String> title, Context context) {
 		this.title = title;
 		this.context = context;
 	}

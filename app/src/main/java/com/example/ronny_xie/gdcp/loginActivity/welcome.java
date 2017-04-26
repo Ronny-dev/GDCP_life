@@ -28,9 +28,7 @@ public class welcome extends Activity implements OnGestureListener {
 		super.onCreate(savedInstanceState);
 		GotyeAPI.getInstance().init(this, MyApplication.APPKEY);
 		int state = GotyeAPI.getInstance().isOnline();
-		Log.d("login", "state=" + state);
 		GotyeUser us = GotyeAPI.getInstance().getLoginUser();
-		Log.d("login", "us = " + us.getName());
 		String user1[] = LoginPage.getUser(welcome.this);
 		String hasUserName = user1[0];
 		boolean hasLogin = MyApplication.getHasLogin(this);

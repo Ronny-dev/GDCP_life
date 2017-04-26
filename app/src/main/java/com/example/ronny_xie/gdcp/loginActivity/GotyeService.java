@@ -77,10 +77,6 @@ public class GotyeService extends Service {
 			String[] user = getUser(this);
 			Log.d("ServiceCommand", "user = "+user[0]);
 			if (!TextUtils.isEmpty(user[0])) {
-				//登陆,注意code返回状态，-1表示正在登陆，1表示已经登陆或者正在登陆
-				//导致杀掉进程后自动登录的Bug
-//				int code = api.login(user[0], user[1]);
-//				Log.d("ServiceCommand", "33333333333333333 = "+code);
 			}
 		}
 		flags = START_STICKY;

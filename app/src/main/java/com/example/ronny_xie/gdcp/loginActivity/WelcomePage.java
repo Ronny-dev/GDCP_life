@@ -31,14 +31,9 @@ public class WelcomePage extends FragmentActivity implements OnGestureListener {
 		requestWindowFeature(Window.FEATURE_NO_TITLE);
 		//初始化
 		int code = GotyeAPI.getInstance().init(this, MyApplication.APPKEY);
-		// -1 offline, API will reconnect   when network becomes valid
-		// 0 not login or logout already
-		// 1 online
 		//判断当前登陆状态
 		int state = GotyeAPI.getInstance().isOnline();
-		Log.d("login", "state=" + state);
 		GotyeUser us = GotyeAPI.getInstance().getLoginUser();
-		Log.d("login", "us = "+us.getName());
 		//没有登陆需要显示登陆界面
 		setContentView(R.layout.layout_welcome);
 		//注意添加LoginListener

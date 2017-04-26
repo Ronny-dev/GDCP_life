@@ -7,7 +7,7 @@ import com.example.ronny_xie.gdcp.Fragment.jw2012SyetemFragment.adapter.jwxskb_a
 import com.example.ronny_xie.gdcp.Fragment.jw2012SyetemFragment.bean.jwxskb_javabean;
 import com.example.ronny_xie.gdcp.R;
 import com.example.ronny_xie.gdcp.loginActivity.ConnInterface;
-import com.example.ronny_xie.gdcp.loginActivity.login;
+import com.example.ronny_xie.gdcp.loginActivity.LoginPage;
 import com.example.ronny_xie.gdcp.util.ProgressDialogUtil;
 import com.example.ronny_xie.gdcp.view.ListViewForScrollView;
 
@@ -75,8 +75,8 @@ public class jwxskb_page extends Activity {
 				// 联网拿到课程表的html数据
 				xskcBfromHTML = ConnInterface.getXSKCBfromHTML(
 						jwFragment.httpClient, jwFragment.values,
-						login.getUser(jwxskb_page.this)[0],
-						login.getUser(jwxskb_page.this)[1], tem);
+						LoginPage.getUser(jwxskb_page.this)[0],
+						LoginPage.getUser(jwxskb_page.this)[1], tem);
 				// 发送消息，通知主线程读取spinner数据
 				handler.sendEmptyMessage(1);
 				// 获取课程数据

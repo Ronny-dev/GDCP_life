@@ -284,7 +284,7 @@ public class ErrorReporter implements Thread.UncaughtExceptionHandler {
 		printWriter.close();
 		Log.e("AndroidRuntime", causeString);
 		// Always write the report file
-		saveCrashReportFile();
+//		saveCrashReportFile();
 		// final String reportFileName = saveCrashReportFile();
 		// saveLogToFile(reportFileName);
 		// showCrashDialog(reportFileName);
@@ -307,7 +307,7 @@ public class ErrorReporter implements Thread.UncaughtExceptionHandler {
 			Log.d(LOG_TAG, "Writing crash report file.");
 			final File file = CrashApplication.getCrashReportFile();
 			final FileOutputStream trace = new FileOutputStream(file);
-			mCrashProperties.store(trace, "");
+//			mCrashProperties.store(trace, "");
 			trace.write(mStackString.getBytes());
 			trace.write("\n\n".getBytes());
 			trace.flush();
