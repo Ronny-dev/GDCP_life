@@ -31,13 +31,13 @@ import com.example.ronny_xie.gdcp.util.ToastUtil;
 import com.example.ronny_xie.gdcp.view.ListViewForScrollView;
 import com.google.gson.Gson;
 
+import android.app.Activity;
 import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
-import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.util.Log;
 import android.view.Gravity;
@@ -61,7 +61,7 @@ import org.json.JSONObject;
 import org.jsoup.Jsoup;
 
 
-public class fragment_weather extends Fragment {
+public class fragment_weather extends Activity {
     private static final String TAG = "fragment_weather";
     private ImageView imageBackground;
     private TextView tv_temperture;
@@ -88,13 +88,9 @@ public class fragment_weather extends Fragment {
     private Spinner spinner;
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.fragment_weather, container, false);
-    }
-
-    @Override
-    public void onActivityCreated(Bundle savedInstanceState) {
-        super.onActivityCreated(savedInstanceState);
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.fragment_weather);
         handler = new Handler() {
             @Override
             public void handleMessage(Message msg) {
@@ -103,11 +99,11 @@ public class fragment_weather extends Fragment {
                     setScrollViewToTop();//让scrollview移动到顶部
                     ProgressDialogUtil.dismiss();
                     getRefresh();//定时提示刷新
-                    AlerterUtil.noTitleAlertrrr(getActivity(), "加载成功", R.drawable.alerter_ic_face);
+                    alter("加载成功");
                 }
                 if (msg.what == 1000) {
-                    ToastUtil.show(getActivity(), "刷新失败，请重试");
-                    AlerterUtil.noTitleAlertrrr(getActivity(), "刷新失败", R.drawable.alerter_ic_notifications);
+                    ToastUtil.show(getApplicationContext(), "刷新失败，请重试");
+                    alter("刷新失败");
                 }
             }
         };
@@ -119,7 +115,7 @@ public class fragment_weather extends Fragment {
     }
 
     private void getRefresh() {
-        sp_refresh = SharePreferenceUtil.newSharePreference(getActivity(), "weather_refresh");
+        sp_refresh = SharePreferenceUtil.newSharePreference(this, "weather_refresh");
         long date;
         if (SharePreferenceUtil.getString("date", sp_refresh).equals("")) {
             date = System.currentTimeMillis();
@@ -132,7 +128,7 @@ public class fragment_weather extends Fragment {
             SharePreferenceUtil.saveString("date", date_new_string, sp_refresh);
         }
         if ((System.currentTimeMillis() - date) / (1000 * 60 * 60) > 3) {
-            ToastUtil.show(getActivity(), "数据过时，请下拉刷新数据");
+            ToastUtil.show(this, "数据过时，请下拉刷新数据");
         }
     }
 
@@ -159,7 +155,7 @@ public class fragment_weather extends Fragment {
         nearWeather.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ProgressDialogUtil.showProgress(getActivity(), "请稍后..");
+                ProgressDialogUtil.showProgress(getApplicationContext(), "请稍后..");
                 backgroundAlpha(0.6f);
                 newday_popwindow(v);
                 ProgressDialogUtil.dismiss();
@@ -188,12 +184,12 @@ public class fragment_weather extends Fragment {
                         String s = weather_util.InputStringToString(conn.getInputStream());
                         final javabean_weather_worn aa = gson.fromJson(weather_util.ToJson(s), javabean_weather_worn.class);
                         if (!aa.getTitle().contains("解除")) {
-                            getActivity().runOnUiThread(new Runnable() {
+                            runOnUiThread(new Runnable() {
                                 @Override
                                 public void run() {
-                                    LinearLayout linearLayout = (LinearLayout) getActivity().findViewById(R.id.fragment_weather_worn_linearlayout);
-                                    TextView tv_form = (TextView) getActivity().findViewById(R.id.fragment_weather_worn);
-                                    TextView tv_time = (TextView) getActivity().findViewById(R.id.fragment_weather_worn_time);
+                                    LinearLayout linearLayout = (LinearLayout) findViewById(R.id.fragment_weather_worn_linearlayout);
+                                    TextView tv_form = (TextView) findViewById(R.id.fragment_weather_worn);
+                                    TextView tv_time = (TextView) findViewById(R.id.fragment_weather_worn_time);
                                     linearLayout.setVisibility(View.VISIBLE);
                                     tv_form.setText("\u3000\u3000" + aa.getContent());
                                     tv_time.setText(new SimpleDateFormat("yyyy年MM月dd日 HH:mm").format(aa.getDdate()));
@@ -212,7 +208,7 @@ public class fragment_weather extends Fragment {
         thread_worn.start();
 
         //开启四个线程，操作数据发送handler
-        ProgressDialogUtil.showProgress(getActivity(), "请稍等...");
+        ProgressDialogUtil.showProgress(this, "请稍等...");
         final int[] index = {0};
         Thread mThread = new Thread(new Runnable() {
             @Override
@@ -252,7 +248,7 @@ public class fragment_weather extends Fragment {
     }
 
     private void setUpdateTime() {
-        getActivity().runOnUiThread(new Runnable() {
+        this.runOnUiThread(new Runnable() {
             @Override
             public void run() {
                 String date = "";
@@ -269,17 +265,17 @@ public class fragment_weather extends Fragment {
     }
 
     private void setScrollViewToTop() {
-        getActivity().runOnUiThread(new Runnable() {
+        this.runOnUiThread(new Runnable() {
             @Override
             public void run() {
-                ScrollView scrollview = (ScrollView) getActivity().findViewById(R.id.fragment_weather_scrollview);
+                ScrollView scrollview = (ScrollView) findViewById(R.id.fragment_weather_scrollview);
                 scrollview.smoothScrollTo(0, 0);
             }
         });
     }
 
     private void setweiboData() {
-        ArrayList<javabean_weather_weibo> data = new ArrayList<javabean_weather_weibo>();
+        ArrayList<javabean_weather_weibo> data = new ArrayList<>();
         if (SharePreferenceUtil.getArrayList("weather_weibo", sharePreference, javabean_weather_weibo.class, gson) == null) {
             data = weather_util.getWeiboData();
             if (data == null) {
@@ -300,10 +296,10 @@ public class fragment_weather extends Fragment {
             }
         }
         final ArrayList<javabean_weather_weibo> finalData = data;
-        getActivity().runOnUiThread(new Runnable() {
+        this.runOnUiThread(new Runnable() {
             @Override
             public void run() {
-                listview_weibo.setAdapter(new adapter_weather_weibo(finalData, getActivity()));
+                listview_weibo.setAdapter(new adapter_weather_weibo(finalData, getApplicationContext()));
             }
         });
     }
@@ -335,19 +331,19 @@ public class fragment_weather extends Fragment {
                 R.drawable.weather_shushidu, R.drawable.weather_liangshai, R.drawable.weather_huimai,
                 R.drawable.weather_meibian, R.drawable.weather_yusan,
                 R.drawable.weather_fulizi, R.drawable.weather_jiaotong};
-        final ArrayList<Map<String, Object>> data_list = new ArrayList<Map<String, Object>>();
+        final ArrayList<Map<String, Object>> data_list = new ArrayList<>();
         for (int i = 0; i < icon.length; i++) {
-            Map<String, Object> map = new HashMap<String, Object>();
+            Map<String, Object> map = new HashMap<>();
             map.put("fragment_weather_image", icon[i]);
             map.put("fragment_weather_text", lifeStringData[i]);
             data_list.add(map);
         }
-        getActivity().runOnUiThread(new Runnable() {
+        this.runOnUiThread(new Runnable() {
             @Override
             public void run() {
                 String[] from = {"fragment_weather_image", "fragment_weather_text"};
                 int[] to = {R.id.fragment_weather_image, R.id.fragment_weather_text};
-                SimpleAdapter sim_adapter = new SimpleAdapter(getActivity(), data_list, R.layout.weather_item, from, to);
+                SimpleAdapter sim_adapter = new SimpleAdapter(getApplicationContext(), data_list, R.layout.weather_item, from, to);
                 gridView.setAdapter(sim_adapter);
             }
         });
@@ -378,7 +374,7 @@ public class fragment_weather extends Fragment {
         final String finalAqi = aqi;
         final String finalPm2 = pm25;
         final String finalTitle = title;
-        getActivity().runOnUiThread(new Runnable() {
+        this.runOnUiThread(new Runnable() {
             @Override
             public void run() {
                 tv_aqi.setText(finalAqi);
@@ -397,13 +393,13 @@ public class fragment_weather extends Fragment {
                 handler.sendEmptyMessage(1000);
                 return;
             }
-            getActivity().runOnUiThread(new Runnable() {
+            this.runOnUiThread(new Runnable() {
                 @Override
                 public void run() {
                     Log.i(TAG, "run: 运行到设置glide图片");
-                    imageBackground = (ImageView) getActivity().findViewById(R.id.fragment_weather_background);
-                    Glide.with(getActivity()).load(ResultDataTitleBackground).centerCrop().into(imageBackground);
-                    Log.i("AAAAAA", "run: " + ResultDataTitleBackground.toString());
+                    imageBackground = (ImageView) findViewById(R.id.fragment_weather_background);
+                    Glide.with(getApplicationContext()).load(ResultDataTitleBackground).centerCrop().into(imageBackground);
+                    Log.i("AAAAAA", "run: " + ResultDataTitleBackground);
                 }
             });
         } catch (IOException e) {
@@ -431,7 +427,7 @@ public class fragment_weather extends Fragment {
         }
         final String finalTitle = title;
         final String finalTime = time;
-        getActivity().runOnUiThread(new Runnable() {
+        this.runOnUiThread(new Runnable() {
             @Override
             public void run() {
                 tvShortReport.setText(finalTitle);
@@ -470,7 +466,7 @@ public class fragment_weather extends Fragment {
                 handler.sendEmptyMessage(1000);
             }
         } else {
-            weather_main_pads = new ArrayList<javabean_weather_main_pad>();
+            weather_main_pads = new ArrayList<>();
             temp = SharePreferenceUtil.getString("weather_pad_temp", sharePreference);
             rain = SharePreferenceUtil.getString("weahter_pad_rain", sharePreference);
             now_image = SharePreferenceUtil.getString("weather_pad_now_image", sharePreference);
@@ -489,14 +485,14 @@ public class fragment_weather extends Fragment {
         final String finalNow_image = now_image;
         final String finalRain_image = rain_image;
         final ArrayList<javabean_weather_main_pad> finalWeather_main_pads = weather_main_pads;
-        getActivity().runOnUiThread(new Runnable() {
+        this.runOnUiThread(new Runnable() {
             @Override
             public void run() {
                 tv_temperture.setText(finalTemp + "°C");
                 tv_rain_random.setText(finalRain);
-                Glide.with(getActivity()).load("http://tqyb.com.cn" + finalNow_image).into(imageViewNow);
-                Glide.with(getActivity()).load("http://tqyb.com.cn" + finalRain_image).into(imageViewRain);
-                lv_main.setAdapter(new adapter_weather_main(finalWeather_main_pads, getActivity()));
+                Glide.with(getApplicationContext()).load("http://tqyb.com.cn" + finalNow_image).into(imageViewNow);
+                Glide.with(getApplicationContext()).load("http://tqyb.com.cn" + finalRain_image).into(imageViewRain);
+                lv_main.setAdapter(new adapter_weather_main(finalWeather_main_pads, getApplicationContext()));
             }
         });
     }
@@ -504,32 +500,32 @@ public class fragment_weather extends Fragment {
 
     private void initView() {
         gson = new Gson();
-        weather_more = (LinearLayout) getActivity().findViewById(R.id.fragment_weather_weathermore_linearlayout);
-        nearWeather = (LinearLayout) getActivity().findViewById(R.id.fragment_weather_nearweather_linearlayout);
-        swipe = (SwipeRefreshLayout) getActivity().findViewById(R.id.fragment_weather_swiperefresh);
-        image_refresh = (ImageView) getActivity().findViewById(R.id.fragment_weather_refresh_image);
-        tv_update = (TextView) getActivity().findViewById(R.id.fragment_weather_timeupdate);
-        sharePreference = SharePreferenceUtil.newSharePreference(getActivity(), "weather");
-        listview_weibo = (ListViewForScrollView) getActivity().findViewById(R.id.fragment_weibo_listview);
-        gridView = (GridView) getActivity().findViewById(R.id.fragment_weather_gridview);
-        tv_airTitle = (TextView) getActivity().findViewById(R.id.fragment_weather_quality_title);
-        tv_aqi = (TextView) getActivity().findViewById(R.id.fragment_weather_aqi_textview);
-        tv_pm25 = (TextView) getActivity().findViewById(R.id.fragment_weather_pm25_textview);
-        lv_main = (ListView) getActivity().findViewById(R.id.fragment_weather_main);
-        tvReportTIme = (TextView) getActivity().findViewById(R.id.fragment_weather_reportTime);
-        tvShortReport = (TextView) getActivity().findViewById(R.id.fragment_weather_shortReport);
-        imageViewRain = (ImageView) getActivity().findViewById(R.id.fragment_weather_image_rain);
-        tv_rain_random = (TextView) getActivity().findViewById(R.id.fragment_weather_rain_random_textview);
-        imageViewNow = (ImageView) getActivity().findViewById(R.id.fragment_weather_image_now);
-        tv_temperture = (TextView) getActivity().findViewById(R.id.fragment_weather_temperture_textview);
-        imageBackground = (ImageView) getActivity().findViewById(R.id.fragment_weather_background);
+        weather_more = (LinearLayout) this.findViewById(R.id.fragment_weather_weathermore_linearlayout);
+        nearWeather = (LinearLayout) this.findViewById(R.id.fragment_weather_nearweather_linearlayout);
+        swipe = (SwipeRefreshLayout) this.findViewById(R.id.fragment_weather_swiperefresh);
+        image_refresh = (ImageView) this.findViewById(R.id.fragment_weather_refresh_image);
+        tv_update = (TextView) this.findViewById(R.id.fragment_weather_timeupdate);
+        sharePreference = SharePreferenceUtil.newSharePreference(this, "weather");
+        listview_weibo = (ListViewForScrollView) this.findViewById(R.id.fragment_weibo_listview);
+        gridView = (GridView) this.findViewById(R.id.fragment_weather_gridview);
+        tv_airTitle = (TextView) this.findViewById(R.id.fragment_weather_quality_title);
+        tv_aqi = (TextView) this.findViewById(R.id.fragment_weather_aqi_textview);
+        tv_pm25 = (TextView) this.findViewById(R.id.fragment_weather_pm25_textview);
+        lv_main = (ListView) this.findViewById(R.id.fragment_weather_main);
+        tvReportTIme = (TextView) this.findViewById(R.id.fragment_weather_reportTime);
+        tvShortReport = (TextView) this.findViewById(R.id.fragment_weather_shortReport);
+        imageViewRain = (ImageView) this.findViewById(R.id.fragment_weather_image_rain);
+        tv_rain_random = (TextView) this.findViewById(R.id.fragment_weather_rain_random_textview);
+        imageViewNow = (ImageView) this.findViewById(R.id.fragment_weather_image_now);
+        tv_temperture = (TextView) this.findViewById(R.id.fragment_weather_temperture_textview);
+        imageBackground = (ImageView) this.findViewById(R.id.fragment_weather_background);
     }
 
     // popwindow内容
     private PopupWindow popwindow1;
 
     private void newday_popwindow(View v) {
-        View toolsLayout = LayoutInflater.from(getActivity()).inflate(
+        View toolsLayout = LayoutInflater.from(this).inflate(
                 R.layout.weather_newday_popwindows, null);
         initDataToPopWindows1(toolsLayout);
         popwindow1 = new PopupWindow(toolsLayout, ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT, true);
@@ -553,7 +549,7 @@ public class fragment_weather extends Fragment {
     private PopupWindow popwindow2;
 
     private void weather_more_popwindow(View v) {
-        View toolsLayout = LayoutInflater.from(getActivity()).inflate(
+        View toolsLayout = LayoutInflater.from(this).inflate(
                 R.layout.weather_more_popwindows, null);
         initDataToPopWindows2(toolsLayout, v);
         popwindow2 = new PopupWindow(toolsLayout, ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT, true);
@@ -584,7 +580,7 @@ public class fragment_weather extends Fragment {
                         if (!isSpinnerFirst[0]) {
                             PopupWindow popwindow3;
                             Log.i(TAG, "onItemSelected: " + position);
-                            final View toolsLayout = LayoutInflater.from(getActivity()).inflate(R.layout.weather_popwindows3, null);
+                            final View toolsLayout = LayoutInflater.from(getApplicationContext()).inflate(R.layout.weather_popwindows3, null);
                             popwindow2.dismiss();
                             Thread thread = new Thread(new Runnable() {
                                 @Override
@@ -598,7 +594,7 @@ public class fragment_weather extends Fragment {
                             popwindow3.setOutsideTouchable(true);
                             popwindow3.setFocusable(true);
                             popwindow3.setTouchable(true);
-                            WindowManager manager = getActivity().getWindowManager();
+                            WindowManager manager = getWindowManager();
                             int width = manager.getDefaultDisplay().getWidth();
                             popwindow3.setWidth(width);
                             popwindow3.showAtLocation(v, Gravity.NO_GRAVITY, 0, 20);
@@ -636,16 +632,16 @@ public class fragment_weather extends Fragment {
                     final JSONObject data_qu = (JSONObject) obj.get(Select_qu);//拿到第一个值“GDPY”（这里需要根据选择的spinner来操作）
                     main.setPtime(data_qu.getString("ptime"));//设置javabean
                     //Todo 这里应该设置一个adapter用于显示数据
-                    getActivity().runOnUiThread(new Runnable() {
+                    this.runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
                             TextView tv = (TextView) toolsLayout.findViewById(R.id.fragment_popwindow3_text_main_date);
                             tv.setText("广州市" + spinner.getSelectedItem().toString() + "气象台 " + main.getPtime() + " 发布");
                             GridView gridView = (GridView) toolsLayout.findViewById(R.id.fragment_weather_gridview_popwindwos);
-                            gridView.setAdapter(new adapter_gridView_popwindows(getActivity(), data_qu));
+                            gridView.setAdapter(new adapter_gridView_popwindows(getApplicationContext(), data_qu));
                             ListView listView = (ListView) toolsLayout.findViewById(R.id.fragment_weather_listview_popwindow3);
                             LinearLayout linear = (LinearLayout) toolsLayout.findViewById(R.id.fragment_weather_popwindow3_linearlayout);
-                            listView.setAdapter(new adapter_listview_popwindow3(getActivity(), data_qu, new Date().getHours()));
+                            listView.setAdapter(new adapter_listview_popwindow3(getApplicationContext(), data_qu, new Date().getHours()));
                             linear.setVisibility(View.VISIBLE);
                         }
                     });
@@ -653,8 +649,6 @@ public class fragment_weather extends Fragment {
                     e.printStackTrace();
                 }
             }
-        } catch (MalformedURLException e) {
-            e.printStackTrace();
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -699,7 +693,7 @@ public class fragment_weather extends Fragment {
             @Override
             public void run() {
                 bean[0] = weather_util.getPopwindow1(gson);
-                getActivity().runOnUiThread(new Runnable() {
+                runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
                         pop1_title.setText(bean[0].getWeatherAnalysis().getTitle());
@@ -718,8 +712,11 @@ public class fragment_weather extends Fragment {
 
     // 背景透明度
     public void backgroundAlpha(float bgAlpha) {
-        WindowManager.LayoutParams lp = getActivity().getWindow().getAttributes();
+        WindowManager.LayoutParams lp = this.getWindow().getAttributes();
         lp.alpha = bgAlpha; // 0.0-1.0
-        getActivity().getWindow().setAttributes(lp);
+        this.getWindow().setAttributes(lp);
+    }
+    public void alter(String str){
+        AlerterUtil.noTitleAlertrrr(this, str, R.drawable.alerter_ic_face);
     }
 }

@@ -5,7 +5,6 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.List;
-import java.util.logging.Handler;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
@@ -23,14 +22,11 @@ import android.support.v4.app.FragmentTransaction;
 import android.support.v4.widget.DrawerLayout;
 import android.util.Log;
 import android.view.MenuItem;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.Window;
-import android.view.WindowInsets;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -42,7 +38,6 @@ import com.example.ronny_xie.gdcp.loginActivity.MyApplication;
 import com.example.ronny_xie.gdcp.loginActivity.WelcomePage;
 import com.example.ronny_xie.gdcp.loginActivity.login;
 import com.example.ronny_xie.gdcp.util.SharePreferenceUtil;
-import com.example.ronny_xie.gdcp.view.CicrcularImageView;
 import com.gotye.api.GotyeAPI;
 import com.gotye.api.GotyeChatTargetType;
 import com.gotye.api.GotyeDelegate;
@@ -52,18 +47,11 @@ import com.gotye.api.GotyeMessageStatus;
 import com.gotye.api.GotyeNotify;
 import com.gotye.api.GotyeStatusCode;
 import com.gotye.api.GotyeUser;
-import com.oguzdev.circularfloatingactionmenu.library.FloatingActionButton;
-import com.oguzdev.circularfloatingactionmenu.library.FloatingActionMenu;
-import com.oguzdev.circularfloatingactionmenu.library.SubActionButton;
-import com.slidingmenu.lib.SlidingMenu;
-import com.slidingmenu.lib.SlidingMenu.OnOpenListener;
-import com.example.ronny_xie.gdcp.schedule.fragment_schedule;
+import com.example.ronny_xie.gdcp.MoreActivity.schedule.fragment_schedule;
 import com.example.ronny_xie.gdcp.util.BeepManager;
 import com.example.ronny_xie.gdcp.util.BitmapUtil;
 import com.example.ronny_xie.gdcp.util.ImageCache;
 import com.example.ronny_xie.gdcp.util.ToastUtil;
-import com.example.ronny_xie.gdcp.util.URIUtil;
-import com.example.ronny_xie.gdcp.util.menu_backgroundUtils;
 import com.example.ronny_xie.gdcp.Fragment.ContactsFragment;
 import com.example.ronny_xie.gdcp.Fragment.MessageFragment;
 import com.example.ronny_xie.gdcp.Fragment.SettingFragment;
@@ -74,13 +62,11 @@ import com.example.ronny_xie.gdcp.Fragment.fragment_card;
 import com.example.ronny_xie.gdcp.shop.fragment_shop;
 
 
-
 public class MainActivity extends FragmentActivity {
     private MessageFragment messageFragment;
     private ContactsFragment contactsFragment;
     private SettingFragment settingFragment;
     private fragment_weather fragment_weather;
-    private fragment_schedule fragment_schedule;
     private fragment_competerRoom fragment_competerRoom;
     private fragment_jw fragment_jw;
     private fragment_card fragment_card;
@@ -126,7 +112,7 @@ public class MainActivity extends FragmentActivity {
         forModify.setGender(user.getGender());
         String headPath = null;
         int code = api.reqModifyUserInfo(forModify, headPath);
-        Log.i(TAG, "initUserInfo: "+userName);
+        Log.i(TAG, "initUserInfo: " + userName);
         Log.i(TAG, "initUserInfo: " + user.getNickname());
         Log.i(TAG, "initUserInfo: " + user.getName());
         Log.d("initText", "" + code);
@@ -190,24 +176,16 @@ public class MainActivity extends FragmentActivity {
                     case R.id.nav_contacts:
                         nav_select(1);
                         break;
-                    case R.id.nav_schedule:
+                    case R.id.nav_computerroom:
                         nav_select(3);
                         break;
-                    case R.id.nav_weather:
-                        nav_select(4);
-                        break;
-                    case R.id.nav_computerroom:
-                        nav_select(5);
-                        break;
-                    case R.id.nav_shop:
-                        nav_select(6);
-                        break;
+
                     case R.id.nav_jw2012:
-                        nav_select(7);
+                        nav_select(4);
                         break;
                     case R.id.nav_card:
 //                        nav_select(8);
-                        Intent intentCardLogin = new Intent(getApplicationContext(),card_login.class);
+                        Intent intentCardLogin = new Intent(getApplicationContext(), card_login.class);
                         startActivity(intentCardLogin);
                         break;
                     case R.id.nav_more:
@@ -245,8 +223,8 @@ public class MainActivity extends FragmentActivity {
 //        id.setText(user.getName());
     }
 
-    Fragment fragment_list[] = {messageFragment, contactsFragment, settingFragment, fragment_schedule, fragment_weather,
-            fragment_competerRoom, fragment_shop, fragment_jw, fragment_card};
+    Fragment fragment_list[] = {messageFragment, contactsFragment, settingFragment,
+            fragment_competerRoom,  fragment_jw};
     Fragment lastFragment;
 
     public void nav_select(int i) {
@@ -259,17 +237,9 @@ public class MainActivity extends FragmentActivity {
             } else if (i == 2) {
                 fragment_list[i] = new SettingFragment();
             } else if (i == 3) {
-                fragment_list[i] = new fragment_schedule();
-            } else if (i == 4) {
-                fragment_list[i] = new fragment_weather();
-            } else if (i == 5) {
                 fragment_list[i] = new fragment_competerRoom();
-            } else if (i == 6) {
-                fragment_list[i] = new fragment_shop();
-            } else if (i == 7) {
+            }else if (i == 4) {
                 fragment_list[i] = new fragment_jw();
-            } else if (i == 8) {
-                fragment_list[i] = new fragment_card();
             }
             transaction.add(R.id.content, fragment_list[i]);
         } else {
@@ -285,7 +255,7 @@ public class MainActivity extends FragmentActivity {
         if (lastFragment != null) {
             if (lastFragment != fragment_list[i]) {
                 transaction.hide(lastFragment);
-                if(settingFragment!=null){
+                if (settingFragment != null) {
                     transaction.hide(settingFragment);
                 }
                 Glide.get(getApplicationContext()).clearMemory();
@@ -502,7 +472,7 @@ public class MainActivity extends FragmentActivity {
         public void onModifyUserInfo(int code, GotyeUser user) {
             Log.i(TAG, "onModifyUserInfo: " + code);
             if (code == 0) {
-                Log.i(TAG, "initUserInfo2: "+userName);
+                Log.i(TAG, "initUserInfo2: " + userName);
                 Log.i(TAG, "initUserInfo2: " + user.getNickname());
                 Log.i(TAG, "initUserInfo2: " + user.getName());
             } else {

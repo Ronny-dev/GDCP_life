@@ -1,4 +1,4 @@
-package com.example.ronny_xie.gdcp.schedule;
+package com.example.ronny_xie.gdcp.MoreActivity.schedule;
 
 import android.content.Context;
 import android.database.Cursor;
@@ -7,7 +7,7 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
 
-import com.example.ronny_xie.gdcp.schedule.db.DBService;
+import com.example.ronny_xie.gdcp.MoreActivity.schedule.db.DBService;
 
 import java.util.ArrayList;
 

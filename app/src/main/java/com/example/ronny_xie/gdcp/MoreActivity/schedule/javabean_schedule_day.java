@@ -1,4 +1,4 @@
-package com.example.ronny_xie.gdcp.schedule;
+package com.example.ronny_xie.gdcp.MoreActivity.schedule;
 
 /**
  * Created by ronny_xie on 2017/2/5.

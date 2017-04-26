@@ -1,4 +1,4 @@
-package com.example.ronny_xie.gdcp.schedule.db;
+package com.example.ronny_xie.gdcp.MoreActivity.schedule.db;
 
 import java.util.Date;
 

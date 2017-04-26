@@ -1,5 +1,6 @@
-package com.example.ronny_xie.gdcp.schedule;
+package com.example.ronny_xie.gdcp.MoreActivity.schedule;
 
+import android.app.Activity;
 import android.app.AlarmManager;
 import android.content.Context;
 import android.graphics.Color;
@@ -19,7 +20,7 @@ import android.widget.TextView;
 
 import com.example.ronny_xie.gdcp.AsynkTask.weather_util;
 import com.example.ronny_xie.gdcp.R;
-import com.example.ronny_xie.gdcp.schedule.db.DBService;
+import com.example.ronny_xie.gdcp.MoreActivity.schedule.db.DBService;
 import com.example.ronny_xie.gdcp.util.ToastUtil;
 import com.google.gson.Gson;
 
@@ -36,39 +37,35 @@ import java.util.Date;
  * Created by ronny_xie on 2017/2/3.
  */
 
-public class fragment_schedule extends Fragment {
+public class fragment_schedule extends Activity {
     public static DBService dbService = null;// 数据访问对象
     public AlarmManager am;// 消息管理者
     private static final String TAG = "fragment_schedule";
     private adapter_schedule adapter_schedule;
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        return View.inflate(getActivity(), R.layout.fragment_schedule, null);
-    }
-
-    @Override
-    public void onActivityCreated(Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.fragment_schedule);
         initTitleShowDay();
         initListView();
         initButton();
-        super.onActivityCreated(savedInstanceState);
     }
 
     private void initButton() {
-        Button myButton = (Button) getActivity().findViewById(R.id.fragment_schedule_button);
+        Button myButton = (Button) findViewById(R.id.fragment_schedule_button);
         myButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 {
                     final PopupWindow popwindow3;
-                    final View toolsLayout = LayoutInflater.from(getActivity()).inflate(R.layout.fragment_schedule_popwindows, null);
+                    final View toolsLayout = LayoutInflater.from(getApplicationContext()).inflate(R.layout.fragment_schedule_popwindows, null);
                     popwindow3 = new PopupWindow(toolsLayout, ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT, true);
                     popwindow3.setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
                     popwindow3.setOutsideTouchable(true);
                     popwindow3.setFocusable(true);
                     popwindow3.setTouchable(true);
-                    WindowManager manager = getActivity().getWindowManager();
+                    WindowManager manager = getWindowManager();
                     int width = manager.getDefaultDisplay().getWidth();
                     popwindow3.setWidth(width);
                     popwindow3.showAtLocation(v, Gravity.CENTER, 0, 0);
@@ -97,23 +94,23 @@ public class fragment_schedule extends Fragment {
     }
 
     private void initListView() {
-        ListView myListView = (ListView) getActivity().findViewById(R.id.fragment_schedule_listview);
+        ListView myListView = (ListView) this.findViewById(R.id.fragment_schedule_listview);
         if (dbService == null) {
-            dbService = new DBService(getActivity());
+            dbService = new DBService(this);
         }
         if (am == null) {
-            am = (AlarmManager) getActivity().getSystemService(Context.ALARM_SERVICE);
+            am = (AlarmManager) this.getSystemService(Context.ALARM_SERVICE);
         }
-        adapter_schedule = new adapter_schedule(getActivity());
+        adapter_schedule = new adapter_schedule(this);
         myListView.setAdapter(adapter_schedule);
     }
 
     //初始化标题读取数据
     private void initTitleShowDay() {
-        final TextView tv_day = (TextView) getActivity().findViewById(R.id.fragment_schedule_day);
-        final TextView tv_month = (TextView) getActivity().findViewById(R.id.fragment_schedule_month);
-        final TextView tv_weekend = (TextView) getActivity().findViewById(R.id.fragment_schedule_weekend);
-        final TextView tv_nongli = (TextView) getActivity().findViewById(R.id.fragment_schedule_nongli);
+        final TextView tv_day = (TextView) this.findViewById(R.id.fragment_schedule_day);
+        final TextView tv_month = (TextView) this.findViewById(R.id.fragment_schedule_month);
+        final TextView tv_weekend = (TextView) this.findViewById(R.id.fragment_schedule_weekend);
+        final TextView tv_nongli = (TextView) this.findViewById(R.id.fragment_schedule_nongli);
 
         Thread thread = new Thread(new Runnable() {
             @Override
@@ -124,7 +121,7 @@ public class fragment_schedule extends Fragment {
                 Log.i(TAG, "run: " + titleData);
                 Gson gson = new Gson();
                 final javabean_schedule_day data = gson.fromJson(titleData, javabean_schedule_day.class);
-                getActivity().runOnUiThread(new Runnable() {
+                runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
                         if (data != null) {
@@ -134,7 +131,7 @@ public class fragment_schedule extends Fragment {
                             tv_nongli.setText(data.getResult().getYinli());
                             tv_weekend.setText(new SimpleDateFormat("EEEE").format(date));
                         } else {
-                            ToastUtil.show(getActivity(), "连接服务器失败！");
+                            ToastUtil.show(getApplicationContext(), "连接服务器失败！");
                         }
                     }
                 });
@@ -164,8 +161,8 @@ public class fragment_schedule extends Fragment {
 
     // 背景透明度
     public void backgroundAlpha(float bgAlpha) {
-        WindowManager.LayoutParams lp = getActivity().getWindow().getAttributes();
+        WindowManager.LayoutParams lp = this.getWindow().getAttributes();
         lp.alpha = bgAlpha; // 0.0-1.0
-        getActivity().getWindow().setAttributes(lp);
+        this.getWindow().setAttributes(lp);
     }
 }

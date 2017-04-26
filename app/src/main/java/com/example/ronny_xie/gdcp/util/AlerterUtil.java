@@ -16,4 +16,5 @@ public class AlerterUtil {
     public static void TitleAlerter(Activity context,String title, String content,int icon) {
         Alerter.create(context).setTitle(title).setText(content).setIcon(icon).setBackgroundColor(R.color.app_color).setDuration(1000).show();
     }
+
 }

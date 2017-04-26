@@ -75,7 +75,7 @@
             android:orientation="vertical">
 
             <RelativeLayout
-                android:id="@+id/layoutVideo"
+                android:id="@+id/layoutschedule"
                 android:layout_width="match_parent"
                 android:layout_height="60dp"
                 android:background="@drawable/nestedscroll_layout_clickable"
@@ -95,7 +95,7 @@
                     android:layout_marginLeft="32dp"
                     android:layout_toRightOf="@+id/imageView"
                     android:gravity="center_vertical"
-                    android:text="播放视频(本地)" />
+                    android:text="日程管理" />
 
                 <ImageView
                     android:layout_width="wrap_content"
@@ -112,7 +112,7 @@
                 android:background="@android:color/darker_gray" />
 
             <RelativeLayout
-                android:id="@+id/layoutBarCode"
+                android:id="@+id/layoutweather"
                 android:layout_width="match_parent"
                 android:layout_height="60dp"
                 android:background="@drawable/nestedscroll_layout_clickable"
@@ -132,7 +132,7 @@
                     android:layout_marginLeft="32dp"
                     android:layout_toRightOf="@+id/imageViewBar"
                     android:gravity="center_vertical"
-                    android:text="扫码" />
+                    android:text="天气" />
 
                 <ImageView
                     android:layout_width="wrap_content"
@@ -149,7 +149,7 @@
                 android:background="@android:color/darker_gray" />
 
             <RelativeLayout
-                android:id="@+id/layoutCreateBarCode"
+                android:id="@+id/layoutshop"
                 android:layout_width="match_parent"
                 android:layout_height="60dp"
                 android:background="@drawable/nestedscroll_layout_clickable"
@@ -169,7 +169,7 @@
                     android:layout_marginLeft="32dp"
                     android:layout_toRightOf="@+id/imageViewBarCode"
                     android:gravity="center_vertical"
-                    android:text="生成二维码" />
+                    android:text="购物" />
 
                 <ImageView
                     android:layout_width="wrap_content"
