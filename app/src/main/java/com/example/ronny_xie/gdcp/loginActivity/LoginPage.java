@@ -28,22 +28,16 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
-import android.widget.TextView;
 import android.widget.Toast;
-
 import com.example.ronny_xie.gdcp.R;
-import com.example.ronny_xie.gdcp.mainActivity.MainActivity;
 import com.example.ronny_xie.gdcp.util.ProgressDialogUtil;
 import com.example.ronny_xie.gdcp.util.SharePreferenceUtil;
 import com.example.ronny_xie.gdcp.util.ToastUtil;
-import com.gotye.api.GotyeAPI;
-import com.gotye.api.GotyeUser;
-
 import developer.shivam.library.DiagonalView;
 
 
 public class LoginPage extends Fragment {
-    Button mButLogin, mButLogout;
+    Button mButLogin;
     EditText mEdtName, mEdtPsd;
     String mUsername;
     String mPassword;
@@ -60,8 +54,7 @@ public class LoginPage extends Fragment {
     private DiagonalView diagonal_bottom;
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.layout_login, null);
         return view;
     }
@@ -72,6 +65,7 @@ public class LoginPage extends Fragment {
         httpClient = new DefaultHttpClient();
         ProgressDialogUtil.showProgress(getActivity(), "正在连接..请稍后");
         initView();
+        initBtnListener();
         handler = new Handler() {
             public void handleMessage(android.os.Message msg) {
                 if (msg.what == 1) {
@@ -79,7 +73,6 @@ public class LoginPage extends Fragment {
                     ProgressDialogUtil.dismiss();
                 } else if (msg.what == 2) {
                     if (checkUser()) {
-
                         // 登录的时候要传入登录监听，当重复登录时会直接返回登录状态
                         saveUser(LoginPage.this.getActivity(), mUsername,
                                 mEdtPsd.getText().toString().trim(), false);
@@ -135,6 +128,50 @@ public class LoginPage extends Fragment {
         });
         thread.start();
         initAnimation();
+    }
+
+    private void initBtnListener() {
+        mButLogin.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View arg0) {
+                initButton();
+                ProgressDialogUtil.showProgress(getActivity(), "正在登录...请稍后");
+                Thread thread = new Thread(new Runnable() {
+
+                    @Override
+                    public void run() {
+                        String mUser = mEdtName.getText().toString().trim();
+                        String mCode = code.getText().toString().trim();
+                        String mpass = mEdtPsd.getText().toString().trim();
+                        String[] arr = {mUser, mpass, mCode};
+                        int b = ConnInterface.ClickIn(httpClient, arr, values,
+                                handler);
+                        if (b == 1) {
+                            handler.sendEmptyMessage(2);
+                            ProgressDialogUtil.dismiss();
+                        }
+                        if (b == -1) {
+                            handler.sendEmptyMessage(3);
+                            ProgressDialogUtil.dismiss();
+                        }
+                    }
+                });
+                thread.start();
+            }
+
+            private void initButton() {
+                if (mEdtName.getText().toString().trim().equals("")) {
+                    ToastUtil.show(getActivity(), "请输入用户ID");
+                    return;
+                } else if (mEdtPsd.getText().toString().trim().equals("")) {
+                    ToastUtil.show(getActivity(), "请输入密码");
+                    return;
+                } else if (code.getText().toString().trim().equals("")) {
+                    ToastUtil.show(getActivity(), "请输入验证码");
+                    return;
+                }
+            }
+        });
     }
 
     private void initAnimation() {
@@ -200,48 +237,6 @@ public class LoginPage extends Fragment {
             mEdtName.setText(hasUserName);
             mEdtName.setSelection(mEdtName.getText().length());
         }
-
-        mButLogin.setOnClickListener(new OnClickListener() {
-            @Override
-            public void onClick(View arg0) {
-                initButton();
-                ProgressDialogUtil.showProgress(getActivity(), "正在登录...请稍后");
-                Thread thread = new Thread(new Runnable() {
-
-                    @Override
-                    public void run() {
-                        String mUser = mEdtName.getText().toString().trim();
-                        String mCode = code.getText().toString().trim();
-                        String mpass = mEdtPsd.getText().toString().trim();
-                        String[] arr = {mUser, mpass, mCode};
-                        int b = ConnInterface.ClickIn(httpClient, arr, values,
-                                handler);
-                        if (b == 1) {
-                            handler.sendEmptyMessage(2);
-                            ProgressDialogUtil.dismiss();
-                        }
-                        if (b == -1) {
-                            handler.sendEmptyMessage(3);
-                            ProgressDialogUtil.dismiss();
-                        }
-                    }
-                });
-                thread.start();
-            }
-
-            private void initButton() {
-                if (mEdtName.getText().toString().trim().equals("")) {
-                    ToastUtil.show(getActivity(), "请输入用户ID");
-                    return;
-                } else if (mEdtPsd.getText().toString().trim().equals("")) {
-                    ToastUtil.show(getActivity(), "请输入密码");
-                    return;
-                } else if (code.getText().toString().trim().equals("")) {
-                    ToastUtil.show(getActivity(), "请输入验证码");
-                    return;
-                }
-            }
-        });
     }
 
     private void bringViewToFront() {

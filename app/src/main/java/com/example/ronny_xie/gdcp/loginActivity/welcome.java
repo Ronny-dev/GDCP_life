@@ -26,15 +26,19 @@ public class welcome extends Activity implements OnGestureListener {
 		requestWindowFeature(Window.FEATURE_NO_TITLE);
 		setContentView(R.layout.welcome);
 		super.onCreate(savedInstanceState);
+
+		//初始化聊天服务器
 		GotyeAPI.getInstance().init(this, MyApplication.APPKEY);
 		int state = GotyeAPI.getInstance().isOnline();
-		GotyeUser us = GotyeAPI.getInstance().getLoginUser();
+		GotyeAPI.getInstance().getLoginUser();
+
+		//获取对象是否登陆
 		String user1[] = LoginPage.getUser(welcome.this);
 		String hasUserName = user1[0];
 		boolean hasLogin = MyApplication.getHasLogin(this);
 		if (hasUserName != null && hasLogin == true) {
-			if (state == GotyeUser.NETSTATE_ONLINE
-					|| state == GotyeUser.NETSTATE_OFFLINE) {
+			if (state == GotyeUser.NETSTATE_ONLINE|| state == GotyeUser.NETSTATE_OFFLINE) {
+				//已经登陆的情况
 				Intent i = new Intent(this, MainActivity.class);
 				startActivity(i);
 				// 启动service保存service长期活动

@@ -40,12 +40,13 @@ public class WelcomePage extends FragmentActivity implements OnGestureListener {
 		GotyeAPI.getInstance().addListener(mDelegate);
 		loginPage = new LoginPage();
 		//显示login Fragment
-		showLogin();
+//		showLogin();
 		mGesture = new GestureDetector(this, this);
 	}
 
 	@Override
 	public void onBackPressed() {
+		GotyeAPI.getInstance().removeListener(mDelegate);
 		super.onBackPressed();
 		finish();
 	}
@@ -105,23 +106,23 @@ public class WelcomePage extends FragmentActivity implements OnGestureListener {
 	}
 	
 	private GotyeDelegate mDelegate = new GotyeDelegate(){
-		
+
 		public void onLogin(int code, GotyeUser user) {
 			ProgressDialogUtil.dismiss();
 			// 判断登陆是否成功
 			if (code == GotyeStatusCode.CodeOK //0
 					|| code == GotyeStatusCode.CodeReloginOK //5
 					|| code == GotyeStatusCode.CodeOfflineLoginOK) {  //6
-				
+
 				// 传入已登过的状态
 				String user1[] = LoginPage.getUser(WelcomePage.this);
 				String hasUserName = user1[0];
 				String hasPassWord = user1[1];
 				LoginPage.saveUser(WelcomePage.this, hasUserName, hasPassWord, true);
-				
+
 				Intent i = new Intent(WelcomePage.this, MainActivity.class);
 				startActivity(i);
-				
+
 				if (code == GotyeStatusCode.CodeOfflineLoginOK) {
 					Toast.makeText(WelcomePage.this, "您当前处于离线状态", Toast.LENGTH_SHORT).show();
 				} else if (code == GotyeStatusCode.CodeOK) {
@@ -141,4 +142,5 @@ public class WelcomePage extends FragmentActivity implements OnGestureListener {
 		public void onReconnecting(int code, GotyeUser currentLoginUser) {
 		}
 	};
+
 }
