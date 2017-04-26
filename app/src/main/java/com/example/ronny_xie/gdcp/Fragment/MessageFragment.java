@@ -20,7 +20,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.View.OnClickListener;
-import android.view.ViewGroup.LayoutParams;
 import android.view.WindowManager;
 import android.widget.AdapterView;
 import android.widget.EditText;
@@ -46,24 +45,22 @@ import com.example.ronny_xie.gdcp.view.SwipeMenuCreator;
 import com.example.ronny_xie.gdcp.view.SwipeMenuItem;
 import com.example.ronny_xie.gdcp.view.SwipeMenuListView;
 import com.example.ronny_xie.gdcp.view.SwipeMenuListView.OnMenuItemClickListener;
-import com.example.ronny_xie.gdcp.activity.ChatPage;
-import com.example.ronny_xie.gdcp.activity.CreateGroupSelectUser;
-import com.example.ronny_xie.gdcp.activity.NotifyListPage;
-import com.example.ronny_xie.gdcp.activity.SearchPage;
-import com.example.ronny_xie.gdcp.adapter.MessageListAdapter;
+import com.example.ronny_xie.gdcp.Fragment.chat.page.ChatPage;
+import com.example.ronny_xie.gdcp.Fragment.chat.CreateGroupSelectUser;
+import com.example.ronny_xie.gdcp.Fragment.chat.page.NotifyListPage;
+import com.example.ronny_xie.gdcp.Fragment.chat.page.SearchPage;
+import com.example.ronny_xie.gdcp.Fragment.chat.adapter.MessageListAdapter;
 import com.oguzdev.circularfloatingactionmenu.library.FloatingActionButton;
 import com.oguzdev.circularfloatingactionmenu.library.FloatingActionMenu;
 import com.oguzdev.circularfloatingactionmenu.library.SubActionButton;
 
-import static android.R.attr.action;
-
 
 //此页面为回话历史页面，由客户端自己实现
 @SuppressLint("NewApi")
-public class MessageFragment extends Fragment {
+public class messageFragment extends Fragment {
     private SwipeMenuListView listView;
     private MessageListAdapter adapter;
-    private static final String TAG = "MessageFragment";
+    private static final String TAG = "messageFragment";
     public static final String fixName = "通知列表";
     private GotyeAPI api = GotyeAPI.getInstance();
     private FloatingActionMenu actionMenu;
@@ -295,7 +292,7 @@ public class MessageFragment extends Fragment {
             sessions.add(0, target);
         }
         if (adapter == null) {
-            adapter = new MessageListAdapter(MessageFragment.this, sessions);
+            adapter = new MessageListAdapter(messageFragment.this, sessions);
             listView.setAdapter(adapter);
         } else {
             adapter.setData(sessions);

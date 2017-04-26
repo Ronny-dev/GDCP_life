@@ -13,7 +13,7 @@ import android.content.pm.ResolveInfo;
 public class AppUtil {
 	public static String getTopAppPackage(Context context) {
 		ActivityManager activityManager = (ActivityManager) context.getApplicationContext()
-				.getSystemService("activity");
+				.getSystemService("Chatactivity");
 		RunningTaskInfo currentRun = activityManager.getRunningTasks(1).get(0);
 		ComponentName nowApp = currentRun.topActivity;
 		String packname = nowApp.getPackageName();

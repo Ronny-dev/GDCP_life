@@ -31,9 +31,10 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
+import com.example.ronny_xie.gdcp.Fragment.cardFragment;
+import com.example.ronny_xie.gdcp.Fragment.settingFragment;
 import com.example.ronny_xie.gdcp.R;
-import com.example.ronny_xie.gdcp.activity.MoreApplication;
-import com.example.ronny_xie.gdcp.card.card_login;
+import com.example.ronny_xie.gdcp.MoreActivity.MoreApplication;
 import com.example.ronny_xie.gdcp.loginActivity.MyApplication;
 import com.example.ronny_xie.gdcp.loginActivity.WelcomePage;
 import com.example.ronny_xie.gdcp.loginActivity.login;
@@ -47,29 +48,25 @@ import com.gotye.api.GotyeMessageStatus;
 import com.gotye.api.GotyeNotify;
 import com.gotye.api.GotyeStatusCode;
 import com.gotye.api.GotyeUser;
-import com.example.ronny_xie.gdcp.MoreActivity.schedule.fragment_schedule;
 import com.example.ronny_xie.gdcp.util.BeepManager;
 import com.example.ronny_xie.gdcp.util.BitmapUtil;
 import com.example.ronny_xie.gdcp.util.ImageCache;
 import com.example.ronny_xie.gdcp.util.ToastUtil;
-import com.example.ronny_xie.gdcp.Fragment.ContactsFragment;
-import com.example.ronny_xie.gdcp.Fragment.MessageFragment;
-import com.example.ronny_xie.gdcp.Fragment.SettingFragment;
-import com.example.ronny_xie.gdcp.Fragment.fragment_weather;
-import com.example.ronny_xie.gdcp.Fragment.fragment_competerRoom;
-import com.example.ronny_xie.gdcp.Fragment.fragment_jw;
-import com.example.ronny_xie.gdcp.Fragment.fragment_card;
-import com.example.ronny_xie.gdcp.shop.fragment_shop;
+import com.example.ronny_xie.gdcp.Fragment.contactsFragment;
+import com.example.ronny_xie.gdcp.Fragment.messageFragment;
+import com.example.ronny_xie.gdcp.MoreActivity.WeatherActivity.fragment_weather;
+import com.example.ronny_xie.gdcp.Fragment.tranroomFragment;
+import com.example.ronny_xie.gdcp.Fragment.jwFragment;
+import com.example.ronny_xie.gdcp.MoreActivity.ShopActivity.fragment_shop;
 
 
 public class MainActivity extends FragmentActivity {
-    private MessageFragment messageFragment;
-    private ContactsFragment contactsFragment;
-    private SettingFragment settingFragment;
+    private com.example.ronny_xie.gdcp.Fragment.messageFragment messageFragment;
+    private com.example.ronny_xie.gdcp.Fragment.contactsFragment contactsFragment;
+    private com.example.ronny_xie.gdcp.Fragment.settingFragment settingFragment;
     private fragment_weather fragment_weather;
-    private fragment_competerRoom fragment_competerRoom;
-    private fragment_jw fragment_jw;
-    private fragment_card fragment_card;
+    private tranroomFragment tranroomFragment;
+    private jwFragment jwFragment;
     private fragment_shop fragment_shop;
     private FragmentManager fragmentManager;
     private FragmentTransaction transaction;
@@ -185,7 +182,7 @@ public class MainActivity extends FragmentActivity {
                         break;
                     case R.id.nav_card:
 //                        nav_select(8);
-                        Intent intentCardLogin = new Intent(getApplicationContext(), card_login.class);
+                        Intent intentCardLogin = new Intent(getApplicationContext(), cardFragment.class);
                         startActivity(intentCardLogin);
                         break;
                     case R.id.nav_more:
@@ -224,22 +221,22 @@ public class MainActivity extends FragmentActivity {
     }
 
     Fragment fragment_list[] = {messageFragment, contactsFragment, settingFragment,
-            fragment_competerRoom,  fragment_jw};
+            tranroomFragment, jwFragment};
     Fragment lastFragment;
 
     public void nav_select(int i) {
         transaction = fragmentManager.beginTransaction();
         if (fragment_list[i] == null) {
             if (i == 0) {
-                fragment_list[i] = new MessageFragment();
+                fragment_list[i] = new messageFragment();
             } else if (i == 1) {
-                fragment_list[i] = new ContactsFragment();
+                fragment_list[i] = new contactsFragment();
             } else if (i == 2) {
-                fragment_list[i] = new SettingFragment();
+                fragment_list[i] = new settingFragment();
             } else if (i == 3) {
-                fragment_list[i] = new fragment_competerRoom();
+                fragment_list[i] = new tranroomFragment();
             }else if (i == 4) {
-                fragment_list[i] = new fragment_jw();
+                fragment_list[i] = new jwFragment();
             }
             transaction.add(R.id.content, fragment_list[i]);
         } else {
@@ -299,7 +296,7 @@ public class MainActivity extends FragmentActivity {
         switch (index) {
             case 0:
                 if (messageFragment == null) {
-                    messageFragment = new MessageFragment();
+                    messageFragment = new messageFragment();
                     transaction.add(R.id.content, messageFragment);
                     lastFragment = messageFragment;
                 } else {
@@ -308,7 +305,7 @@ public class MainActivity extends FragmentActivity {
                 break;
             case 1:
                 if (contactsFragment == null) {
-                    contactsFragment = new ContactsFragment();
+                    contactsFragment = new contactsFragment();
                     transaction.add(R.id.content, contactsFragment);
                     lastFragment = messageFragment;
                 } else {
@@ -318,7 +315,7 @@ public class MainActivity extends FragmentActivity {
             case 2:
             default:
                 if (settingFragment == null) {
-                    settingFragment = new SettingFragment();
+                    settingFragment = new settingFragment();
                     transaction.add(R.id.content, settingFragment);
                     lastFragment = messageFragment;
                 } else {

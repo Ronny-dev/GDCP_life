@@ -53,68 +53,68 @@
             android:label="@string/app_name"
             android:screenOrientation="portrait"></activity>
         <activity
-            android:name=".activity.CreateGroupSelectUser"
+            android:name=".Fragment.chat.CreateGroupSelectUser"
             android:label="@string/app_name"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateHidden|adjustResize"></activity>
         <activity
-            android:name=".activity.GroupRoomListPage"
+            android:name=".Fragment.chat.page.GroupRoomListPage"
             android:label="@string/app_name"
             android:launchMode="singleTask"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateHidden|adjustResize"></activity>
         <activity
-            android:name=".activity.GroupInfoPage"
+            android:name=".Fragment.chat.page.GroupInfoPage"
             android:label="@string/app_name"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateHidden|adjustResize"></activity>
 
         <activity
-            android:name=".activity.UserInfoPage"
+            android:name=".Fragment.chat.page.UserInfoPage"
             android:label="@string/app_name"
             android:launchMode="singleTask"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateHidden|adjustResize"></activity>
         <activity
-            android:name=".activity.RoomInfoPage"
+            android:name=".Fragment.chat.page.RoomInfoPage"
             android:label="@string/app_name"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateHidden|adjustResize"></activity>
         <activity
-            android:name=".activity.ChatPage"
+            android:name=".Fragment.chat.page.ChatPage"
             android:label="@string/app_name"
             android:launchMode="singleTask"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateHidden|adjustResize"></activity>
         <activity
-            android:name=".activity.SearchPage"
+            android:name=".Fragment.chat.page.SearchPage"
             android:label="@string/app_name"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateHidden|adjustResize"></activity>
         <activity
-            android:name=".activity.NotifyListPage"
+            android:name=".Fragment.chat.page.NotifyListPage"
             android:label="@string/app_name"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateHidden|adjustResize"></activity>
 
         <activity
-            android:name=".activity.ShowBigImage"
+            android:name=".Fragment.chat.ShowBigImage"
             android:label="@string/app_name"
             android:launchMode="singleTop"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateHidden|adjustResize"></activity>
-        <activity android:name=".shop.shopActivity2"></activity>
-        <activity android:name=".jw2012Syetem.jw_main"></activity>
-        <activity android:name=".jw2012Syetem.MywebView"></activity>
-        <activity android:name=".card.CardActivity"></activity>
-        <activity android:name=".jw2012Syetem.jwxscj_activity"></activity>
-        <activity android:name=".jw2012Syetem.jwxskb_activity"></activity>
-        <activity android:name=".jw2012Syetem.jwxsxx_activity"></activity>
-        <activity android:name=".card.card_login"></activity>
-        <activity android:name=".MoreActivity.schedule.fragment_schedule"></activity>
-        <activity android:name=".Fragment.fragment_weather"></activity>
-        <activity android:name=".shop.fragment_shop"></activity>
-        <activity android:name=".activity.MoreApplication"
+        <activity android:name=".MoreActivity.ShopActivity.shopActivity2"></activity>
+        <activity android:name=".Fragment.jw2012SyetemFragment.page.jw_main_page"></activity>
+        <activity android:name=".Fragment.jw2012SyetemFragment.MywebView"></activity>
+        <activity android:name=".Fragment.card.CardActivity"></activity>
+        <activity android:name=".Fragment.jw2012SyetemFragment.page.jwxscj_page"></activity>
+        <activity android:name=".Fragment.jw2012SyetemFragment.page.jwxskb_page"></activity>
+        <activity android:name=".Fragment.jw2012SyetemFragment.page.jwxsxx_page"></activity>
+        <activity android:name=".Fragment.cardFragment"></activity>
+        <activity android:name=".MoreActivity.ScheduleActivity.fragment_schedule"></activity>
+        <activity android:name=".MoreActivity.WeatherActivity.fragment_weather"></activity>
+        <activity android:name=".MoreActivity.ShopActivity.fragment_shop"></activity>
+        <activity android:name=".MoreActivity.MoreApplication"
             android:label="asd"></activity>
 
         <receiver android:name=".loginActivity.StartServiceReceiver">

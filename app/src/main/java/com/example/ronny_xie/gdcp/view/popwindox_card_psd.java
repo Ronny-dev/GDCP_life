@@ -2,7 +2,6 @@ package com.example.ronny_xie.gdcp.view;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
-import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.drawable.ColorDrawable;
 import android.util.Log;
@@ -14,7 +13,7 @@ import android.widget.ImageView;
 import android.widget.PopupWindow;
 import android.widget.TextView;
 import com.example.ronny_xie.gdcp.R;
-import com.example.ronny_xie.gdcp.card.card_login;
+import com.example.ronny_xie.gdcp.Fragment.cardFragment;
 import com.example.ronny_xie.gdcp.loginActivity.ConnInterface;
 import com.example.ronny_xie.gdcp.util.ProgressDialogUtil;
 import org.apache.http.HttpResponse;
@@ -227,7 +226,7 @@ public class popwindox_card_psd extends PopupWindow implements View.OnClickListe
                                 byte[] in_b = ConnInterface.StreamToByte(return_data);
                                 String data = new String(in_b);
                                 int message_send = Integer.parseInt(data);
-                                card_login.handler.sendEmptyMessage(message_send);
+                                cardFragment.handler.sendEmptyMessage(message_send);
                             }
                         } catch (IOException e) {
                             e.printStackTrace();

@@ -55,7 +55,7 @@
             </LinearLayout>
         </RelativeLayout>
 
-        <com.example.ronny_xie.gdcp.jw2012Syetem.Myprogressbar
+        <com.example.ronny_xie.gdcp.Fragment.jw2012SyetemFragment.Myprogressbar
             android:id="@+id/jwxscj_progressbar"
             style="@style/ProgressBar_Mini"
             android:layout_width="match_parent"

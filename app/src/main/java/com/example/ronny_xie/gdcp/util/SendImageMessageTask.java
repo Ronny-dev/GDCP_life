@@ -2,12 +2,10 @@ package com.example.ronny_xie.gdcp.util;
 
 import java.io.File;
 
-import com.example.ronny_xie.gdcp.loginActivity.GotyeService;
-
 import android.graphics.Bitmap;
 import android.os.AsyncTask;
 
-import com.example.ronny_xie.gdcp.activity.ChatPage;
+import com.example.ronny_xie.gdcp.Fragment.chat.page.ChatPage;
 import com.gotye.api.GotyeAPI;
 import com.gotye.api.GotyeChatTarget;
 import com.gotye.api.GotyeCustomerService;

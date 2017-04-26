@@ -5,20 +5,17 @@ import java.io.File;
 
 import android.app.Activity;
 import android.graphics.drawable.AnimationDrawable;
-import android.util.Log;
 import android.view.View;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.example.ronny_xie.gdcp.R;
-import com.example.ronny_xie.gdcp.activity.ChatPage;
-import com.example.ronny_xie.gdcp.adapter.ChatMessageAdapter;
+import com.example.ronny_xie.gdcp.Fragment.chat.page.ChatPage;
+import com.example.ronny_xie.gdcp.Fragment.chat.adapter.ChatMessageAdapter;
 import com.gotye.api.GotyeAPI;
 import com.gotye.api.GotyeDelegate;
 import com.gotye.api.GotyeMessage;
-import com.gotye.api.GotyeRoom;
-import com.gotye.api.GotyeUser;
 
 public class GotyeVoicePlayClickPlayListener implements View.OnClickListener {
 

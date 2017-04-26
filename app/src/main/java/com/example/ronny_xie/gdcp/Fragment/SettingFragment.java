@@ -1,24 +1,18 @@
 package com.example.ronny_xie.gdcp.Fragment;
 
 import com.example.ronny_xie.gdcp.R;
-import com.example.ronny_xie.gdcp.loginActivity.LoginPage;
 import com.example.ronny_xie.gdcp.loginActivity.MyApplication;
 import com.example.ronny_xie.gdcp.loginActivity.WelcomePage;
 import com.example.ronny_xie.gdcp.styleInActivity.styleActivity;
 
-import android.R.color;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 //import android.app.Fragment;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.content.SharedPreferences.Editor;
 import android.graphics.Bitmap;
-import android.graphics.Color;
-import android.net.Uri;
 import android.os.Bundle;
-import android.os.Handler;
 import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.KeyEvent;
@@ -28,7 +22,6 @@ import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputMethodManager;
-import android.webkit.WebView.FindListener;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
@@ -50,11 +43,9 @@ import com.gotye.api.GotyeMedia;
 import com.gotye.api.GotyeStatusCode;
 import com.gotye.api.GotyeUser;
 
-import static com.example.ronny_xie.gdcp.util.SharePreferenceUtil.newSharePreference;
-
 
 @SuppressLint("NewApi")
-public class SettingFragment extends Fragment {
+public class settingFragment extends Fragment {
     private static final int REQUEST_PIC = 1;
     protected static final int CHANGE_MENU_BACKGROUND = 2;
     private GotyeUser user;
@@ -64,7 +55,7 @@ public class SettingFragment extends Fragment {
     private GotyeAPI api;
     private EditText signal;
     private RelativeLayout menu_background_setting;
-    private static final String TAG = "SettingFragment";
+    private static final String TAG = "settingFragment";
 
     @SuppressLint("InflateParams")
     @Override
@@ -334,7 +325,7 @@ public class SettingFragment extends Fragment {
 
         @Override
         public void onGetUserDetail(int code, GotyeUser user) {
-            if (user != null && user.getName().equals(SettingFragment.this.user.getName())) {
+            if (user != null && user.getName().equals(settingFragment.this.user.getName())) {
                 setUserInfo(user);
             }
         }

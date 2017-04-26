@@ -42,14 +42,14 @@ public  BeepManager(Context context) {
     }
   }
 //  void updatePrefs() {
-//	    SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(activity);
-//	    playBeep = shouldBeep(prefs, activity);
+//	    SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(Chatactivity);
+//	    playBeep = shouldBeep(prefs, Chatactivity);
 //	    vibrate = prefs.getBoolean(KEY_VIBRATE, false);
 //	    if (playBeep && mediaPlayer == null) {
 //	      // The volume on STREAM_SYSTEM is not adjustable, and users found it too loud,
 //	      // so we now play on the music stream.
 //	      context.setVolumeControlStream(AudioManager.STREAM_MUSIC);
-//	      mediaPlayer = buildMediaPlayer(activity);
+//	      mediaPlayer = buildMediaPlayer(Chatactivity);
 //	    }
 //	  }
 

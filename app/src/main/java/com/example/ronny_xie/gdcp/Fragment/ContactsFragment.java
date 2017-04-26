@@ -36,12 +36,12 @@ import android.widget.PopupWindow;
 import android.widget.TextView;
 import android.widget.Toast;
 import com.example.ronny_xie.gdcp.R;
-import com.example.ronny_xie.gdcp.activity.ChatPage;
-import com.example.ronny_xie.gdcp.activity.CreateGroupSelectUser;
-import com.example.ronny_xie.gdcp.activity.GroupRoomListPage;
-import com.example.ronny_xie.gdcp.activity.SearchPage;
-import com.example.ronny_xie.gdcp.activity.UserInfoPage;
-import com.example.ronny_xie.gdcp.adapter.ContactsAdapter;
+import com.example.ronny_xie.gdcp.Fragment.chat.page.ChatPage;
+import com.example.ronny_xie.gdcp.Fragment.chat.CreateGroupSelectUser;
+import com.example.ronny_xie.gdcp.Fragment.chat.page.GroupRoomListPage;
+import com.example.ronny_xie.gdcp.Fragment.chat.page.SearchPage;
+import com.example.ronny_xie.gdcp.Fragment.chat.page.UserInfoPage;
+import com.example.ronny_xie.gdcp.Fragment.chat.adapter.ContactsAdapter;
 import com.example.ronny_xie.gdcp.bean.GotyeUserProxy;
 import com.example.ronny_xie.gdcp.util.CharacterParser;
 import com.example.ronny_xie.gdcp.util.PinyinComparator;
@@ -55,7 +55,7 @@ import com.gotye.api.GotyeMedia;
 import com.gotye.api.GotyeUser;
 
 @SuppressLint("NewApi")
-public class ContactsFragment extends Fragment implements OnClickListener {
+public class contactsFragment extends Fragment implements OnClickListener {
 	private ListView userListView;
 	private SideBar sideBar;
 	private CharacterParser characterParser;

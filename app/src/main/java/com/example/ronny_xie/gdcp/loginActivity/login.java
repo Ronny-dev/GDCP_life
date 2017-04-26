@@ -22,19 +22,58 @@ import android.widget.Toast;
 
 public class login extends Activity {
 
-	Button mButLogin, mButLogout;
+	Button mButLogin;
 	EditText mEdtName, mEdtPsd;
 	String mUsername;
 	String mPassword;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
-		System.out.println("startLogin22222222222");
 		requestWindowFeature(Window.FEATURE_NO_TITLE);
 		setContentView(R.layout.layout_login);
 		super.onCreate(savedInstanceState);
 		initView();
+		initBtnListener();
 	}
+
+	private void initBtnListener() {
+		mButLogin.setOnClickListener(new OnClickListener() {
+			@Override
+			public void onClick(View arg0) {
+				ProgressDialogUtil.showProgress(
+						login.this, "正在登录...");
+				if (checkUser()) {
+					GotyeUser u = GotyeAPI.getInstance().getLoginUser();
+					u = GotyeAPI.getInstance().getLoginUser();
+
+					// 登录的时候要传入登录监听，当重复登录时会直接返回登录状态
+					saveUser(login.this, mUsername, mEdtPsd
+							.getText().toString().trim(), false);
+					Intent login = new Intent(login.this, GotyeService.class);
+					login.setAction(GotyeService.ACTION_LOGIN);
+					login.putExtra("name", mUsername);
+					if (TextUtils.isEmpty(mEdtPsd.getText().toString().trim())) {
+						// login.putExtra("pwd", null);
+					} else {
+						login.putExtra("pwd", mEdtPsd.getText().toString()
+								.trim());
+					}
+					startService(login);
+
+					GotyeAPI.getInstance().login(mUsername, null);
+					Intent i = new Intent(login.this, MainActivity.class);
+					startActivity(i);
+					// 启动service保存service长期活动
+					Intent toService = new Intent(login.this, GotyeService.class);
+					startService(toService);
+					finish();
+					ProgressDialogUtil.dismiss();
+				}
+			}
+		});
+	}
+
+	//获取sp保存的用户名
 	public static final String CONFIG = "login_config";
 	public static String[] getUser(Context context) {
 		SharedPreferences sp = context.getSharedPreferences(CONFIG,
@@ -47,6 +86,7 @@ public class login extends Activity {
 		return user;
 	}
 
+	//检验用户名
 	private boolean checkUser() {
 		mUsername = mEdtName.getText().toString();
 		boolean isValid = true;
@@ -73,41 +113,7 @@ public class login extends Activity {
 			mEdtName.setSelection(mEdtName.getText().length());
 		}
 
-		mButLogin.setOnClickListener(new OnClickListener() {
-			@Override
-			public void onClick(View arg0) {
-				ProgressDialogUtil.showProgress(
-						login.this, "正在登录...");
-				if (checkUser()) {
-					GotyeUser u = GotyeAPI.getInstance().getLoginUser();
-					u = GotyeAPI.getInstance().getLoginUser();
-					Log.d("", u.getName());
 
-					// 登录的时候要传入登录监听，当重复登录时会直接返回登录状态
-					saveUser(login.this, mUsername, mEdtPsd
-							.getText().toString().trim(), false);
-					Intent login = new Intent(login.this, GotyeService.class);
-					login.setAction(GotyeService.ACTION_LOGIN);
-					login.putExtra("name", mUsername);
-					if (TextUtils.isEmpty(mEdtPsd.getText().toString().trim())) {
-						// login.putExtra("pwd", null);
-					} else {
-						login.putExtra("pwd", mEdtPsd.getText().toString()
-								.trim());
-					}
-					startService(login);
-					
-					GotyeAPI.getInstance().login(mUsername, null);
-					Intent i = new Intent(login.this, MainActivity.class);
-					startActivity(i);
-					// 启动service保存service长期活动
-					Intent toService = new Intent(login.this, GotyeService.class);
-					startService(toService);
-					finish();
-					ProgressDialogUtil.dismiss();
-				}
-			}
-		});
 	}
 
 	public static void saveUser(Context context, String name, String password, boolean haslogin) {
@@ -116,13 +122,8 @@ public class login extends Activity {
 		}
 		SharedPreferences sp = context.getSharedPreferences(CONFIG,
 				Context.MODE_PRIVATE);
-		
-		
-		
 		SharedPreferences.Editor edit = sp.edit();
 		edit.putString("username", name);
-		
-		
 		if (TextUtils.isEmpty(password)) {
 			edit.putString("password", null);
 		} else {
@@ -130,7 +131,6 @@ public class login extends Activity {
 		}
 		
 		edit.putBoolean("haslogin", haslogin);
-
 		edit.commit();
 	}
 }

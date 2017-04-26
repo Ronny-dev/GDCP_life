@@ -7,7 +7,7 @@
     android:clipToPadding="true"
     android:fitsSystemWindows="true"
     android:orientation="vertical"
-    tools:context="Fragment.MessageFragment" >
+    tools:context=".Fragment.messageFragment" >
 
     <include layout="@layout/main_bar_include"
        android:id="@+id/title_bar_layout"/>
