@@ -13,6 +13,7 @@ import com.example.ronny_xie.gdcp.loginActivity.WelcomePage;
 import com.example.ronny_xie.gdcp.util.ProgressDialogUtil;
 import com.example.ronny_xie.gdcp.util.ToastUtil;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
@@ -28,7 +29,7 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-public class jwFragment extends Fragment {
+public class jwFragment extends Activity {
     private EditText text;
     private ImageView image;
     private Drawable drawable;
@@ -39,15 +40,27 @@ public class jwFragment extends Fragment {
     public static HttpClient httpClient;
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        View v = View.inflate(getActivity(), R.layout.fragment_jw, null);
-        return v;
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.fragment_jw);
+        initHandler();
+        init();
+        users = WelcomePage.getUser(this);
+        httpClient = new DefaultHttpClient();
+        ProgressDialogUtil.showProgress(this, "正在连接..请稍后");
+        Thread thread = new Thread(new Runnable() {
+
+            @Override
+            public void run() {
+                values = ConnInterface.Conn(httpClient);
+                drawable = ConnInterface.GetImageCode(httpClient);
+                handler.sendEmptyMessage(1);
+            }
+        });
+        thread.start();
     }
 
-    @Override
-    public void onStart() {
-        System.out.println("fragment_jw启动");
+    private void initHandler() {
         handler = new Handler() {
             @Override
             public void handleMessage(Message msg) {
@@ -57,16 +70,16 @@ public class jwFragment extends Fragment {
                 } else if (msg.what == 2) {
                     // Todo 添加成功的操作
                     text.setText("");
-                    Intent intent = new Intent(getActivity(), jw_main_page.class);
+                    Intent intent = new Intent(jwFragment.this, jw_main_page.class);
                     startActivity(intent);
                     //Todo
                 } else if (msg.what == 3) {
                     text.setText("");
                     String a = (String) msg.obj;
                     if (a == null) {
-                        ToastUtil.show(getActivity(), "登录失败LoginPage");
+                        ToastUtil.show(jwFragment.this, "登录失败LoginPage");
                     } else {
-                        ToastUtil.show(getActivity(), (String) msg.obj);
+                        ToastUtil.show(jwFragment.this, (String) msg.obj);
                     }
                     httpClient = null;
                     httpClient = new DefaultHttpClient();
@@ -85,34 +98,19 @@ public class jwFragment extends Fragment {
                 super.handleMessage(msg);
             }
         };
-        init();
-        users = WelcomePage.getUser(getActivity());
-        httpClient = new DefaultHttpClient();
-        ProgressDialogUtil.showProgress(getActivity(), "正在连接..请稍后");
-        Thread thread = new Thread(new Runnable() {
-
-            @Override
-            public void run() {
-                values = ConnInterface.Conn(httpClient);
-                drawable = ConnInterface.GetImageCode(httpClient);
-                handler.sendEmptyMessage(1);
-            }
-        });
-        thread.start();
-        super.onStart();
     }
 
     private void init() {
-        TextView tv_changeImage = (TextView) getActivity().findViewById(
+        TextView tv_changeImage = (TextView)findViewById(
                 R.id.fragment_tv_changeimage);
-        button = (com.gc.materialdesign.views.ButtonRectangle) getActivity().findViewById(R.id.fragment03_button);
-        image = (ImageView) getActivity().findViewById(R.id.fragment03_image);
-        text = (EditText) getActivity().findViewById(R.id.fragment03_edittext);
+        button = (com.gc.materialdesign.views.ButtonRectangle)findViewById(R.id.fragment03_button);
+        image = (ImageView) findViewById(R.id.fragment03_image);
+        text = (EditText) findViewById(R.id.fragment03_edittext);
         tv_changeImage.setOnClickListener(new OnClickListener() {
 
             @Override
             public void onClick(View v) {
-                ProgressDialogUtil.showProgress(getActivity(), "获取中");
+                ProgressDialogUtil.showProgress(jwFragment.this, "获取中");
                 Thread thread = new Thread(new Runnable() {
                     @Override
                     public void run() {
@@ -127,7 +125,7 @@ public class jwFragment extends Fragment {
 
             @Override
             public void onClick(View v) {
-                ProgressDialogUtil.showProgress(getActivity(), "正在登录...请稍后");
+                ProgressDialogUtil.showProgress(jwFragment.this, "正在登录...请稍后");
                 Thread thread = new Thread(new Runnable() {
 
                     @Override

@@ -178,14 +178,15 @@ public class MainActivity extends FragmentActivity {
                         nav_select(3);
                         break;
                     case R.id.nav_jw2012:
-                        nav_select(4);
+                        Intent intentjw2012 = new Intent(getApplicationContext(),jwFragment.class);
+                        startActivity(intentjw2012);
                         break;
                     case R.id.nav_card:
                         Intent intentCardLogin = new Intent(getApplicationContext(), cardFragment.class);
                         startActivity(intentCardLogin);
                         break;
                     case R.id.nav_lib:
-                        nav_select(5);
+                        nav_select(4);
                         break;
                     case R.id.nav_more:
                         Intent intentMoreActivity = new Intent(getApplicationContext(), MoreApplication.class);
@@ -223,7 +224,7 @@ public class MainActivity extends FragmentActivity {
     }
 
     Fragment fragment_list[] = {messageFragment, contactsFragment, settingFragment,
-            tranroomFragment, jwFragment,libFragment};
+            tranroomFragment,libFragment};
     Fragment lastFragment;
 
     public void nav_select(int i) {
@@ -238,8 +239,6 @@ public class MainActivity extends FragmentActivity {
             } else if (i == 3) {
                 fragment_list[i] = new tranroomFragment();
             }else if (i == 4) {
-                fragment_list[i] = new jwFragment();
-            }else if (i == 5) {
                 fragment_list[i] = new libFragment();
             }
             transaction.add(R.id.content, fragment_list[i]);

@@ -200,7 +200,7 @@ public class ConnInterface {
                 Document doc = Jsoup.parse(dataFromHtml + "");
                 Elements elementsByTag = doc.getElementsByTag("script");
                 // System.out.println(dataFromHtml);
-                if (elementsByTag.get(1) != null) {
+                if (elementsByTag.size()==1) {
                     String a = elementsByTag.get(1).toString();
                     Message msg = Message.obtain();
                     msg.obj = a;

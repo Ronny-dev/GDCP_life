@@ -113,6 +113,7 @@
         <activity android:name=".MoreActivity.ScheduleActivity.fragment_schedule"></activity>
         <activity android:name=".MoreActivity.WeatherActivity.fragment_weather"></activity>
         <activity android:name=".MoreActivity.ShopActivity.fragment_shop"></activity>
+        <activity android:name=".Fragment.jwFragment"></activity>
         <activity android:name=".MoreActivity.MoreApplication"
             android:label="asd"></activity>
 
