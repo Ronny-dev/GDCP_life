@@ -33,7 +33,7 @@ public class welcome extends Activity implements OnGestureListener {
 		GotyeAPI.getInstance().getLoginUser();
 
 		//获取对象是否登陆
-		String user1[] = LoginPage.getUser(welcome.this);
+		String user1[] = WelcomePage.getUser(welcome.this);
 		String hasUserName = user1[0];
 		boolean hasLogin = MyApplication.getHasLogin(this);
 		if (hasUserName != null && hasLogin == true) {
@@ -108,10 +108,10 @@ public class welcome extends Activity implements OnGestureListener {
 					|| code == GotyeStatusCode.CodeOfflineLoginOK) { // 6
 
 				// 传入已登过的状态
-				String user1[] = LoginPage.getUser(welcome.this);
+				String user1[] = WelcomePage.getUser(welcome.this);
 				String hasUserName = user1[0];
 				String hasPassWord = user1[1];
-				LoginPage.saveUser(welcome.this, hasUserName, hasPassWord,
+				WelcomePage.saveUser(welcome.this, hasUserName, hasPassWord,
 						true);
 
 				Intent i = new Intent(welcome.this, MainActivity.class);

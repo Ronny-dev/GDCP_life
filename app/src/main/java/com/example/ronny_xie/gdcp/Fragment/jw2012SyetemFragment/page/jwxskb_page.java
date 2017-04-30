@@ -1,16 +1,14 @@
 package com.example.ronny_xie.gdcp.Fragment.jw2012SyetemFragment.page;
 
 import java.util.ArrayList;
-
 import com.example.ronny_xie.gdcp.Fragment.jwFragment;
 import com.example.ronny_xie.gdcp.Fragment.jw2012SyetemFragment.adapter.jwxskb_adapter;
 import com.example.ronny_xie.gdcp.Fragment.jw2012SyetemFragment.bean.jwxskb_javabean;
 import com.example.ronny_xie.gdcp.R;
 import com.example.ronny_xie.gdcp.loginActivity.ConnInterface;
-import com.example.ronny_xie.gdcp.loginActivity.LoginPage;
+import com.example.ronny_xie.gdcp.loginActivity.WelcomePage;
 import com.example.ronny_xie.gdcp.util.ProgressDialogUtil;
 import com.example.ronny_xie.gdcp.view.ListViewForScrollView;
-
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
@@ -75,8 +73,8 @@ public class jwxskb_page extends Activity {
 				// 联网拿到课程表的html数据
 				xskcBfromHTML = ConnInterface.getXSKCBfromHTML(
 						jwFragment.httpClient, jwFragment.values,
-						LoginPage.getUser(jwxskb_page.this)[0],
-						LoginPage.getUser(jwxskb_page.this)[1], tem);
+						WelcomePage.getUser(jwxskb_page.this)[0],
+						WelcomePage.getUser(jwxskb_page.this)[1], tem);
 				// 发送消息，通知主线程读取spinner数据
 				handler.sendEmptyMessage(1);
 				// 获取课程数据

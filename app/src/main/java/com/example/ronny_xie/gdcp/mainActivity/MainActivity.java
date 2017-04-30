@@ -29,13 +29,11 @@ import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import com.bumptech.glide.Glide;
 import com.example.ronny_xie.gdcp.Fragment.cardFragment;
 import com.example.ronny_xie.gdcp.Fragment.settingFragment;
 import com.example.ronny_xie.gdcp.R;
 import com.example.ronny_xie.gdcp.MoreActivity.MoreApplication;
-import com.example.ronny_xie.gdcp.loginActivity.LoginPage;
 import com.example.ronny_xie.gdcp.loginActivity.MyApplication;
 import com.example.ronny_xie.gdcp.loginActivity.WelcomePage;
 import com.example.ronny_xie.gdcp.util.SharePreferenceUtil;
@@ -143,7 +141,7 @@ public class MainActivity extends FragmentActivity {
                 Log.d("", "code" + code + "" + x);
                 if (code == GotyeStatusCode.CodeNotLoginYet) {
                     Intent intent1 = new Intent(getApplicationContext(),
-                            LoginPage.class);
+                            WelcomePage.class);
                     startActivity(intent1);
                     finish();
                 }
@@ -176,7 +174,6 @@ public class MainActivity extends FragmentActivity {
                     case R.id.nav_computerroom:
                         nav_select(3);
                         break;
-
                     case R.id.nav_jw2012:
                         nav_select(4);
                         break;

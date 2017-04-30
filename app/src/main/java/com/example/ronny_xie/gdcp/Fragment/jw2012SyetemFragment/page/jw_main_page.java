@@ -16,7 +16,7 @@ import com.example.ronny_xie.gdcp.Fragment.jw2012SyetemFragment.adapter.jw_main_
 import com.example.ronny_xie.gdcp.R;
 import com.example.ronny_xie.gdcp.MoreActivity.MoreApplication;
 import com.example.ronny_xie.gdcp.loginActivity.ConnInterface;
-import com.example.ronny_xie.gdcp.loginActivity.LoginPage;
+import com.example.ronny_xie.gdcp.loginActivity.WelcomePage;
 import com.example.ronny_xie.gdcp.util.ProgressDialogUtil;
 import com.example.ronny_xie.gdcp.util.ToastUtil;
 import com.example.ronny_xie.gdcp.view.ListViewForScrollView;
@@ -249,7 +249,7 @@ public class jw_main_page extends Activity {
     private void initView() {
         httpclient = jwFragment.httpClient;
         values = jwFragment.values;
-        user = LoginPage.getUser(jw_main_page.this);
+        user = WelcomePage.getUser(jw_main_page.this);
         image_back = (ImageView) findViewById(R.id.jw_main_back);
         list_pager = (ViewPager) findViewById(R.id.list_pager);
         tv1 = (TextView) findViewById(R.id.jw_textView1);

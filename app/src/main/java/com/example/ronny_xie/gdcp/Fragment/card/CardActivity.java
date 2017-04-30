@@ -6,6 +6,7 @@ import com.bumptech.glide.Glide;
 import com.example.ronny_xie.gdcp.R;
 import android.app.Activity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Window;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -21,11 +22,20 @@ public class CardActivity extends Activity {
 		requestWindowFeature(Window.FEATURE_NO_TITLE);
 		setContentView(R.layout.card_activity);
 		super.onCreate(savedInstanceState);
-//		Intent intent = getIntent();
-//		html_data = intent.getStringExtra("data");
-//		doc = Jsoup.parse(html_data);
+		initData();
 		initView();
 		LoadImageToTitle();// 获取title的图片加载入iamge
+	}
+
+	private void initData() {
+		Thread thread = new Thread(new Runnable() {
+			@Override
+			public void run() {
+				String data = cardClient.getPersonData(cardClient.getHttpClient());
+				Log.i("ronny", "run: "+data);
+			}
+		});
+		thread.start();
 	}
 
 	private void LoadImageToTitle() {

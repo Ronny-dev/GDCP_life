@@ -11,6 +11,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.text.method.ScrollingMovementMethod;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
 import android.view.Window;
@@ -20,6 +21,7 @@ import android.widget.PopupWindow;
 import android.widget.TextView;
 
 import com.example.ronny_xie.gdcp.Fragment.card.CardActivity;
+import com.example.ronny_xie.gdcp.Fragment.card.cardClient;
 import com.example.ronny_xie.gdcp.R;
 import com.example.ronny_xie.gdcp.util.ProgressDialogUtil;
 import com.example.ronny_xie.gdcp.util.ToastUtil;
@@ -30,7 +32,6 @@ import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.client.DefaultHttpClient;
 
-import java.io.IOException;
 import java.io.InputStream;
 
 
@@ -41,16 +42,18 @@ import java.io.InputStream;
 public class cardFragment extends Activity implements popwindox_card_psd.OnItemClickListener {
     private static final String TAG = "cardFragment";
     public static Handler handler;
+    private HttpClient httpClient;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.fragment_card);
+        initHandler();
         initView();
     }
 
-    private void initView() {
+    private void initHandler() {
         handler = new Handler(new Handler.Callback() {
             @Override
             public boolean handleMessage(Message msg) {
@@ -72,6 +75,9 @@ public class cardFragment extends Activity implements popwindox_card_psd.OnItemC
                 return false;
             }
         });
+    }
+
+    private void initView() {
         TextView tv_title = (TextView) findViewById(R.id.title);
         tv_title.setText("金融一卡通系统");
         TextView tv_login_read = (TextView) findViewById(R.id.fragment_card_login_textview);
@@ -100,35 +106,39 @@ public class cardFragment extends Activity implements popwindox_card_psd.OnItemC
     private popwindox_card_psd pop;
 
     private void initPSD() {
-        final HttpClient httpClient = new DefaultHttpClient();
+        httpClient = new DefaultHttpClient();
         final Context context = this;
-        backgroundAlpha(0.6f);
-        pop = new popwindox_card_psd(context, httpClient);
+        pop = new popwindox_card_psd(context, cardClient.getHttpClient());
         final ImageView image = pop.getImageView();
-
+        ProgressDialogUtil.showProgress(this, "加载中，请稍后...");
         Thread thread = new Thread(new Runnable() {
             @Override
             public void run() {
-                try {
-                    HttpGet getMainUrl = new HttpGet("http://ngrok.xiaojie.ngrok.cc/test/Card");
-                    HttpResponse response = null;
-                    response = httpClient.execute(getMainUrl);
-                    InputStream Stream = response.getEntity().getContent();
+                InputStream Stream = cardClient.getPSD(cardClient.getHttpClient());
+                if (Stream != null) {
                     Bitmap bitmap = BitmapFactory.decodeStream(Stream);
                     final Drawable drawable = new BitmapDrawable(bitmap);
                     runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
+                            backgroundAlpha(0.6f);
+                            ProgressDialogUtil.dismiss();
                             image.setBackground(drawable);
+                            pop.showAtLocation(findViewById(R.id.fragment_card_login_button), Gravity.BOTTOM | Gravity.CENTER_HORIZONTAL, 0, 0);
                         }
                     });
-                } catch (IOException e) {
-                    e.printStackTrace();
+                }else{
+                    runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            ProgressDialogUtil.dismiss();
+                            ToastUtil.show(getApplicationContext(),"无法连接服务器");
+                        }
+                    });
                 }
             }
         });
         thread.start();
-        pop.showAtLocation(this.findViewById(R.id.fragment_card_login_button), Gravity.BOTTOM | Gravity.CENTER_HORIZONTAL, 0, 0);
         pop.setOnDismissListener(new PopupWindow.OnDismissListener() {
             @Override
             public void onDismiss() {

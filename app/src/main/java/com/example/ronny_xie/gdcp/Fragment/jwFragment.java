@@ -4,12 +4,10 @@ import java.util.List;
 
 import com.example.ronny_xie.gdcp.Fragment.jw2012SyetemFragment.page.jw_main_page;
 import com.example.ronny_xie.gdcp.loginActivity.ConnInterface;
-import com.example.ronny_xie.gdcp.loginActivity.LoginPage;
-
 import org.apache.http.client.HttpClient;
 import org.apache.http.impl.client.DefaultHttpClient;
-
 import com.example.ronny_xie.gdcp.R;
+import com.example.ronny_xie.gdcp.loginActivity.WelcomePage;
 import com.example.ronny_xie.gdcp.util.ProgressDialogUtil;
 import com.example.ronny_xie.gdcp.util.ToastUtil;
 
@@ -86,7 +84,7 @@ public class jwFragment extends Fragment {
 				}
 			};
 			init();
-			users = LoginPage.getUser(getActivity());
+			users = WelcomePage.getUser(getActivity());
 			httpClient = new DefaultHttpClient();
 			ProgressDialogUtil.showProgress(getActivity(), "正在连接..请稍后");
 			Thread thread = new Thread(new Runnable() {

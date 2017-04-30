@@ -19,6 +19,9 @@ import com.example.ronny_xie.gdcp.util.ProgressDialogUtil;
 import org.apache.http.HttpResponse;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpGet;
+import org.apache.http.impl.client.DefaultHttpClient;
+import org.apache.http.impl.conn.tsccm.ThreadSafeClientConnManager;
+
 import java.io.IOException;
 import java.io.InputStream;
 

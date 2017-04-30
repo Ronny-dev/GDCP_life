@@ -10,7 +10,6 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.text.TextUtils;
 
-
 public class MyApplication extends Application {
 //	public static final String DEFAULT_APPKEY = "ccim1001-19f6-4bd8-9b29-e454fdbf4990";
 //	public static final String DEFAULT_APPKEY = "9c236035-2bf4-40b0-bfbf-e8b6dec54928";
@@ -228,13 +227,13 @@ public class MyApplication extends Application {
 	}
 	
 	public static boolean getHasLogin(Context context){
-		SharedPreferences sp = context.getSharedPreferences(LoginPage.CONFIG,
+		SharedPreferences sp = context.getSharedPreferences(WelcomePage.CONFIG,
 				Context.MODE_PRIVATE);
 		return sp.getBoolean("haslogin", false);
 	}
 	
 	public static void clearHasLogin(Context context){
-		SharedPreferences sp = context.getSharedPreferences(LoginPage.CONFIG,
+		SharedPreferences sp = context.getSharedPreferences(WelcomePage.CONFIG,
 				Context.MODE_PRIVATE);
 		SharedPreferences.Editor edit = sp.edit();
 		

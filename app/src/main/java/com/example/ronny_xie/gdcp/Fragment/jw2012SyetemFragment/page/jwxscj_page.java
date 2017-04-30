@@ -26,7 +26,7 @@ import com.example.ronny_xie.gdcp.Fragment.jw2012SyetemFragment.adapter.jwxscj_a
 import com.example.ronny_xie.gdcp.Fragment.jw2012SyetemFragment.bean.jwxscj_javabean;
 import com.example.ronny_xie.gdcp.R;
 import com.example.ronny_xie.gdcp.loginActivity.ConnInterface;
-import com.example.ronny_xie.gdcp.loginActivity.LoginPage;
+import com.example.ronny_xie.gdcp.loginActivity.WelcomePage;
 import com.example.ronny_xie.gdcp.util.ProgressDialogUtil;
 import com.example.ronny_xie.gdcp.view.ListViewForScrollView;
 
@@ -62,7 +62,7 @@ public class jwxscj_page extends Activity {
 		handler = new Handler();
 		ProgressDialogUtil.showProgress(jwxscj_page.this, "请稍后...");
 		jwxscj_page.this.httpclient = jw_main_page.httpclient;
-		jwxscj_page.this.user = LoginPage.getUser(jwxscj_page.this);
+		jwxscj_page.this.user = WelcomePage.getUser(jwxscj_page.this);
 		jwxscj_page.this.value = jw_main_page.values;
 		initView();
 		begin();// 开始操作

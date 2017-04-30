@@ -196,7 +196,6 @@ public class LoginSettingPage extends Fragment {
 			getActivity().startService(reInit);
 			spf.edit().remove("selected_ip_port").commit();
 		}
-		((WelcomePage) getActivity()).showLogin();
 	}
 
 	private void initAutoComplete(AutoCompleteTextView auto) {
