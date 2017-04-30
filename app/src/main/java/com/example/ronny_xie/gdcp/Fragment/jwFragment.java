@@ -20,6 +20,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -29,6 +30,8 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import static com.example.ronny_xie.gdcp.loginActivity.WelcomePage.httpClient;
+
 public class jwFragment extends Activity {
     private EditText text;
     private ImageView image;
@@ -37,7 +40,6 @@ public class jwFragment extends Activity {
     public static Handler handler;
     private String[] users;
     public static List<String> values;
-    public static HttpClient httpClient;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,14 +48,13 @@ public class jwFragment extends Activity {
         initHandler();
         init();
         users = WelcomePage.getUser(this);
-        httpClient = new DefaultHttpClient();
         ProgressDialogUtil.showProgress(this, "正在连接..请稍后");
         Thread thread = new Thread(new Runnable() {
 
             @Override
             public void run() {
-                values = ConnInterface.Conn(httpClient);
-                drawable = ConnInterface.GetImageCode(httpClient);
+                values = ConnInterface.Conn(ConnInterface.getHttpclient());
+                drawable = ConnInterface.GetImageCode(ConnInterface.getHttpclient());
                 handler.sendEmptyMessage(1);
             }
         });
@@ -68,11 +69,10 @@ public class jwFragment extends Activity {
                     image.setBackground(drawable);
                     ProgressDialogUtil.dismiss();
                 } else if (msg.what == 2) {
-                    // Todo 添加成功的操作
                     text.setText("");
                     Intent intent = new Intent(jwFragment.this, jw_main_page.class);
                     startActivity(intent);
-                    //Todo
+                    finish();
                 } else if (msg.what == 3) {
                     text.setText("");
                     String a = (String) msg.obj;
@@ -87,7 +87,7 @@ public class jwFragment extends Activity {
 
                         @Override
                         public void run() {
-                            values = ConnInterface.Conn(httpClient);
+                            values = ConnInterface.Conn(ConnInterface.getHttpclient());
                             drawable = ConnInterface
                                     .GetImageCode(httpClient);
                             handler.sendEmptyMessage(1);
@@ -114,7 +114,7 @@ public class jwFragment extends Activity {
                 Thread thread = new Thread(new Runnable() {
                     @Override
                     public void run() {
-                        drawable = ConnInterface.GetImageCodeAgain(httpClient);
+                        drawable = ConnInterface.GetImageCodeAgain(ConnInterface.getHttpclient());
                         handler.sendEmptyMessage(1);
                     }
                 });
@@ -134,7 +134,7 @@ public class jwFragment extends Activity {
                         String mCode = text.getText().toString().trim();
                         String mpass = users[1];
                         String[] arr = {mUser, mpass, mCode};
-                        int b = ConnInterface.ClickIn(httpClient, arr, values,
+                        int b = ConnInterface.ClickIn(ConnInterface.getHttpclient(), arr, values,
                                 handler);
                         if (b == 1) {
                             handler.sendEmptyMessage(2);

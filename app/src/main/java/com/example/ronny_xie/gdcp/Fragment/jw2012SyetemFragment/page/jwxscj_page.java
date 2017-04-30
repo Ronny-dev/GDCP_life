@@ -61,7 +61,7 @@ public class jwxscj_page extends Activity {
 		super.onCreate(savedInstanceState);
 		handler = new Handler();
 		ProgressDialogUtil.showProgress(jwxscj_page.this, "请稍后...");
-		jwxscj_page.this.httpclient = jw_main_page.httpclient;
+		jwxscj_page.this.httpclient = ConnInterface.getHttpclient();
 		jwxscj_page.this.user = WelcomePage.getUser(jwxscj_page.this);
 		jwxscj_page.this.value = jw_main_page.values;
 		initView();

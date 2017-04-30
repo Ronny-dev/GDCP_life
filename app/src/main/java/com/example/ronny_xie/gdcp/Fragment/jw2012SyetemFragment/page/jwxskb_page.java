@@ -72,7 +72,7 @@ public class jwxskb_page extends Activity {
 			public void run() {
 				// 联网拿到课程表的html数据
 				xskcBfromHTML = ConnInterface.getXSKCBfromHTML(
-						jwFragment.httpClient, jwFragment.values,
+						ConnInterface.getHttpclient(), jwFragment.values,
 						WelcomePage.getUser(jwxskb_page.this)[0],
 						WelcomePage.getUser(jwxskb_page.this)[1], tem);
 				// 发送消息，通知主线程读取spinner数据

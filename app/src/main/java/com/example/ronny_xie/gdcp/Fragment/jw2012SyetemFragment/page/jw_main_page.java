@@ -66,7 +66,7 @@ public class jw_main_page extends Activity {
     private TextView tv1;
     private TextView tv2;
     private ListViewForScrollView listview2;
-    public static HttpClient httpclient;
+    private HttpClient httpclient;
     public static List<String> values;
     public static String[] user;
     private ImageView image_back;
@@ -247,7 +247,7 @@ public class jw_main_page extends Activity {
     }
 
     private void initView() {
-        httpclient = jwFragment.httpClient;
+        httpclient = ConnInterface.getHttpclient();
         values = jwFragment.values;
         user = WelcomePage.getUser(jw_main_page.this);
         image_back = (ImageView) findViewById(R.id.jw_main_back);

@@ -17,6 +17,7 @@ import org.apache.http.client.HttpClient;
 import org.apache.http.client.entity.UrlEncodedFormEntity;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPost;
+import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.message.BasicNameValuePair;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
@@ -31,9 +32,17 @@ import android.os.Handler;
 import android.os.Message;
 
 public class ConnInterface {
+    private static HttpClient httpClient;
     private static HttpResponse response;
     private static String realName;
 
+    public static HttpClient getHttpclient(){
+        if(httpClient == null){
+            httpClient = new DefaultHttpClient();
+            return httpClient;
+        }
+        return httpClient;
+    }
     /**
      * 方正教务系统服务连接
      *
@@ -167,7 +176,6 @@ public class ConnInterface {
         } catch (Exception e) {
             e.printStackTrace();
         }
-        System.out.println(response.getStatusLine().getStatusCode());
         if (response.getStatusLine().getStatusCode() == 200) {
             InputStream inStream;
             try {
