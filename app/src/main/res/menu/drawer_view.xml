@@ -26,6 +26,10 @@
             android:icon="@drawable/menu_8"
             android:title="卡务" />
         <item
+            android:id="@+id/nav_lib"
+            android:icon="@drawable/menu_8"
+            android:title="图书馆" />
+        <item
             android:id="@+id/nav_more"
             android:icon="@drawable/ic_launcher"
             android:title="更多" />

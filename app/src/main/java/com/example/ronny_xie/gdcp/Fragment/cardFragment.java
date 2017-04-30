@@ -11,7 +11,6 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.text.method.ScrollingMovementMethod;
-import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
 import android.view.Window;
@@ -25,11 +24,9 @@ import com.example.ronny_xie.gdcp.Fragment.card.cardClient;
 import com.example.ronny_xie.gdcp.R;
 import com.example.ronny_xie.gdcp.util.ProgressDialogUtil;
 import com.example.ronny_xie.gdcp.util.ToastUtil;
-import com.example.ronny_xie.gdcp.view.popwindox_card_psd;
+import com.example.ronny_xie.gdcp.Fragment.card.popwindox_card_psd;
 
-import org.apache.http.HttpResponse;
 import org.apache.http.client.HttpClient;
-import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.client.DefaultHttpClient;
 
 import java.io.InputStream;
@@ -111,6 +108,7 @@ public class cardFragment extends Activity implements popwindox_card_psd.OnItemC
         pop = new popwindox_card_psd(context, cardClient.getHttpClient());
         final ImageView image = pop.getImageView();
         ProgressDialogUtil.showProgress(this, "加载中，请稍后...");
+        //启动一个线程获取密码小键盘
         Thread thread = new Thread(new Runnable() {
             @Override
             public void run() {

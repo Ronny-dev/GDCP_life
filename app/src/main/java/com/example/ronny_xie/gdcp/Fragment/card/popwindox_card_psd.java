@@ -1,4 +1,4 @@
-package com.example.ronny_xie.gdcp.view;
+package com.example.ronny_xie.gdcp.Fragment.card;
 
 import android.annotation.SuppressLint;
 import android.content.Context;

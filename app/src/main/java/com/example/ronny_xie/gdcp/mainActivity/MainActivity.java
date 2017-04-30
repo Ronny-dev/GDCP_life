@@ -31,6 +31,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 import com.bumptech.glide.Glide;
 import com.example.ronny_xie.gdcp.Fragment.cardFragment;
+import com.example.ronny_xie.gdcp.Fragment.libFragment;
 import com.example.ronny_xie.gdcp.Fragment.settingFragment;
 import com.example.ronny_xie.gdcp.R;
 import com.example.ronny_xie.gdcp.MoreActivity.MoreApplication;
@@ -65,6 +66,7 @@ public class MainActivity extends FragmentActivity {
     private fragment_weather fragment_weather;
     private tranroomFragment tranroomFragment;
     private jwFragment jwFragment;
+    private libFragment libFragment;
     private fragment_shop fragment_shop;
     private FragmentManager fragmentManager;
     private FragmentTransaction transaction;
@@ -123,6 +125,7 @@ public class MainActivity extends FragmentActivity {
         TextView nav_header_sign = (TextView) headerView.findViewById(R.id.nav_header_sign);
         FrameLayout frameLayout = (FrameLayout) headerView.findViewById(R.id.nav_header_framelayout);
         ImageView nav_header_leave = (ImageView) headerView.findViewById(R.id.nav_leave_image);
+        frameLayout.setBackgroundResource(R.mipmap.head_img);
         //点击nav的header部分跳转到设置
         frameLayout.setOnClickListener(new OnClickListener() {
             @Override
@@ -178,9 +181,11 @@ public class MainActivity extends FragmentActivity {
                         nav_select(4);
                         break;
                     case R.id.nav_card:
-//                        nav_select(8);
                         Intent intentCardLogin = new Intent(getApplicationContext(), cardFragment.class);
                         startActivity(intentCardLogin);
+                        break;
+                    case R.id.nav_lib:
+                        nav_select(5);
                         break;
                     case R.id.nav_more:
                         Intent intentMoreActivity = new Intent(getApplicationContext(), MoreApplication.class);
@@ -218,7 +223,7 @@ public class MainActivity extends FragmentActivity {
     }
 
     Fragment fragment_list[] = {messageFragment, contactsFragment, settingFragment,
-            tranroomFragment, jwFragment};
+            tranroomFragment, jwFragment,libFragment};
     Fragment lastFragment;
 
     public void nav_select(int i) {
@@ -234,6 +239,8 @@ public class MainActivity extends FragmentActivity {
                 fragment_list[i] = new tranroomFragment();
             }else if (i == 4) {
                 fragment_list[i] = new jwFragment();
+            }else if (i == 5) {
+                fragment_list[i] = new libFragment();
             }
             transaction.add(R.id.content, fragment_list[i]);
         } else {
