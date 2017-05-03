@@ -3,6 +3,7 @@ package com.example.ronny_xie.gdcp.MoreActivity.ScheduleActivity;
 import android.app.Activity;
 import android.app.AlarmManager;
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
@@ -57,36 +58,8 @@ public class fragment_schedule extends Activity {
             @Override
             public void onClick(View v) {
                 {
-                    final PopupWindow popwindow3;
-                    final View toolsLayout = LayoutInflater.from(getApplicationContext()).inflate(R.layout.fragment_schedule_popwindows, null);
-                    popwindow3 = new PopupWindow(toolsLayout, ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT, true);
-                    popwindow3.setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-                    popwindow3.setOutsideTouchable(true);
-                    popwindow3.setFocusable(true);
-                    popwindow3.setTouchable(true);
-                    WindowManager manager = getWindowManager();
-                    int width = manager.getDefaultDisplay().getWidth();
-                    popwindow3.setWidth(width);
-                    popwindow3.showAtLocation(v, Gravity.CENTER, 0, 0);
-                    popwindow3.setAnimationStyle(R.style.mypopwindow_anim_style);
-                    backgroundAlpha(0.6f);
-                    popwindow3.update();
-                    Button btnText = (Button) toolsLayout.findViewById(R.id.fragment_schedule_button_commit);
-                    btnText.setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View v) {
-                            dbService.insertRecord("title", "content", "1996-11-28");
-                            backgroundAlpha(1f);
-                            popwindow3.dismiss();
-                            adapter_schedule.notifyDataSetChanged();
-                        }
-                    });
-                    popwindow3.setOnDismissListener(new PopupWindow.OnDismissListener() {
-                        @Override
-                        public void onDismiss() {
-                            backgroundAlpha(1f);
-                        }
-                    });
+                    Intent intent = new Intent(fragment_schedule.this,editorView.class);
+                    startActivity(intent);
                 }
             }
         });

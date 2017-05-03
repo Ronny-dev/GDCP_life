@@ -54,5 +54,6 @@ dependencies {
     //界面形状
 //    compile 'com.android.support:design:24.1.1'
     compile 'com.android.support:design:25.1.0'
+    compile 'jp.wasabeef:richeditor-android:1.2.2'//富文本生成器
     compile project(':library')
 }

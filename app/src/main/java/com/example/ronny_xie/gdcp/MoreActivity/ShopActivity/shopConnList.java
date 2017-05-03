@@ -32,7 +32,7 @@ public class shopConnList {
 					String pic_url = link.attr("abs:src");
 					newBean.setPic_url(pic_url);
 				}
-				Elements elements2 = sh.get(i).select("h2");
+				Elements elements2 = sh.get(i).select("editor_h2");
 				for (Element link : elements2) {
 					String url = elements2.get(0).select("a").attr("abs:href");
 					String title = link.text();
