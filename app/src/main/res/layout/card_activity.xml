@@ -3,39 +3,12 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#C0C0C0"
-    android:orientation="vertical" >
-
-    <RelativeLayout
-        android:id="@+id/title_bar_layout"
-        android:layout_width="match_parent"
-        android:layout_height="45dp"
-        android:background="#1E88E5" >
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerInParent="true"
-            android:text="卡务系统"
-            android:textColor="#ffffff"
-            android:textSize="18sp" />
-
-        <ImageView
-            android:id="@+id/fragment_card_back"
-            android:layout_width="20dp"
-            android:layout_height="20dp"
-            android:layout_alignParentLeft="true"
-            android:layout_centerVertical="true"
-            android:layout_marginLeft="10dp"
-            android:background="@drawable/back"
-            android:clickable="true"
-            android:scaleType="centerCrop"
-            android:src="@drawable/add" />
-    </RelativeLayout>
+    android:orientation="vertical">
 
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="3" >
+        android:layout_weight="3">
 
         <ImageView
             android:id="@+id/card_activity_image"
@@ -43,198 +16,400 @@
             android:layout_height="match_parent"
             android:scaleType="centerCrop" />
 
-        <TextView
-            android:id="@+id/fragment_card_name"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
-            android:layout_alignParentLeft="true"
-            android:layout_marginBottom="20dp"
-            android:text="姓名："
-            android:textColor="#ffffff"
-            android:textSize="22sp"
-            android:textStyle="bold" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
 
-        <TextView
-            android:id="@+id/fragment_card_belone"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
-            android:layout_alignParentLeft="true"
-            android:ellipsize="end"
-            android:singleLine="true"
-            android:text="所属："
-            android:textColor="#ffffff"
-            android:textSize="14sp"
-            android:textStyle="bold" />
+            <ImageView
+                android:id="@+id/back"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_alignParentLeft="true"
+                android:layout_centerVertical="true"
+                android:layout_marginTop="30dp"
+                android:background="@drawable/common_tab_bg"
+                android:onClick="back"
+                android:padding="15dp"
+                android:src="@drawable/back" />
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1">
+
+                <TextView
+                    android:id="@+id/fragment_card_name"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="10dp"
+                    android:alpha="0.9"
+                    android:gravity="center_horizontal"
+                    android:textColor="#ffffff"
+                    android:textSize="24sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/fragment_card_num"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/fragment_card_name"
+                    android:alpha="0.8"
+                    android:gravity="center"
+                    android:textColor="#ffffff"
+                    android:textSize="14sp" />
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="2">
+
+                <RelativeLayout
+                    android:id="@+id/fragment_card_money_cycle_middle"
+                    android:layout_width="120dp"
+                    android:layout_height="120dp"
+                    android:layout_centerHorizontal="true">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerHorizontal="true"
+                        android:layout_marginTop="20dp"
+                        android:text="余额"
+                        android:textColor="#fff" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:layout_marginRight="10dp"
+                        android:layout_marginTop="40dp"
+                        android:text="元"
+                        android:textColor="#fff" />
+
+                    <TextView
+                        android:id="@+id/fragment_card_money"
+                        android:layout_width="120dp"
+                        android:layout_height="120dp"
+                        android:alpha="0.8"
+                        android:background="@drawable/schedule_stroke_circle_middle"
+                        android:gravity="center"
+                        android:textColor="#fff"
+                        android:textSize="26dp" />
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:layout_width="80dp"
+                    android:layout_height="80dp"
+                    android:layout_alignBottom="@id/fragment_card_money_cycle_middle"
+                    android:layout_marginLeft="20dp"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:alpha="0.6"
+                        android:gravity="center"
+                        android:text="卡状态"
+                        android:textColor="#fff" />
+
+                    <TextView
+                        android:id="@+id/kazhuangtai"
+                        android:layout_width="80dp"
+                        android:layout_height="80dp"
+                        android:alpha="0.8"
+                        android:background="@drawable/schedule_stroke_circle"
+                        android:gravity="center"
+                        android:textColor="#fff"
+                        android:textSize="24dp" />
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:layout_width="80dp"
+                    android:layout_height="80dp"
+                    android:layout_alignBottom="@id/fragment_card_money_cycle_middle"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginRight="20dp"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:alpha="0.6"
+                        android:gravity="center"
+                        android:text="冻结状态"
+                        android:textColor="#fff" />
+
+                    <TextView
+                        android:id="@+id/dongjiezhuangtai"
+                        android:layout_width="80dp"
+                        android:layout_height="80dp"
+                        android:alpha="0.8"
+                        android:background="@drawable/schedule_stroke_circle"
+                        android:gravity="center"
+                        android:textColor="#fff"
+                        android:textSize="24dp" />
+                </RelativeLayout>
+            </RelativeLayout>
+
+            <TextView
+                android:id="@+id/fragment_card_belone"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:layout_marginBottom="12dp"
+                android:alpha="0.8"
+                android:gravity="center_horizontal"
+                android:text="南校区-2015级-计算机工程学院-15软件技术(1)"
+                android:textColor="#DCDCDC"
+                android:textSize="14sp"
+                android:textStyle="bold" />
+        </LinearLayout>
+
     </RelativeLayout>
 
-    <LinearLayout
+    <ScrollView
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="2"
-        android:background="#ffffff"
-        android:orientation="horizontal" >
-
-        <LinearLayout
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical"
-            android:layout_weight="1"
-            android:orientation="vertical" >
-
-            <TextView
-                android:id="@+id/fragment_card_money"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:textSize="20sp" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:text="余额"
-                android:textSize="15sp" />
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical"
-            android:layout_weight="1"
-            android:orientation="vertical" >
-
-            <TextView
-                android:id="@+id/kazhuangtai"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:textSize="20sp" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:text="卡状态"
-                android:textSize="15sp" />
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical"
-            android:layout_weight="1"
-            android:orientation="vertical" >
-
-            <TextView
-                android:id="@+id/dongjiezhuangtai"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:textSize="20sp" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:text="冻结状态"
-                android:textSize="15sp" />
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical"
-            android:layout_weight="1"
-            android:orientation="vertical" >
-
-            <TextView
-                android:id="@+id/guashizhuangtai"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:textSize="20sp" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:text="挂失状态"
-                android:textSize="15sp" />
-        </LinearLayout>
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_marginTop="20dp"
-        android:layout_weight="5"
-        android:orientation="vertical" >
+        android:layout_weight="2">
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="10dp"
-            android:layout_marginRight="10dp"
-            android:orientation="horizontal" >
+            android:layout_height="match_parent"
+            android:background="#ffffff"
+            android:orientation="vertical">
 
-            <Button
-                android:id="@+id/card_one"
-                android:layout_width="0dp"
-                android:layout_height="95dp"
-                android:layout_gravity="center"
-                android:layout_weight="1"
-                android:text="当日流水" />
+            <RelativeLayout
+                android:id="@+id/layoutNote"
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:background="@drawable/nestedscroll_layout_clickable"
+                android:clickable="true">
 
-            <Button
-                android:id="@+id/card_two"
-                android:layout_width="0dp"
-                android:layout_height="95dp"
-                android:layout_gravity="center"
-                android:layout_weight="1"
-                android:text="历史流水" />
+                <TextView
+                    android:id="@+id/image1"
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="13dp"
+                    android:background="@drawable/schedule_stroke_circle"
+                    android:gravity="center_vertical" />
 
-            <Button
-                android:id="@+id/card_three"
-                android:layout_width="0dp"
-                android:layout_height="95dp"
-                android:layout_gravity="center"
-                android:layout_weight="1"
-                android:text="卡挂失" />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_marginLeft="32dp"
+                    android:layout_toRightOf="@+id/image1"
+                    android:gravity="center_vertical"
+                    android:text="当日流水" />
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginRight="36dp"
+                    android:src="@drawable/personal_arrow" />
+            </RelativeLayout>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="0.43dp"
+                android:background="@android:color/darker_gray" />
+
+            <RelativeLayout
+                android:id="@+id/layoutWeather"
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:background="@drawable/nestedscroll_layout_clickable"
+                android:clickable="true">
+
+                <TextView
+                    android:id="@+id/image2"
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="13dp"
+                    android:background="@drawable/schedule_stroke_circle_middle" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_marginLeft="32dp"
+                    android:layout_toRightOf="@+id/image2"
+                    android:gravity="center_vertical"
+                    android:text="历史流水" />
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginRight="36dp"
+                    android:src="@drawable/personal_arrow" />
+            </RelativeLayout>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="0.43dp"
+                android:background="@android:color/darker_gray" />
+
+            <RelativeLayout
+                android:id="@+id/layoutEmoticon"
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:background="@drawable/nestedscroll_layout_clickable"
+                android:clickable="true">
+
+                <TextView
+                    android:id="@+id/image3"
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="13dp"
+                    android:background="@drawable/schedule_stroke_circle" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_marginLeft="32dp"
+                    android:layout_toRightOf="@+id/image3"
+                    android:gravity="center_vertical"
+                    android:text="校园卡挂失" />
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginRight="36dp"
+                    android:src="@drawable/personal_arrow" />
+            </RelativeLayout>
+
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="0.43dp"
+                android:background="@android:color/darker_gray" />
+
+            <RelativeLayout
+                android:id="@+id/layoutUpdate"
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:background="@drawable/nestedscroll_layout_clickable"
+                android:clickable="true">
+
+                <TextView
+                    android:id="@+id/image4"
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="13dp"
+                    android:background="@drawable/schedule_stroke_circle_middle" />
+
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_marginLeft="32dp"
+                    android:layout_toRightOf="@+id/image4"
+                    android:gravity="center_vertical"
+                    android:text="拾卡登记" />
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginRight="36dp"
+                    android:src="@drawable/personal_arrow" />
+            </RelativeLayout>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="0.43dp"
+                android:background="@android:color/darker_gray" />
+
+            <RelativeLayout
+                android:id="@+id/layoutDonate"
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:background="@drawable/nestedscroll_layout_clickable"
+                android:clickable="true">
+
+                <TextView
+                    android:id="@+id/image5"
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="13dp"
+                    android:background="@drawable/schedule_stroke_circle"
+                    android:gravity="center_vertical" />
+
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_marginLeft="32dp"
+                    android:layout_toRightOf="@+id/image5"
+                    android:gravity="center_vertical"
+                    android:text="查询拾卡" />
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginRight="36dp"
+                    android:src="@drawable/personal_arrow" />
+            </RelativeLayout>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="0.43dp"
+                android:background="@android:color/darker_gray" />
+
+            <RelativeLayout
+                android:id="@+id/layoutClearCache"
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:background="@drawable/nestedscroll_layout_clickable"
+                android:clickable="true">
+
+                <TextView
+                    android:id="@+id/image6"
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="13dp"
+                    android:background="@drawable/schedule_stroke_circle_middle"
+                    android:gravity="center_vertical" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_marginLeft="32dp"
+                    android:layout_toRightOf="@+id/image6"
+                    android:gravity="center_vertical"
+                    android:text="退出系统" />
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginRight="36dp"
+                    android:src="@drawable/personal_arrow" />
+            </RelativeLayout>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="0.43dp"
+                android:background="@android:color/darker_gray" />
         </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="10dp"
-            android:layout_marginRight="10dp"
-            android:orientation="horizontal" >
-
-            <Button
-                android:id="@+id/card_four"
-                android:layout_width="0dp"
-                android:layout_height="95dp"
-                android:layout_gravity="center"
-                android:layout_weight="1"
-                android:text="拾卡登记" />
-
-            <Button
-                android:id="@+id/card_five"
-                android:layout_width="0dp"
-                android:layout_height="95dp"
-                android:layout_gravity="center"
-                android:layout_weight="1"
-                android:text="查询拾卡" />
-
-            <Button
-                android:id="@+id/card_six"
-                android:layout_width="0dp"
-                android:layout_height="95dp"
-                android:layout_gravity="center"
-                android:layout_weight="1"
-                android:text="退出系统" />
-        </LinearLayout>
-    </LinearLayout>
-
+    </ScrollView>
 </LinearLayout>
