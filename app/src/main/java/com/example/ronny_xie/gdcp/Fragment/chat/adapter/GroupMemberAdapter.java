@@ -74,7 +74,7 @@ public class GroupMemberAdapter extends BaseAdapter {
 		RelativeLayout.LayoutParams pama=new RelativeLayout.LayoutParams( (int) (density * 60), (int) (60 * density));
 		pama.addRule(RelativeLayout.CENTER_HORIZONTAL, RelativeLayout.TRUE);
 		if (u.getName().equals("")) {
-			icon.setImageResource(R.drawable.add_member);
+			icon.setImageResource(R.drawable.add);
 			
 			layout.addView(icon,pama);
 		} else {
