@@ -79,7 +79,6 @@ public class fragment_weather extends Activity {
     private ListViewForScrollView listview_weibo;
     private SharedPreferences sharePreference;
     private TextView tv_update;
-    private ImageView image_refresh;
     private SwipeRefreshLayout swipe;
     private Handler handler;
     private LinearLayout nearWeather;
@@ -138,16 +137,6 @@ public class fragment_weather extends Activity {
     }
 
     private void OnClickListenerView() {
-        //手动刷新
-        image_refresh.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                swipe.setRefreshing(true);
-                sharePreference.edit().clear().commit();
-                initData();
-                swipe.setRefreshing(false);
-            }
-        });
         //下拉刷新
         swipe.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
@@ -508,7 +497,6 @@ public class fragment_weather extends Activity {
         weather_more = (LinearLayout) findViewById(R.id.fragment_weather_weathermore_linearlayout);
         nearWeather = (LinearLayout) findViewById(R.id.fragment_weather_nearweather_linearlayout);
         swipe = (SwipeRefreshLayout) findViewById(R.id.fragment_weather_swiperefresh);
-        image_refresh = (ImageView) findViewById(R.id.fragment_weather_refresh_image);
         tv_update = (TextView) findViewById(R.id.fragment_weather_timeupdate);
         sharePreference = SharePreferenceUtil.newSharePreference(this, "weather");
         listview_weibo = (ListViewForScrollView) findViewById(R.id.fragment_weibo_listview);

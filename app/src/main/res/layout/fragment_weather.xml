@@ -10,30 +10,7 @@
         android:clickable="false" />
 
 
-    <RelativeLayout
-        android:layout_marginTop="20dp"
-        android:layout_width="match_parent"
-        android:layout_height="60dp">
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerInParent="true"
-            android:text="广州天气"
-            android:textColor="#fff"
-            android:textSize="20sp" />
-
-        <TextView
-            android:id="@+id/fragment_weather_timeupdate"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentRight="true"
-            android:layout_centerVertical="true"
-            android:layout_marginTop="10dp"
-            android:alpha="0.7"
-            android:textColor="#fff"
-            android:textSize="12sp" />
-    </RelativeLayout>
 
     <android.support.v4.widget.SwipeRefreshLayout
         android:id="@+id/fragment_weather_swiperefresh"
@@ -49,24 +26,34 @@
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="60dp">
 
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerInParent="true"
+                        android:text="广州天气"
+                        android:textColor="#fff"
+                        android:textSize="20sp" />
+
+                    <TextView
+                        android:id="@+id/fragment_weather_timeupdate"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:layout_centerVertical="true"
+                        android:layout_marginTop="10dp"
+                        android:alpha="0.7"
+                        android:textColor="#fff"
+                        android:textSize="12sp" />
+                </RelativeLayout>
                 <RelativeLayout
                     android:id="@+id/fragment_weather_realtivelayout_temperture"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="30dp">
-
-                    <ImageView
-                        android:id="@+id/fragment_weather_refresh_image"
-                        android:layout_width="30dp"
-                        android:layout_height="30dp"
-                        android:layout_alignParentRight="true"
-                        android:layout_alignParentTop="true"
-                        android:layout_marginRight="20dp"
-                        android:layout_marginTop="15dp"
-                        android:clickable="true"
-                        android:focusable="true"
-                        android:src="@drawable/btn_refresh" />
 
                     <TextView
                         android:id="@+id/fragment_weather_temperture_textview"
