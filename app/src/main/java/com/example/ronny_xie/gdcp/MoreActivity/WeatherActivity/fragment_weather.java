@@ -27,14 +27,13 @@ import com.example.ronny_xie.gdcp.R;
 import com.example.ronny_xie.gdcp.util.AlerterUtil;
 import com.example.ronny_xie.gdcp.util.ProgressDialogUtil;
 import com.example.ronny_xie.gdcp.util.SharePreferenceUtil;
-import com.example.ronny_xie.gdcp.util.ToastUtil;
 import com.example.ronny_xie.gdcp.view.ListViewForScrollView;
 import com.google.gson.Gson;
-
 import android.app.Activity;
 import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -44,6 +43,7 @@ import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
 import android.view.WindowManager;
 import android.widget.AdapterView;
 import android.widget.GridView;
@@ -91,6 +91,16 @@ public class fragment_weather extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.fragment_weather);
+        initHandler();
+        initBar();
+        initView();//绑定控件
+        OnClickListenerView();//监听点击popwindows事件
+        initData();//数据
+        setScrollViewToTop();//移动到顶部
+        ProgressDialogUtil.dismiss();
+    }
+
+    private void initHandler() {
         handler = new Handler() {
             @Override
             public void handleMessage(Message msg) {
@@ -99,19 +109,12 @@ public class fragment_weather extends Activity {
                     setScrollViewToTop();//让scrollview移动到顶部
                     ProgressDialogUtil.dismiss();
                     getRefresh();//定时提示刷新
-                    alter("加载成功");
                 }
                 if (msg.what == 1000) {
-                    ToastUtil.show(getBaseContext(), "刷新失败，请重试");
                     alter("刷新失败");
                 }
             }
         };
-        initView();//绑定控件
-        OnClickListenerView();//监听点击popwindows事件
-        initData();//数据
-        setScrollViewToTop();//移动到顶部
-        ProgressDialogUtil.dismiss();
     }
 
     private void getRefresh() {
@@ -128,7 +131,9 @@ public class fragment_weather extends Activity {
             SharePreferenceUtil.saveString("date", date_new_string, sp_refresh);
         }
         if ((System.currentTimeMillis() - date) / (1000 * 60 * 60) > 3) {
-            ToastUtil.show(this, "数据过时，请下拉刷新数据");
+            alter("数据过时，请下拉刷新数据");
+        }else{
+            alter("刷新成功");
         }
     }
 
@@ -718,5 +723,16 @@ public class fragment_weather extends Activity {
     }
     public void alter(String str){
         AlerterUtil.noTitleAlertrrr(this, str, R.drawable.alerter_ic_face);
+    }
+    private void initBar() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+            Window window = getWindow();
+            // Translucent status bar
+            window.setFlags(
+                    WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS,
+                    WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
+        }
+        getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
+        getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION);
     }
 }
