@@ -18,7 +18,7 @@ public class DBService extends SQLiteOpenHelper {
 
 		String sql = "CREATE TABLE [t_records] ([id] INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,"
 				+ "  [title] VARCHAR(30) NOT NULL,  [content] TEXT,  [record_date] DATE NOT NULL,[remind_time] TIME,"
-				+ "[remind] BOOLEAN,[shake] BOOLEAN,[ring] BOOLEAN)"
+				+ "[remind] BOOLEAN,[shake] BOOLEAN,[ring] BOOLEAN,[type] INTEGER)"
 				+ ";CREATE INDEX [unique_title] ON [t_records] ([title]);"
 				+ "CREATE INDEX [remind_time_index] ON [t_records] ([remind_time]);"
 				+ "CREATE INDEX [record_date_index] ON [t_records] ([record_date]);"
@@ -45,22 +45,22 @@ public class DBService extends SQLiteOpenHelper {
 		db.execSQL(sql);
 		sql = "CREATE TABLE [t_records] ([id] INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,"
 				+ "  [title] VARCHAR(30) NOT NULL,  [content] TEXT,  [record_date] DATE NOT NULL,[remind_time] TIME,"
-				+ "[remind] BOOLEAN,[shake] BOOLEAN,[ring] BOOLEAN)"
+				+ "[remind] BOOLEAN,[shake] BOOLEAN,[ring] BOOLEAN,[type] INTEGER)"
 				+ ";CREATE INDEX [unique_title] ON [t_records] ([title]);"
 				+ "CREATE INDEX [remind_time_index] ON [t_records] ([remind_time]);"
 				+ "CREATE INDEX [record_date_index] ON [t_records] ([record_date]);"
 				+ "CREATE INDEX [remind_index] ON [t_records] ([remind])";
 		db.execSQL(sql);
-
+		//id标号，title标题，content文本，record_date创建时间，remind_time提醒时间，remind是否提醒，shake是否震动，ring是否响铃
 	}
 
-	public void insertRecord(String title, String content, String recordDate) {
-		insertRecord(title, content, recordDate, null, false, false);
+	public void insertRecord(String title, String content, String recordDate, int type) {
+		insertRecord(title, content, recordDate, null, false, false,type);
 	}
 
 
 	public void insertRecord(String title, String content, String recordDate,
-							 String remindTime, boolean shake, boolean ring) {
+							 String remindTime, boolean shake, boolean ring , int type) {
 		try {
 			String sql = "";
 			String remind = "false";
@@ -69,7 +69,7 @@ public class DBService extends SQLiteOpenHelper {
 			} else {
 				remindTime = "0:0:0";
 			}
-			sql = "insert into t_records(title, content, record_date,remind_time, remind, shake, ring) values('"
+			sql = "insert into t_records(title, content, record_date,remind_time, remind, shake, ring , type) values('"
 					+ title
 					+ "','"
 					+ content
@@ -82,7 +82,10 @@ public class DBService extends SQLiteOpenHelper {
 					+ "','"
 					+ shake
 					+ "','"
-					+ ring + "' );";
+					+ ring
+					+ "','"
+					+ type
+					+ "' );";
 			closeDB();
 			db = this.getWritableDatabase();
 			db.execSQL(sql);
@@ -102,7 +105,7 @@ public class DBService extends SQLiteOpenHelper {
 	}
 
 	public void updateRecord(int id, String title, String content,
-							 String recordDate, String remindTime, boolean shake, boolean ring) {
+							 String recordDate, String remindTime, boolean shake, boolean ring ,int type) {
 		try {
 			String sql = "";
 			String remind = "false";
@@ -120,7 +123,7 @@ public class DBService extends SQLiteOpenHelper {
 			sql = "update t_records set title='" + title + "', content='"
 					+ content + "' ,record_date='" + recordDate
 					+ "' ,remind_time='" + remindTime + "', remind='" + remind
-					+ "',shake='" + shake + "', ring='" + ring + "' where id="
+					+ "',shake='" + shake + "', ring='" + ring+ "', type='" + type + "' where id="
 					+ id;
 			closeDB();
 			db = this.getWritableDatabase();
@@ -147,7 +150,7 @@ public class DBService extends SQLiteOpenHelper {
 		closeDB();
 		db = this.getReadableDatabase();
 		Cursor cursor = db.rawQuery(
-				"select id,title from t_records order by id desc", null);
+				"select id,title,record_date from t_records order by id desc", null);
 		return cursor;
 	}
 

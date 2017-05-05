@@ -8,4 +8,5 @@ public class Remind
 	public boolean ring = false;
 	public Date date;
 	public String msg;
+	public int type;
 }

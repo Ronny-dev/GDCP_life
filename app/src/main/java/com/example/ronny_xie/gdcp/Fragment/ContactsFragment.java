@@ -430,7 +430,7 @@ public class contactsFragment extends Fragment implements OnClickListener {
 			tools.dismiss();
 
 			final EditText input=new EditText(getActivity());
-
+			input.setPadding(15,0,15,0);
 			new AlertDialog.Builder(getActivity()).setTitle("添加好友").setIcon(
 			android.R.drawable.ic_dialog_info).setView(
 					input).setPositiveButton("确定", new DialogInterface.OnClickListener() {

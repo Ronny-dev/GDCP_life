@@ -8,7 +8,7 @@ import android.support.design.widget.CollapsingToolbarLayout;
 import android.view.View;
 import android.widget.RelativeLayout;
 
-import com.example.ronny_xie.gdcp.MoreActivity.ScheduleActivity.fragment_schedule;
+import com.example.ronny_xie.gdcp.MoreActivity.ScheduleActivity.schedule_fragment;
 import com.example.ronny_xie.gdcp.MoreActivity.ShopActivity.fragment_shop;
 import com.example.ronny_xie.gdcp.MoreActivity.WeatherActivity.fragment_weather;
 import com.example.ronny_xie.gdcp.R;
@@ -44,7 +44,7 @@ public class MoreApplication extends Activity implements View.OnClickListener {
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.layoutschedule:
-                intent = new Intent(getApplicationContext(), fragment_schedule.class);
+                intent = new Intent(getApplicationContext(), schedule_fragment.class);
                 startActivity(intent);
                 break;
             case R.id.layoutweather:

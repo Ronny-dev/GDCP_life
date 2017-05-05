@@ -110,7 +110,7 @@
         <activity android:name=".Fragment.jw2012SyetemFragment.page.jwxskb_page"></activity>
         <activity android:name=".Fragment.jw2012SyetemFragment.page.jwxsxx_page"></activity>
         <activity android:name=".Fragment.cardFragment"></activity>
-        <activity android:name=".MoreActivity.ScheduleActivity.fragment_schedule"></activity>
+        <activity android:name=".MoreActivity.ScheduleActivity.schedule_fragment"></activity>
         <activity android:name=".MoreActivity.WeatherActivity.fragment_weather"></activity>
         <activity android:name=".MoreActivity.ShopActivity.fragment_shop"></activity>
         <activity android:name=".Fragment.jwFragment"></activity>
