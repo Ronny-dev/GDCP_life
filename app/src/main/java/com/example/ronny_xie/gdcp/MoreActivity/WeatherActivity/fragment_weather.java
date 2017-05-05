@@ -85,6 +85,7 @@ public class fragment_weather extends Activity {
     private LinearLayout weather_more;
     private SharedPreferences sp_refresh;
     private Spinner spinner;
+    private ImageView back;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -137,6 +138,13 @@ public class fragment_weather extends Activity {
     }
 
     private void OnClickListenerView() {
+        //返回按钮
+        back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
         //下拉刷新
         swipe.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
@@ -494,6 +502,7 @@ public class fragment_weather extends Activity {
 
     private void initView() {
         gson = new Gson();
+        back = (ImageView) findViewById(R.id.back);
         weather_more = (LinearLayout) findViewById(R.id.fragment_weather_weathermore_linearlayout);
         nearWeather = (LinearLayout) findViewById(R.id.fragment_weather_nearweather_linearlayout);
         swipe = (SwipeRefreshLayout) findViewById(R.id.fragment_weather_swiperefresh);
