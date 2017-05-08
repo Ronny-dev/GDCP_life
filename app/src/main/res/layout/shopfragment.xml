@@ -21,7 +21,7 @@
             android:clickable="true"
             android:scaleType="centerInside"
             android:onClick="back_buy"
-            android:src="@drawable/back" />
+            android:src="@drawable/white_back" />
 
         <TextView
             android:layout_width="wrap_content"

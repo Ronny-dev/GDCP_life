@@ -13,7 +13,7 @@
         android:layout_centerVertical="true"
         android:onClick="back"
         android:padding="15dp"
-        android:src="@drawable/back" />
+        android:src="@drawable/white_back" />
 
     <TextView
         android:id="@+id/title"

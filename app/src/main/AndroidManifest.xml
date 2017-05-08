@@ -115,6 +115,7 @@
         <activity android:name=".MoreActivity.ShopActivity.fragment_shop"></activity>
         <activity android:name=".Fragment.jwFragment"></activity>
         <activity android:name=".MoreActivity.ScheduleActivity.editorView"></activity>
+        <activity android:name=".Fragment.card.TodayActivity"></activity>
         <activity android:name=".MoreActivity.MoreApplication"
             android:label="asd"></activity>
 

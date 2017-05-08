@@ -415,7 +415,7 @@ public class PhotoViewAttacher implements IPhotoView, View.OnTouchListener, Vers
 
 			case MotionEvent.ACTION_CANCEL:
 			case MotionEvent.ACTION_UP:
-				// If the user has zoomed less than min scale, zoom back
+				// If the user has zoomed less than min scale, zoom white_back
 				// to min scale
 				if (getScale() < mMinScale) {
 					RectF rect = getDisplayRect();
@@ -661,7 +661,7 @@ public class PhotoViewAttacher implements IPhotoView, View.OnTouchListener, Vers
 	}
 
 	/**
-	 * Resets the Matrix back to FIT_CENTER, and then displays it.s
+	 * Resets the Matrix white_back to FIT_CENTER, and then displays it.s
 	 */
 	private void resetMatrix() {
 		mSuppMatrix.reset();
@@ -858,7 +858,7 @@ public class PhotoViewAttacher implements IPhotoView, View.OnTouchListener, Vers
 
 				} else {
 					// We've scaled past our target zoom, so calculate the
-					// necessary scale so we're back at target zoom
+					// necessary scale so we're white_back at target zoom
 					final float delta = mTargetZoom / currentScale;
 					mSuppMatrix.postScale(delta, delta, mFocalX, mFocalY);
 					checkAndDisplayMatrix();

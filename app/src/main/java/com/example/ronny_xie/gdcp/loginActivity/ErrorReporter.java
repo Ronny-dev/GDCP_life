@@ -321,7 +321,7 @@ public class ErrorReporter implements Thread.UncaughtExceptionHandler {
 	}
 
 	/**
-	 * Disable ACRA : sets this Thread's {@link UncaughtExceptionHandler} back
+	 * Disable ACRA : sets this Thread's {@link UncaughtExceptionHandler} white_back
 	 * to the system default.
 	 */
 	public void disable() {

@@ -219,21 +219,7 @@ public class popwindox_card_psd extends PopupWindow implements View.OnClickListe
                 Thread thread = new Thread(new Runnable() {
                     @Override
                     public void run() {
-                        try {
-                            SharedPreferences sp = context.getSharedPreferences("login_config", Context.MODE_PRIVATE);
-                            String name = sp.getString("username", null);
-                            HttpGet get = new HttpGet("http://ngrok.xiaojie.ngrok.cc/test/get?username=" + name + "&password=" + password);
-                            HttpResponse response = client.execute(get);
-                            if (response.getStatusLine().getStatusCode() == 200) {
-                                InputStream return_data = response.getEntity().getContent();
-                                byte[] in_b = ConnInterface.StreamToByte(return_data);
-                                String data = new String(in_b);
-                                int message_send = Integer.parseInt(data);
-                                cardFragment.handler.sendEmptyMessage(message_send);
-                            }
-                        } catch (IOException e) {
-                            e.printStackTrace();
-                        }
+                        cardClient.sendPSD(client,context,password);
                     }
                 });
                 thread.start();

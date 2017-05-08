@@ -1,13 +1,14 @@
 package com.example.ronny_xie.gdcp.Fragment.card;
 
 import org.jsoup.nodes.Document;
-import org.jsoup.select.Elements;
 
 import com.bumptech.glide.Glide;
+import com.example.ronny_xie.gdcp.Fragment.card.javabean.personData_Javabean;
 import com.example.ronny_xie.gdcp.R;
 import com.google.gson.Gson;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
@@ -16,6 +17,7 @@ import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 public class CardActivity extends Activity implements View.OnClickListener{
@@ -81,6 +83,20 @@ public class CardActivity extends Activity implements View.OnClickListener{
         kazhuangtai.setText(personData_javabean.getCardStatus());
         dongjiezhuangtai.setText(personData_javabean.getFreezeStatus());
         LoadImageToTitle();// 获取title的图片加载入iamge
+
+        RelativeLayout re1 = (RelativeLayout) findViewById(R.id.card_activity_today);
+        RelativeLayout re2 = (RelativeLayout) findViewById(R.id.card_activity_history);
+        RelativeLayout re3 = (RelativeLayout) findViewById(R.id.card_activity_lost);
+        RelativeLayout re4 = (RelativeLayout) findViewById(R.id.card_activity_lostclick);
+        RelativeLayout re5 = (RelativeLayout) findViewById(R.id.card_activity_searchlost);
+        RelativeLayout re6 = (RelativeLayout) findViewById(R.id.card_activity_exit);
+
+        re1.setOnClickListener(this);
+        re2.setOnClickListener(this);
+        re3.setOnClickListener(this);
+        re4.setOnClickListener(this);
+        re5.setOnClickListener(this);
+        re6.setOnClickListener(this);
     }
 
     private void initBar() {
@@ -97,6 +113,22 @@ public class CardActivity extends Activity implements View.OnClickListener{
 
     @Override
     public void onClick(View v) {
-
+        switch (v.getId()){
+            case R.id.card_activity_today:
+                Intent intent = new Intent(this,TodayActivity.class);
+                startActivity(intent);
+                break;
+            case R.id.card_activity_history:
+                break;
+            case R.id.card_activity_lost:
+                break;
+            case R.id.card_activity_lostclick:
+                break;
+            case R.id.card_activity_searchlost:
+                break;
+            case R.id.card_activity_exit:
+                finish();
+                break;
+        }
     }
 }

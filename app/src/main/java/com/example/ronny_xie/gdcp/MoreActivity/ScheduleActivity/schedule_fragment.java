@@ -59,7 +59,7 @@ public class schedule_fragment extends Activity {
                 .Builder(schedule_fragment.this).setContentView(icon).build();
         SubActionButton.Builder itemBUilder = new SubActionButton.Builder(schedule_fragment.this);
         ImageView itemIcon1 = new ImageView(schedule_fragment.this);
-        itemIcon1.setImageDrawable(getResources().getDrawable(R.drawable.add_member));
+        itemIcon1.setImageDrawable(getResources().getDrawable(R.drawable.tools_add));
         SubActionButton button1 = itemBUilder.setContentView(itemIcon1).build();
 
         ImageView itemIcon2 = new ImageView(schedule_fragment.this);

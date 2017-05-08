@@ -60,6 +60,7 @@ public class cardFragment extends Activity implements popwindox_card_psd.OnItemC
                     ToastUtil.show(getApplication(), "登录成功");
                     Intent intent = new Intent(getApplication(), CardActivity.class);
                     startActivity(intent);
+                    finish();
                 } else if (msg.what == -1) {
                     ProgressDialogUtil.dismiss();
                     pop.dismiss();

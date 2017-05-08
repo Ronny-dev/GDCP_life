@@ -16,6 +16,7 @@ import com.example.ronny_xie.gdcp.util.ToastUtil;
 import android.app.Activity;
 import android.content.Intent;
 import android.graphics.drawable.Drawable;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -25,6 +26,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -47,6 +50,7 @@ public class jwFragment extends Activity {
         setContentView(R.layout.fragment_jw);
         initHandler();
         init();
+        initBar();
         users = WelcomePage.getUser(this);
         ProgressDialogUtil.showProgress(this, "正在连接..请稍后");
         Thread thread = new Thread(new Runnable() {
@@ -149,5 +153,16 @@ public class jwFragment extends Activity {
                 thread.start();
             }
         });
+    }
+    private void initBar() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+            Window window = getWindow();
+            // Translucent status bar
+            window.setFlags(
+                    WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS,
+                    WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
+        }
+        getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
+        getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION);
     }
 }

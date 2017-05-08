@@ -29,7 +29,7 @@
             android:clickable="true"
             android:onClick="back"
             android:scaleType="centerInside"
-            android:src="@drawable/back"
+            android:src="@drawable/white_back"
             android:visibility="visible" />
     </RelativeLayout>
 

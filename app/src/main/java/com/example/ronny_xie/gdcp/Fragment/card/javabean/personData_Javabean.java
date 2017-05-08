@@ -1,4 +1,4 @@
-package com.example.ronny_xie.gdcp.Fragment.card;
+package com.example.ronny_xie.gdcp.Fragment.card.javabean;
 
 /**
  * Created by Ronny on 2017/5/5.
