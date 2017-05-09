@@ -25,15 +25,15 @@ import java.util.ArrayList;
 
 public class TodayActivity extends Activity{
     private int NOTIFYDATAGETSUCCESS = 1001;
-    private todayData_javabean personData_javabean;
     private Handler handler;
+    private Gson gson;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         setContentView(R.layout.card_today_activity);
         super.onCreate(savedInstanceState);
-        initBar();
-        initData();
+        initBar();//设置无标题
+        initData();//获取信息并展现main
         initHanler();
     }
 
@@ -42,19 +42,22 @@ public class TodayActivity extends Activity{
             @Override
             public boolean handleMessage(Message msg) {
                 if(msg.what==NOTIFYDATAGETSUCCESS){
-                    initView();
+                    Object fromJson = gson.fromJson((String)msg.obj, todayData_javabean.class);
+                    todayData_javabean todayDataJavabean= (todayData_javabean)fromJson;
+                    String moneyData = todayDataJavabean.getTotalMoney();
+                    initView(moneyData);
                 }
                 return true;
             }
         });
     }
 
-    private void initView() {
+    private void initView(String moneyData) {
         TextView tv_time = (TextView) findViewById(R.id.card_activity_today_time);
         SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm");
         tv_time.setText(format.format(System.currentTimeMillis()));
         TextView tv_money = (TextView) findViewById(R.id.card_activity_today_tv);
-//        Log.i("aaaaaa", "initView: "+todayData_javabean.class.getName());
+        tv_money.setText(moneyData);
     }
 
     private void initData() {
@@ -63,7 +66,7 @@ public class TodayActivity extends Activity{
             public void run() {
                 String todayData = cardClient.getTodayData(cardClient.getHttpClient());
                 try {
-                    Gson gson = new Gson();
+                    gson = new Gson();
                     ArrayList<Object> arr = new ArrayList<Object>();
                     JSONArray array = new JSONArray(todayData);
                     for (int i = 0; i < array.length()-1; i++) {
@@ -71,7 +74,10 @@ public class TodayActivity extends Activity{
                         arr.add(fromJson);
                     }
                     Log.i("aaa",array.get(array.length()-1).toString());//Todo 拿到数组最后一个数据
-                    handler.sendEmptyMessage(NOTIFYDATAGETSUCCESS);
+                    Message msg = Message.obtain();
+                    msg.what = NOTIFYDATAGETSUCCESS;
+                    msg.obj = array.get(array.length()-1).toString();
+                    handler.sendMessage(msg);
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }

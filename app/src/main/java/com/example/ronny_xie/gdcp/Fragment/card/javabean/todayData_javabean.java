@@ -25,6 +25,14 @@ public class todayData_javabean {
     private String balance;
     private String times;
     private String status;
+    /**
+     * allTimes : 1次交易
+
+     * totalMoney : -2.50
+     */
+
+    private String allTimes;
+    private String totalMoney;
 
     public String getDate() {
         return date;
@@ -88,5 +96,21 @@ public class todayData_javabean {
 
     public void setStatus(String status) {
         this.status = status;
+    }
+
+    public String getAllTimes() {
+        return allTimes;
+    }
+
+    public void setAllTimes(String allTimes) {
+        this.allTimes = allTimes;
+    }
+
+    public String getTotalMoney() {
+        return totalMoney;
+    }
+
+    public void setTotalMoney(String totalMoney) {
+        this.totalMoney = totalMoney;
     }
 }

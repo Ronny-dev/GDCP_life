@@ -33,9 +33,6 @@ dependencies {
         exclude group: 'com.android.support', module: 'support-annotations'
     })
     compile 'com.android.support:appcompat-v7:25.1.0'
-    //            {
-    //        exclude(group:'com.android.support', module:'support-v4')
-    //    }
     testCompile 'junit:junit:4.12'
     compile 'com.android.support:support-v4:25.1.0'
     compile 'cn.bmob.android:bmob-sdk:3.5.0'
@@ -52,9 +49,12 @@ dependencies {
     compile 'com.oguzdev:CircularFloatingActionMenu:1.0.2'
     //FAB按钮
     //界面形状
-//    compile 'com.android.support:design:24.1.1'
+    //    compile 'com.android.support:design:24.1.1'
     compile 'com.android.support:design:25.1.0'
-    compile 'jp.wasabeef:richeditor-android:1.2.2'//富文本生成器
-    compile 'com.feezu.liuli:timeselector:1.0.8+'//时间控件
+    compile 'jp.wasabeef:richeditor-android:1.2.2'
+    //富文本生成器
+    compile 'com.feezu.liuli:timeselector:1.0.8+'
+    //时间控件
     compile project(':library')
+    compile files('libs/hellocharts-library-1.5.8.jar')
 }
