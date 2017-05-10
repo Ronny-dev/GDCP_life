@@ -9,7 +9,7 @@ import com.example.ronny_xie.gdcp.R;
 public class jwxsxx_page extends Activity {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
-		setContentView(R.layout.jwxsxx_fragment);
+		setContentView(R.layout.activity_jwxsxx);
 		super.onCreate(savedInstanceState);
 	}
 }

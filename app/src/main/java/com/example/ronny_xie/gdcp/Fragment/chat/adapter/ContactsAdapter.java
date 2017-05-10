@@ -49,7 +49,7 @@ public class ContactsAdapter extends BaseAdapter {
 
 		if (arg1 == null) {
 			arg1 = LayoutInflater.from(mContext).inflate(
-					R.layout.layout_contacts_item, null);
+					R.layout.adapter_contacts_item, null);
 			viewHolder = new ViewHolder();
 			viewHolder.icon = (ImageView) arg1.findViewById(R.id.icon);
 			viewHolder.firstChar = (TextView) arg1
@@ -61,7 +61,7 @@ public class ContactsAdapter extends BaseAdapter {
 		}
 		if (viewHolder == null) {
 			arg1 = LayoutInflater.from(mContext).inflate(
-					R.layout.layout_contacts_item, null);
+					R.layout.adapter_contacts_item, null);
 			viewHolder = new ViewHolder();
 			viewHolder.icon = (ImageView) arg1.findViewById(R.id.icon);
 			viewHolder.firstChar = (TextView) arg1

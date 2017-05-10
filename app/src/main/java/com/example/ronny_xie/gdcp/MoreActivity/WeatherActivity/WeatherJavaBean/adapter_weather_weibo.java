@@ -41,7 +41,7 @@ public class adapter_weather_weibo extends BaseAdapter {
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         if (convertView == null) {
-            convertView = View.inflate(context, R.layout.weather_weibo, null);
+            convertView = View.inflate(context, R.layout.adapter_weater_weibo, null);
         }
         TextView tv_title = (TextView) convertView.findViewById(R.id.fragment_weather_weibo_title);
         TextView tv_time = (TextView) convertView.findViewById(R.id.fragment_weather_weibo_time);

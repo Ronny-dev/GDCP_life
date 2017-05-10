@@ -92,7 +92,7 @@ public class jw_main_page extends Activity {
             }
         };
         ProgressDialogUtil.showProgress(this, "请稍后...");
-        setContentView(R.layout.jw2012main);
+        setContentView(R.layout.activity_jw_mian);
         super.onCreate(savedInstanceState);
         initView();// 初始化控件
         initGDCPhtmldata();// 获取广交官网上的数据
@@ -434,7 +434,7 @@ public class jw_main_page extends Activity {
     private PopupWindow tools_jwxs;
 
     private void show_jwxs_PopWindow(View v, final int tem) {
-        View toolsLayout = LayoutInflater.from(jw_main_page.this).inflate(R.layout.jwxw_activity_popwindow, null);
+        View toolsLayout = LayoutInflater.from(jw_main_page.this).inflate(R.layout.popwindow_jwxw, null);
         tools_jwxs = new PopupWindow(toolsLayout, LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT, true);
         sp1_jwxs = (Spinner) toolsLayout.findViewById(R.id.xsxw_sp1);
         sp2_jwxs = (Spinner) toolsLayout.findViewById(R.id.xsxw_sp2);

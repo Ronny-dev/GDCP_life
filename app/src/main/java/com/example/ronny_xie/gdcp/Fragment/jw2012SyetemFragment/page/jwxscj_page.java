@@ -57,7 +57,7 @@ public class jwxscj_page extends Activity {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		requestWindowFeature(Window.FEATURE_NO_TITLE);
-		setContentView(R.layout.jwxscj_fragment);
+		setContentView(R.layout.activity_jwxscj);
 		super.onCreate(savedInstanceState);
 		handler = new Handler();
 		ProgressDialogUtil.showProgress(jwxscj_page.this, "请稍后...");

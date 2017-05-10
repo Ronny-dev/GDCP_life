@@ -5,7 +5,6 @@ import java.util.List;
 import com.example.ronny_xie.gdcp.Fragment.jw2012SyetemFragment.page.jw_main_page;
 import com.example.ronny_xie.gdcp.loginActivity.ConnInterface;
 
-import org.apache.http.client.HttpClient;
 import org.apache.http.impl.client.DefaultHttpClient;
 
 import com.example.ronny_xie.gdcp.R;
@@ -20,15 +19,10 @@ import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
-import android.support.v4.app.Fragment;
-import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -47,7 +41,7 @@ public class jwFragment extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.fragment_jw);
+        setContentView(R.layout.fragment_jw_login);
         initHandler();
         init();
         initBar();

@@ -49,7 +49,7 @@ public class adapter_weather_main extends BaseAdapter {
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         if (convertView == null) {
-            convertView = View.inflate(context, R.layout.weather_main_adapter, null);
+            convertView = View.inflate(context, R.layout.adapter_weather_main, null);
         }
         TextView tv_date = (TextView) convertView.findViewById(R.id.fragment_weather_main_date);
         ImageView tv_info = (ImageView) convertView.findViewById(R.id.fragment_weather_main_info);

@@ -48,9 +48,9 @@ public class SearchPage extends Activity {
 		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
 		requestWindowFeature(Window.FEATURE_NO_TITLE);
-		setContentView(R.layout.layout_search);
-		loadMore = getLayoutInflater().inflate(R.layout.footview_load_more, null);
-		loadingView = getLayoutInflater().inflate(R.layout.foot_view, null);
+		setContentView(R.layout.fragment_search);
+		loadMore = getLayoutInflater().inflate(R.layout.dialog_footview_load_more, null);
+		loadingView = getLayoutInflater().inflate(R.layout.dialog_foot_view, null);
 		listview = (ListView) findViewById(R.id.listview);
 		input = (EditText) findViewById(R.id.key_word_input);
 		searchType = getIntent().getIntExtra("search_type", 0);

@@ -28,7 +28,7 @@ public class jwxskb_page extends Activity {
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
-		setContentView(R.layout.jwxskb_fragment);
+		setContentView(R.layout.activity_jwxskb);
 		super.onCreate(savedInstanceState);
 		handler = new Handler() {
 			@Override

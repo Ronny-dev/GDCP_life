@@ -512,21 +512,21 @@ public class ChatMessageAdapter extends BaseAdapter {
 		switch (message.getType()) {
 		case GotyeMessageTypeImage:
 			return getDirect(message) == MESSAGE_DIRECT_RECEIVE ? inflater
-					.inflate(R.layout.layout_row_received_picture, null)
-					: inflater.inflate(R.layout.layout_row_sent_picture, null);
+					.inflate(R.layout.inflate_row_received_picture, null)
+					: inflater.inflate(R.layout.inflate_row_sent_picture, null);
 
 		case GotyeMessageTypeAudio:
 			return getDirect(message) == MESSAGE_DIRECT_RECEIVE ? inflater
-					.inflate(R.layout.layout_row_received_voice, null)
-					: inflater.inflate(R.layout.layout_row_sent_voice, null);
+					.inflate(R.layout.inflate_row_received_voice, null)
+					: inflater.inflate(R.layout.inflate_row_sent_voice, null);
 		case GotyeMessageTypeUserData:
 			return getDirect(message) == MESSAGE_DIRECT_RECEIVE ? inflater
-					.inflate(R.layout.layout_row_received_message, null)
-					: inflater.inflate(R.layout.layout_row_sent_message, null);
+					.inflate(R.layout.inflate_row_received_message, null)
+					: inflater.inflate(R.layout.inflate_row_sent_message, null);
 		default:
 			return getDirect(message) == MESSAGE_DIRECT_RECEIVE ? inflater
-					.inflate(R.layout.layout_row_received_message, null)
-					: inflater.inflate(R.layout.layout_row_sent_message, null);
+					.inflate(R.layout.inflate_row_received_message, null)
+					: inflater.inflate(R.layout.inflate_row_sent_message, null);
 		}
 	}
 

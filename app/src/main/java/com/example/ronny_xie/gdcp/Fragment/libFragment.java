@@ -1,6 +1,5 @@
 package com.example.ronny_xie.gdcp.Fragment;
 
-import android.app.Fragment;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -38,7 +37,7 @@ public class libFragment extends android.support.v4.app.Fragment{
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View v = View.inflate(getActivity(), R.layout.card_today_activity, null);
+        View v = View.inflate(getActivity(), R.layout.activity_card_today_main, null);
         return v;
     }
 

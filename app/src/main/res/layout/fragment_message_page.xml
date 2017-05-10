@@ -17,7 +17,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/title_bar_layout"
-        layout="@layout/error_tip"
+        layout="@layout/dialog_error_tip"
         android:visibility="visible" />
 
     <com.example.ronny_xie.gdcp.view.SwipeMenuListView

@@ -30,7 +30,7 @@ public class CardActivity extends Activity implements View.OnClickListener{
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         requestWindowFeature(Window.FEATURE_NO_TITLE);
-        setContentView(R.layout.card_activity);
+        setContentView(R.layout.activity_card_main);
         super.onCreate(savedInstanceState);
         initBar();
         initHandler();//设置回调

@@ -42,7 +42,7 @@ public class jwxscj_adapter extends BaseAdapter {
 		if(position<data.size()){
 			if (convertView == null) {
 				holder = new ViewHolder();
-				convertView = View.inflate(context, R.layout.jwxscj_adapter, null);
+				convertView = View.inflate(context, R.layout.adapter_jwxscj, null);
 				holder.daima = (TextView) convertView
 						.findViewById(R.id.jwxscj_daima);
 				holder.mingcheng = (TextView) convertView

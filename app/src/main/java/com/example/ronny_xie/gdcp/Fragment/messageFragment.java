@@ -69,7 +69,7 @@ public class messageFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.layout_message_page, container, false);
+        return inflater.inflate(R.layout.fragment_message_page, container, false);
     }
 
     @Override
@@ -369,7 +369,7 @@ public class messageFragment extends Fragment {
         builder.setIcon(android.R.drawable.ic_dialog_info);
         builder.setTitle("请输入对方ID");
         //创建一个EditText对象设置为对话框中显示的View对象
-        final View vv = View.inflate(getActivity(), R.layout.chat_stanger, null);
+        final View vv = View.inflate(getActivity(), R.layout.inflate_chat_stanger, null);
         builder.setView(vv);
         //用户选好要选的选项后，点击确定按钮
         builder.setNegativeButton("取消", new DialogInterface.OnClickListener() {

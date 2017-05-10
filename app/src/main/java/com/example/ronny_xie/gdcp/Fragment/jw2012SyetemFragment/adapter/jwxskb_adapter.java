@@ -39,7 +39,7 @@ public class jwxskb_adapter extends BaseAdapter {
 		ViewHolder holder ;
 		if (convertView == null) {
 			holder = new ViewHolder();
-			convertView= View.inflate(context, R.layout.jwxskb_adapter, null);
+			convertView = View.inflate(context, R.layout.adapter_jwxskb, null);
 			holder.one = (TextView) convertView.findViewById(R.id.one);
 			holder.two = (TextView) convertView.findViewById(R.id.two);
 			holder.three = (TextView) convertView.findViewById(R.id.three);

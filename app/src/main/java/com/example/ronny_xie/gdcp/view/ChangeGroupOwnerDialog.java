@@ -41,7 +41,7 @@ public class ChangeGroupOwnerDialog extends Dialog implements
 		// TODO Auto-generated method stub
 		super.onCreate(arg0);
 		requestWindowFeature(Window.FEATURE_NO_TITLE);
-		setContentView(R.layout.layout_change_group_owner);
+		setContentView(R.layout.activity_change_group_owner);
 		findViewById(R.id.back).setOnClickListener(this);
 		findViewById(R.id.ok).setOnClickListener(this);
 		listview = (ListView) findViewById(R.id.listview);

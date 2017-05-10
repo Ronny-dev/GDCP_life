@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 import cn.bmob.v3.Bmob;
 import cn.bmob.v3.BmobQuery;
-import cn.bmob.v3.datatype.BmobQueryResult;
 import cn.bmob.v3.exception.BmobException;
 import cn.bmob.v3.listener.FindListener;
 import android.app.Activity;
@@ -13,7 +12,6 @@ import android.os.Handler;
 import android.view.View;
 import android.view.Window;
 import android.widget.AdapterView;
-import android.widget.ImageView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.GridView;
 import com.example.ronny_xie.gdcp.R;
@@ -28,7 +26,7 @@ public class styleActivity extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		requestWindowFeature(Window.FEATURE_NO_TITLE);
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.style_activity);
+		setContentView(R.layout.activity_style);
 		initView();
 		initBmob();
 		searchDataForBmob();

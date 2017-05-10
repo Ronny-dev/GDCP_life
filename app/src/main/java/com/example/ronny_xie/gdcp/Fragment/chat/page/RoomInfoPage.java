@@ -39,7 +39,7 @@ public class RoomInfoPage extends Activity {
 		super.onCreate(savedInstanceState);
 		requestWindowFeature(Window.FEATURE_NO_TITLE);
 		room = (GotyeRoom) getIntent().getSerializableExtra("room");
-		setContentView(R.layout.layout_room_info);
+		setContentView(R.layout.fragment_room_info);
 		api.addListener(mDelegate);
 		memberView = (GridView) findViewById(R.id.members);
 		((TextView) findViewById(R.id.room_name)).setText(room.getName());

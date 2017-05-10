@@ -80,7 +80,7 @@ public class RTPullListView extends ListView implements OnScrollListener {
 	private void init(Context context) {
 		inflater = LayoutInflater.from(context);
 		headView = (LinearLayout) inflater
-				.inflate(R.layout.pulllist_head, null);
+				.inflate(R.layout.inflate_pulllist_head, null);
 		arrowImageView = (ImageView) headView
 				.findViewById(R.id.head_arrowImageView);
 		// arrowImageView.setMinimumWidth(70);

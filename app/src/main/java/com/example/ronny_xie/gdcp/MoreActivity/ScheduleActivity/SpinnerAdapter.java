@@ -8,8 +8,6 @@ import android.widget.TextView;
 
 import com.example.ronny_xie.gdcp.R;
 
-import org.w3c.dom.Text;
-
 import java.util.List;
 
 /**
@@ -43,7 +41,7 @@ public class SpinnerAdapter extends BaseAdapter {
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         if(arr.get(position).equals("新建分组")){
-            View v = View.inflate(context, R.layout.schedule_spinner,null);
+            View v = View.inflate(context, R.layout.adapter_schedule_spinner, null);
             TextView tv = (TextView) v.findViewById(R.id.schedule_spinner_tv);
             tv.setText(arr.get(position).toString());
             return v;

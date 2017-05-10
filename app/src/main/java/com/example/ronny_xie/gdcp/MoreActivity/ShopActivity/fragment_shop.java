@@ -15,7 +15,7 @@ public class fragment_shop extends Activity {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.shop_main_fragment);
+		setContentView(R.layout.fragment_shop_main_list);
 
 		final String all = "http://www.kiees.com";
 		final String huwai = "http://www.kiees.com/fenlei/shangpinleibie/huwai/";

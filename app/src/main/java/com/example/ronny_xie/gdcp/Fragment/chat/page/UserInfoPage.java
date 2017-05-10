@@ -42,7 +42,7 @@ public class UserInfoPage extends Activity implements OnClickListener {
 		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
 		requestWindowFeature(Window.FEATURE_NO_TITLE);
-		setContentView(R.layout.layout_user_info);
+		setContentView(R.layout.fragment_user_info);
 		user = (GotyeUser) getIntent().getSerializableExtra("user");
 		api.addListener(mdelegate);
 		from = getIntent().getIntExtra("from", -1);

@@ -38,7 +38,7 @@ public class NotifyListPage extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		requestWindowFeature(Window.FEATURE_NO_TITLE);
-		setContentView(R.layout.layout_notify_page);
+		setContentView(R.layout.fragment_notify_page);
 		api.addListener(mDelegate);
 		listView = (SwipeMenuListView) findViewById(R.id.listview);
 		setListview();

@@ -60,7 +60,7 @@ public class editorView extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.schedule_editor_view);
+        setContentView(R.layout.activity_schedule_editor_view);
         initView();
         initSpinner();
         initEditorListener();//设置富文本监听
@@ -82,7 +82,7 @@ public class editorView extends Activity {
 
     private void initSpinner() {
         Spinner spinner = (Spinner) findViewById(R.id.schedule_spinner);
-        final SharedPreferences sp = SharePreferenceUtil.newSharePreference(editorView.this, "schedule_spinner");
+        final SharedPreferences sp = SharePreferenceUtil.newSharePreference(editorView.this, "adapter_schedule_spinner");
         String data = sp.getString("spinner", "全部,临时,生活,工作,娱乐,新建分组");
         final List<String> sp_tem = Arrays.asList(data.split(","));
         final List arrayList = new ArrayList(sp_tem);
@@ -93,7 +93,7 @@ public class editorView extends Activity {
             public void onItemSelected(final AdapterView<?> parent, View view, int position, long id) {
                 if (position == parent.getCount() - 1) {
 
-                    final View v = View.inflate(editorView.this, R.layout.schedule_spinner_more, null);
+                    final View v = View.inflate(editorView.this, R.layout.adapter_schedule_spinner_more, null);
                     new AlertDialog.Builder(editorView.this).setTitle("分组").setIcon(
                             android.R.drawable.ic_dialog_info).setView(
                             v).setPositiveButton("确定", new DialogInterface.OnClickListener() {

@@ -66,7 +66,7 @@ public class CreateGroupSelectUser extends Activity implements OnClickListener {
 		api.addListener(mDelegate);
 		from = getIntent().getIntExtra("from", 0);
 		hasInGroupMembers=getIntent().getStringArrayListExtra("member");
-		setContentView(R.layout.layout_select_user);
+		setContentView(R.layout.fragment_select_user);
 		characterParser = CharacterParser.getInstance();
 		initView();
 		convert();

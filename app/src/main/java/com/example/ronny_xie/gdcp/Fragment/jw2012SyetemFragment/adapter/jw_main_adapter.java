@@ -36,7 +36,7 @@ public class jw_main_adapter extends BaseAdapter {
 	@Override
 	public View getView(int position, View convertView, ViewGroup parent) {
 		if (convertView == null) {
-			convertView = View.inflate(context, R.layout.jw_listview, null);
+			convertView = View.inflate(context, R.layout.adapter_jw_news, null);
 		}
 		TextView listView_tv = (TextView) convertView
 				.findViewById(R.id.jw_listView_textView);

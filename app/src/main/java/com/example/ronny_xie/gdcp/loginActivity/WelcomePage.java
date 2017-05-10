@@ -6,12 +6,8 @@ import android.content.SharedPreferences;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.os.Handler;
-import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentTransaction;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.GestureDetector;
 import android.view.GestureDetector.OnGestureListener;
 import android.view.MotionEvent;
@@ -77,7 +73,7 @@ public class WelcomePage extends FragmentActivity implements OnGestureListener {
         int state = GotyeAPI.getInstance().isOnline();
         GotyeUser us = GotyeAPI.getInstance().getLoginUser();
         //没有登陆需要显示登陆界面
-        setContentView(R.layout.layout_login);
+        setContentView(R.layout.activity_login);
         //注意添加LoginListener
         GotyeAPI.getInstance().addListener(mDelegate);
         mGesture = new GestureDetector(this, this);

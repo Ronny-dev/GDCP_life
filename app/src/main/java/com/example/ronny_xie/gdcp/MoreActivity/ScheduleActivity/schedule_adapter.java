@@ -55,7 +55,7 @@ public class schedule_adapter extends BaseAdapter {
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-        View view = View.inflate(context, R.layout.schedule_adapter,null);
+        View view = View.inflate(context, R.layout.adapter_schedule, null);
         TextView tv_title = (TextView) view.findViewById(R.id.schedule_adapter_title);
         TextView tv_time = (TextView) view.findViewById(R.id.schedule_adapter_time);
         tv_title.setText(data_title.get(position).toString());

@@ -51,7 +51,7 @@ public class GroupRoomListPage extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		requestWindowFeature(Window.FEATURE_NO_TITLE);
-		setContentView(R.layout.layout_room_group_page);
+		setContentView(R.layout.fragment_room_group_page);
 		title = (TextView) findViewById(R.id.title);
 		noDataTip = (TextView) findViewById(R.id.no_data);
 		currentLoginName = api.getLoginUser().getName();
@@ -61,8 +61,8 @@ public class GroupRoomListPage extends Activity {
 		if (Type == 0) {
 			api.reqRoomList(pageIndex);
 			title.setText("聊天室");
-			loadMore = getLayoutInflater().inflate(R.layout.footview_load_more, null);
-			loadingView = getLayoutInflater().inflate(R.layout.foot_view, null);
+			loadMore = getLayoutInflater().inflate(R.layout.dialog_footview_load_more, null);
+			loadingView = getLayoutInflater().inflate(R.layout.dialog_foot_view, null);
 			listView.addFooterView(loadingView);
 		} else {
 			api.reqGroupList();
@@ -211,7 +211,7 @@ public class GroupRoomListPage extends Activity {
 		public View getView(int arg0, View arg1, ViewGroup arg2) {
 			// TODO Auto-generated method stub
 			View layout = getLayoutInflater().inflate(
-					R.layout.layout_group_room_item, null);
+					R.layout.adapter_group_room_item, null);
 			ImageView icon = (ImageView) layout.findViewById(R.id.icon);
 			TextView tx = (TextView) layout.findViewById(R.id.name);
 			GotyeChatTarget target = (GotyeChatTarget) getItem(arg0);

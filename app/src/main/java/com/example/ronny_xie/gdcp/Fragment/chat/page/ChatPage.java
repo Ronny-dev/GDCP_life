@@ -123,7 +123,7 @@ public class ChatPage extends Activity implements OnClickListener {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         requestWindowFeature(Window.FEATURE_NO_TITLE);
-        setContentView(R.layout.gotye_activity_chat);
+        setContentView(R.layout.activity_chat);
         currentLoginUser = api.getLoginUser();
         api.addListener(mDelegate);
         o_user = user = (GotyeUser) getIntent().getSerializableExtra("user");
@@ -567,7 +567,7 @@ public class ChatPage extends Activity implements OnClickListener {
 
     private void showTalkView() {
         dismissTalkView();
-        View view = LayoutInflater.from(this).inflate(R.layout.gotye_audio_recorder_ring, null);
+        View view = LayoutInflater.from(this).inflate(R.layout.inflate_audio_recorder_ring, null);
         anim = initRecordingView(view);
         anim.start();
         menuWindow = new PopupWindow(this);

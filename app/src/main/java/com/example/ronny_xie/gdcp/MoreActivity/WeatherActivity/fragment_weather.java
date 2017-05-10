@@ -62,7 +62,7 @@ import org.jsoup.Jsoup;
 
 
 public class fragment_weather extends Activity {
-    private static final String TAG = "fragment_weather";
+    private static final String TAG = "activity_weather";
     private ImageView imageBackground;
     private TextView tv_temperture;
     private ImageView imageViewNow;
@@ -90,7 +90,7 @@ public class fragment_weather extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.fragment_weather);
+        setContentView(R.layout.activity_weather);
         initHandler();
         initBar();
         initView();//绑定控件
@@ -278,16 +278,16 @@ public class fragment_weather extends Activity {
 
     private void setweiboData() {
         ArrayList<javabean_weather_weibo> data = new ArrayList<>();
-        if (SharePreferenceUtil.getArrayList("weather_weibo", sharePreference, javabean_weather_weibo.class, gson) == null) {
+        if (SharePreferenceUtil.getArrayList("adapter_weater_weibo", sharePreference, javabean_weather_weibo.class, gson) == null) {
             data = weather_util.getWeiboData();
             if (data == null) {
                 Log.i(TAG, "setweiboData: 这里是查询微博信息");
                 handler.sendEmptyMessage(1000);
                 return;
             }
-            SharePreferenceUtil.saveArrayList("weather_weibo", data, sharePreference, gson);
+            SharePreferenceUtil.saveArrayList("adapter_weater_weibo", data, sharePreference, gson);
         } else {
-            ArrayList<Object> weather_weibo = SharePreferenceUtil.getArrayList("weather_weibo", sharePreference, javabean_weather_weibo.class, gson);
+            ArrayList<Object> weather_weibo = SharePreferenceUtil.getArrayList("adapter_weater_weibo", sharePreference, javabean_weather_weibo.class, gson);
             if (weather_weibo == null) {
                 handler.sendEmptyMessage(1000);
                 return;
@@ -345,7 +345,7 @@ public class fragment_weather extends Activity {
             public void run() {
                 String[] from = {"fragment_weather_image", "fragment_weather_text"};
                 int[] to = {R.id.fragment_weather_image, R.id.fragment_weather_text};
-                SimpleAdapter sim_adapter = new SimpleAdapter(getBaseContext(), data_list, R.layout.weather_item, from, to);
+                SimpleAdapter sim_adapter = new SimpleAdapter(getBaseContext(), data_list, R.layout.adapter_weather_item, from, to);
                 gridView.setAdapter(sim_adapter);
             }
         });
@@ -528,7 +528,7 @@ public class fragment_weather extends Activity {
 
     private void newday_popwindow(View v) {
         View toolsLayout = LayoutInflater.from(this).inflate(
-                R.layout.weather_newday_popwindows, null);
+                R.layout.popwindow_weather_newday, null);
         initDataToPopWindows1(toolsLayout);
         popwindow1 = new PopupWindow(toolsLayout, ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT, true);
         popwindow1.setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
@@ -552,7 +552,7 @@ public class fragment_weather extends Activity {
 
     private void weather_more_popwindow(View v) {
         View toolsLayout = LayoutInflater.from(this).inflate(
-                R.layout.weather_more_popwindows, null);
+                R.layout.popwindow_weather_deatils, null);
         initDataToPopWindows2(toolsLayout, v);
         popwindow2 = new PopupWindow(toolsLayout, ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT, true);
         popwindow2.setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
@@ -582,7 +582,7 @@ public class fragment_weather extends Activity {
                         if (!isSpinnerFirst[0]) {
                             PopupWindow popwindow3;
                             Log.i(TAG, "onItemSelected: " + position);
-                            final View toolsLayout = LayoutInflater.from(getBaseContext()).inflate(R.layout.weather_popwindows3, null);
+                            final View toolsLayout = LayoutInflater.from(getBaseContext()).inflate(R.layout.popwindow_weather_second, null);
                             popwindow2.dismiss();
                             Thread thread = new Thread(new Runnable() {
                                 @Override

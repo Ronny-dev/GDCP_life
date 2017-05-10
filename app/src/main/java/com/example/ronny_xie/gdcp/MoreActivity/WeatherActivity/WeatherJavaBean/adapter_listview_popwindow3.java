@@ -45,7 +45,7 @@ public class adapter_listview_popwindow3 extends BaseAdapter {
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         if (convertView == null) {
-            convertView = View.inflate(context, R.layout.popwindows3_listview, null);
+            convertView = View.inflate(context, R.layout.popwindows_weather_listview, null);
         }
         TextView tv1 = (TextView) convertView.findViewById(R.id.fragment_weather_popwindow3_text1);
         TextView tv2 = (TextView) convertView.findViewById(R.id.fragment_weather_popwindow3_text2);

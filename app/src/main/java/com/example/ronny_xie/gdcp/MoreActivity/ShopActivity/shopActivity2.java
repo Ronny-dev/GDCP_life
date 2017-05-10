@@ -23,7 +23,7 @@ public class shopActivity2 extends Activity {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		requestWindowFeature(Window.FEATURE_NO_TITLE);
-		setContentView(R.layout.shopfragment);
+		setContentView(R.layout.fragment_shop_main);
 		super.onCreate(savedInstanceState);
 		handler = new Handler() {
 			@SuppressWarnings("unchecked")

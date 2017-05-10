@@ -6,7 +6,6 @@ import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
-import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
@@ -45,7 +44,7 @@ public class TodayActivity extends Activity{
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        setContentView(R.layout.card_today_activity);
+        setContentView(R.layout.activity_card_today_main);
         super.onCreate(savedInstanceState);
         initChart();
         initBar();//设置无标题

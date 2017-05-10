@@ -97,7 +97,7 @@ public class GroupInfoPage extends Activity {
 		if (currentLoginName.equals(group.getOwnerAccount())) {
 			canModify = true;
 		}
-		setContentView(R.layout.layout_group_info);
+		setContentView(R.layout.activity_group_info);
 		api.addListener(mDelegate);
 		groupOwner = api.getUserDetail(group, true);
 		initView();
@@ -346,7 +346,7 @@ public class GroupInfoPage extends Activity {
 		View view_popunwindow = LayoutInflater.from(context)
 				.inflate(
 						getResources().getLayout(
-								R.layout.group_msg_mark_popwin), null);
+								R.layout.popwindow_group_msg_mark), null);
 
 		reOne = (RelativeLayout) view_popunwindow.findViewById(R.id.select_linear_one);
 		reTwo = (RelativeLayout) view_popunwindow.findViewById(R.id.select_linear_two);

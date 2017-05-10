@@ -88,7 +88,7 @@ public class MessageListAdapter extends BaseAdapter {
 		ViewHolder viewHolder;
 		if (view == null) {
 			view = LayoutInflater.from(messageFragment.getActivity()).inflate(
-					R.layout.item_delete, null);
+					R.layout.adapter_item_delete, null);
 			viewHolder = new ViewHolder();
 			viewHolder.icon = (ImageView) view.findViewById(R.id.icon);
 			viewHolder.title = (TextView) view.findViewById(R.id.title_tx);

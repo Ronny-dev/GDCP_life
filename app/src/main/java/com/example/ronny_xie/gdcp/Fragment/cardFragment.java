@@ -45,7 +45,7 @@ public class cardFragment extends Activity implements popwindox_card_psd.OnItemC
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         requestWindowFeature(Window.FEATURE_NO_TITLE);
-        setContentView(R.layout.fragment_card);
+        setContentView(R.layout.activity_card_login);
         initHandler();
         initView();
     }

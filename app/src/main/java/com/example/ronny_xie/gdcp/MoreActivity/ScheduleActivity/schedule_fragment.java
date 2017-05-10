@@ -9,13 +9,10 @@ import android.util.Log;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.AdapterView;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 
-import com.example.ronny_xie.gdcp.Fragment.chat.CreateGroupSelectUser;
-import com.example.ronny_xie.gdcp.Fragment.chat.page.SearchPage;
 import com.example.ronny_xie.gdcp.MoreActivity.WeatherActivity.WeatherJavaBean.weather_util;
 import com.example.ronny_xie.gdcp.R;
 import com.example.ronny_xie.gdcp.MoreActivity.ScheduleActivity.db.DBService;
@@ -47,7 +44,7 @@ public class schedule_fragment extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.fragment_schedule);
+        setContentView(R.layout.acitivity_schedule);
         initFloatActionButtom();//浮动按钮
         initTitleShowDay();//标题显示
         initListView();//列表显示

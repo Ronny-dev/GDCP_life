@@ -18,7 +18,7 @@
         android:id="@+id/error_tip"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        layout="@layout/error_tip"
+        layout="@layout/dialog_error_tip"
         android:visibility="visible" />
 
     <ScrollView

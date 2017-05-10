@@ -41,7 +41,7 @@ public class shop_main_adapter extends BaseAdapter {
 	@Override
 	public View getView(int position, View convertView, ViewGroup parent) {
 		if(convertView == null){
-			convertView = View.inflate(context, R.layout.shop_main_baseadapter, null);
+			convertView = View.inflate(context, R.layout.adapter_shop_login, null);
 		}
 		LinearLayout ll = (LinearLayout) convertView.findViewById(R.id.shop_main_baseadapter_ll);
 		ll.setBackgroundResource(arr_images[position]);

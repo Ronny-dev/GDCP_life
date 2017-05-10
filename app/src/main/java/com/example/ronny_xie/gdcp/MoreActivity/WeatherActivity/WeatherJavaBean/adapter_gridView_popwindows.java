@@ -44,7 +44,7 @@ public class adapter_gridView_popwindows extends BaseAdapter {
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         if (convertView == null) {
-            convertView = View.inflate(context, R.layout.weather_popwindows3_data, null);
+            convertView = View.inflate(context, R.layout.popwindow_weather_second_data, null);
         }
         TextView tv_data1 = (TextView) convertView.findViewById(R.id.fragment_popwindow3_text_data1);
         TextView tv_data2 = (TextView) convertView.findViewById(R.id.fragment_popwindow3_text_data2);
