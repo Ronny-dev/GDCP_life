@@ -112,7 +112,7 @@ public class ChangeGroupOwnerDialog extends Dialog implements
 			ViewHolder holder;
 			if (arg1 == null) {
 				arg1 = getLayoutInflater().inflate(
-						R.layout.layout_chage_group_owner_item, null);
+						R.layout.activity_chage_group_owner_item, null);
 				holder = new ViewHolder();
 				holder.icon = (ImageView) arg1.findViewById(R.id.icon);
 				holder.name = (TextView) arg1.findViewById(R.id.name);
