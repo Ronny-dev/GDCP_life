@@ -75,7 +75,7 @@ public class contactsFragment extends Fragment implements OnClickListener {
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 							 Bundle savedInstanceState) {
-		return inflater.inflate(R.layout.layout_contacts, container, false);
+		return inflater.inflate(R.layout.fragment_contacts, container, false);
 	}
 
 	@Override
@@ -372,7 +372,7 @@ public class contactsFragment extends Fragment implements OnClickListener {
 				builder.setIcon(android.R.drawable.ic_dialog_info);
 				builder.setTitle("请输入内容");
 				//创建一个EditText对象设置为对话框中显示的View对象
-				final View v = View.inflate(getActivity(), R.layout.chat_stanger, null);
+				final View v = View.inflate(getActivity(), R.layout.inflate_chat_stanger, null);
 				builder.setView(v);
 				//用户选好要选的选项后，点击确定按钮
 				builder.setNegativeButton("取消", new DialogInterface.OnClickListener() {
@@ -481,7 +481,7 @@ public class contactsFragment extends Fragment implements OnClickListener {
 
 	private void showTools(View v) {
 		View toolsLayout = LayoutInflater.from(getActivity()).inflate(
-				R.layout.layout_tools2_popwindow, null);
+				R.layout.popwindow_contact_tools, null);
 		toolsLayout.findViewById(R.id.tools_add).setOnClickListener(this);
 		toolsLayout.findViewById(R.id.tools_add_single).setOnClickListener(this);
 		toolsLayout.findViewById(R.id.tools_group_chat)

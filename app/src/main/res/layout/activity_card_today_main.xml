@@ -36,7 +36,7 @@
             android:layout_height="wrap_content"
             android:orientation="horizontal">
 
-            <TextView
+            <com.chaychan.viewlib.NumberRunningTextView
                 android:id="@+id/card_activity_today_tv"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"

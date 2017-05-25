@@ -101,8 +101,8 @@ public class TodayActivity extends Activity{
         TextView tv_time = (TextView) findViewById(R.id.card_activity_today_time);
         SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm");
         tv_time.setText(format.format(System.currentTimeMillis()));
-        TextView tv_money = (TextView) findViewById(R.id.card_activity_today_tv);
-        tv_money.setText(moneyData);
+        com.chaychan.viewlib.NumberRunningTextView tv_money = (com.chaychan.viewlib.NumberRunningTextView) findViewById(R.id.card_activity_today_tv);
+        tv_money.setContent(moneyData);
     }
 
     private void initData() {
@@ -208,7 +208,9 @@ public class TodayActivity extends Activity{
         v.left = 0;
         v.right= 7;
         lineChart.setCurrentViewport(v);
+//        lineChart.startDataAnimation();
     }
+
 
     private void initAxisPoints() {
         for (int i = 0; i < score.length; i++) {
