@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 import com.gotye.api.GotyeUser;
-import android.R.integer;
+
 import android.app.Application;
 import android.content.Context;
 import android.content.SharedPreferences;
@@ -227,13 +227,13 @@ public class MyApplication extends Application {
 	}
 	
 	public static boolean getHasLogin(Context context){
-		SharedPreferences sp = context.getSharedPreferences(WelcomePage.CONFIG,
+		SharedPreferences sp = context.getSharedPreferences(LoginPage.CONFIG,
 				Context.MODE_PRIVATE);
 		return sp.getBoolean("haslogin", false);
 	}
 	
 	public static void clearHasLogin(Context context){
-		SharedPreferences sp = context.getSharedPreferences(WelcomePage.CONFIG,
+		SharedPreferences sp = context.getSharedPreferences(LoginPage.CONFIG,
 				Context.MODE_PRIVATE);
 		SharedPreferences.Editor edit = sp.edit();
 		

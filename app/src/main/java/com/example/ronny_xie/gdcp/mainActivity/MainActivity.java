@@ -36,7 +36,7 @@ import com.example.ronny_xie.gdcp.Fragment.settingFragment;
 import com.example.ronny_xie.gdcp.R;
 import com.example.ronny_xie.gdcp.MoreActivity.MoreApplication;
 import com.example.ronny_xie.gdcp.loginActivity.MyApplication;
-import com.example.ronny_xie.gdcp.loginActivity.WelcomePage;
+import com.example.ronny_xie.gdcp.loginActivity.LoginPage;
 import com.example.ronny_xie.gdcp.util.SharePreferenceUtil;
 import com.gotye.api.GotyeAPI;
 import com.gotye.api.GotyeChatTargetType;
@@ -144,7 +144,7 @@ public class MainActivity extends FragmentActivity {
                 Log.d("", "code" + code + "" + x);
                 if (code == GotyeStatusCode.CodeNotLoginYet) {
                     Intent intent1 = new Intent(getApplicationContext(),
-                            WelcomePage.class);
+                            LoginPage.class);
                     startActivity(intent1);
                     finish();
                 }
@@ -492,7 +492,7 @@ public class MainActivity extends FragmentActivity {
                 Toast.makeText(MainActivity.this, "您的账号在另外一台设备上登录了！",
                         Toast.LENGTH_SHORT).show();
                 MyApplication.clearHasLogin(MainActivity.this);
-                Intent intent = new Intent(getBaseContext(), WelcomePage.class);
+                Intent intent = new Intent(getBaseContext(), LoginPage.class);
                 startActivity(intent);
                 finish();
             } else if (code == GotyeStatusCode.CodeNetworkDisConnected) {
@@ -500,7 +500,7 @@ public class MainActivity extends FragmentActivity {
                 Toast.makeText(MainActivity.this, "退出登陆！", Toast.LENGTH_SHORT)
                         .show();
                 MyApplication.clearHasLogin(MainActivity.this);
-                Intent i = new Intent(MainActivity.this, WelcomePage.class);
+                Intent i = new Intent(MainActivity.this, LoginPage.class);
                 startActivity(i);
                 finish();
             }

@@ -8,7 +8,7 @@ import com.example.ronny_xie.gdcp.loginActivity.ConnInterface;
 import org.apache.http.impl.client.DefaultHttpClient;
 
 import com.example.ronny_xie.gdcp.R;
-import com.example.ronny_xie.gdcp.loginActivity.WelcomePage;
+import com.example.ronny_xie.gdcp.loginActivity.LoginPage;
 import com.example.ronny_xie.gdcp.util.ProgressDialogUtil;
 import com.example.ronny_xie.gdcp.util.ToastUtil;
 
@@ -27,7 +27,7 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import static com.example.ronny_xie.gdcp.loginActivity.WelcomePage.httpClient;
+import static com.example.ronny_xie.gdcp.loginActivity.LoginPage.httpClient;
 
 public class jwFragment extends Activity {
     private EditText text;
@@ -45,7 +45,7 @@ public class jwFragment extends Activity {
         initHandler();
         init();
         initBar();
-        users = WelcomePage.getUser(this);
+        users = LoginPage.getUser(this);
         ProgressDialogUtil.showProgress(this, "正在连接..请稍后");
         Thread thread = new Thread(new Runnable() {
 

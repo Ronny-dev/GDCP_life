@@ -109,22 +109,4 @@
             android:text="登录" />
     </LinearLayout>
 
-    <developer.shivam.library.DiagonalView
-        android:id="@+id/login_diagonal_bottom"
-        android:layout_width="match_parent"
-        android:layout_height="200dp"
-        android:layout_alignParentBottom="true"
-        android:src="@color/colorPrimary"
-        diagonal:angle="15"
-        diagonal:diagonalGravity="left|bottom" />
-
-    <developer.shivam.library.DiagonalView
-        android:id="@+id/login_diagonal_top"
-        android:layout_width="match_parent"
-        android:layout_height="200dp"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
-        android:src="@color/colorPrimary"
-        diagonal:angle="15"
-        diagonal:diagonalGravity="left|top" />
 </RelativeLayout>

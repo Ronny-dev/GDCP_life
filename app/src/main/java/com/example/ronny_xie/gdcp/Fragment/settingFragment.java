@@ -2,7 +2,7 @@ package com.example.ronny_xie.gdcp.Fragment;
 
 import com.example.ronny_xie.gdcp.R;
 import com.example.ronny_xie.gdcp.loginActivity.MyApplication;
-import com.example.ronny_xie.gdcp.loginActivity.WelcomePage;
+import com.example.ronny_xie.gdcp.loginActivity.LoginPage;
 import com.example.ronny_xie.gdcp.styleInActivity.styleActivity;
 
 import android.annotation.SuppressLint;
@@ -152,7 +152,7 @@ public class settingFragment extends Fragment {
                 int x = code;
                 Log.d("", "code" + code + "" + x);
                 if (code == GotyeStatusCode.CodeNotLoginYet) {
-                    Intent toLogin = new Intent(getActivity(), WelcomePage.class);
+                    Intent toLogin = new Intent(getActivity(), LoginPage.class);
                     getActivity().startActivity(toLogin);
                     getActivity().finish();
                 }

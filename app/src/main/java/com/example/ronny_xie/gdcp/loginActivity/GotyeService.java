@@ -94,7 +94,7 @@ public class GotyeService extends Service {
 	}
 
 	public static String[] getUser(Context context) {
-		SharedPreferences sp = context.getSharedPreferences(WelcomePage.CONFIG,
+		SharedPreferences sp = context.getSharedPreferences(LoginPage.CONFIG,
 				Context.MODE_PRIVATE);
 		String name = sp.getString("username", null);
 		String password = sp.getString("password", null);

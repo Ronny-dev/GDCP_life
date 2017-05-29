@@ -11,7 +11,6 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
-import android.util.Log;
 import android.view.MotionEvent;
 import android.view.Window;
 import android.view.GestureDetector.OnGestureListener;
@@ -33,7 +32,7 @@ public class welcome extends Activity implements OnGestureListener {
 		GotyeAPI.getInstance().getLoginUser();
 
 		//获取对象是否登陆
-		String user1[] = WelcomePage.getUser(welcome.this);
+		String user1[] = LoginPage.getUser(welcome.this);
 		String hasUserName = user1[0];
 		boolean hasLogin = MyApplication.getHasLogin(this);
 		if (hasUserName != null && hasLogin == true) {
@@ -55,7 +54,7 @@ public class welcome extends Activity implements OnGestureListener {
 				@Override
 				public void run() {
 					//没有登录的情况
-					Intent i = new Intent(welcome.this, WelcomePage.class);
+					Intent i = new Intent(welcome.this, LoginPage.class);
 					startActivity(i);
 					finish();
 				}
@@ -108,10 +107,10 @@ public class welcome extends Activity implements OnGestureListener {
 					|| code == GotyeStatusCode.CodeOfflineLoginOK) { // 6
 
 				// 传入已登过的状态
-				String user1[] = WelcomePage.getUser(welcome.this);
+				String user1[] = LoginPage.getUser(welcome.this);
 				String hasUserName = user1[0];
 				String hasPassWord = user1[1];
-				WelcomePage.saveUser(welcome.this, hasUserName, hasPassWord,
+				LoginPage.saveUser(welcome.this, hasUserName, hasPassWord,
 						true);
 
 				Intent i = new Intent(welcome.this, MainActivity.class);

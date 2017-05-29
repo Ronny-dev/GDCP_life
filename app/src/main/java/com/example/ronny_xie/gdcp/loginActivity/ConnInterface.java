@@ -199,7 +199,7 @@ public class ConnInterface {
                     return -1;
                 } else {
                     Message msg = Message.obtain();
-                    msg.what = WelcomePage.NAMEEXIST;
+                    msg.what = LoginPage.NAMEEXIST;
                     msg.obj = realName;
                     handler.sendMessage(msg);
                     return 1;
@@ -212,7 +212,7 @@ public class ConnInterface {
                     String a = elementsByTag.get(1).toString();
                     Message msg = Message.obtain();
                     msg.obj = a;
-                    msg.what = WelcomePage.SCRIPTTAG;
+                    msg.what = LoginPage.SCRIPTTAG;
                     handler.sendMessage(msg);
                 }
                 e.printStackTrace();
