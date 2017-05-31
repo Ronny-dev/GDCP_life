@@ -83,8 +83,8 @@
 
                 <ImageView
                     android:id="@+id/imageView"
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
+                    android:layout_width="60dp"
+                    android:layout_height="60dp"
                     android:layout_marginLeft="13dp"
                     android:gravity="center_vertical"
                     android:src="@drawable/ic_launcher" />
@@ -120,8 +120,8 @@
 
                 <ImageView
                     android:id="@+id/imageViewBar"
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
+                    android:layout_width="60dp"
+                    android:layout_height="60dp"
                     android:layout_marginLeft="13dp"
                     android:gravity="center_vertical"
                     android:src="@drawable/ic_launcher" />
@@ -157,8 +157,8 @@
 
                 <ImageView
                     android:id="@+id/imageViewBarCode"
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
+                    android:layout_width="60dp"
+                    android:layout_height="60dp"
                     android:layout_marginLeft="13dp"
                     android:gravity="center_vertical"
                     android:src="@drawable/ic_launcher" />
@@ -194,8 +194,8 @@
 
                 <ImageView
                     android:id="@+id/imageViewFile"
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
+                    android:layout_width="60dp"
+                    android:layout_height="60dp"
                     android:layout_marginLeft="13dp"
                     android:gravity="center_vertical"
                     android:src="@drawable/ic_launcher" />
@@ -229,14 +229,6 @@
                 android:background="@drawable/nestedscroll_layout_clickable"
                 android:clickable="true">
 
-                <ImageView
-                    android:id="@+id/imageNote"
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:layout_marginLeft="13dp"
-                    android:gravity="center_vertical"
-                    android:src="@drawable/ic_launcher" />
-
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
@@ -252,6 +244,14 @@
                     android:layout_centerVertical="true"
                     android:layout_marginRight="36dp"
                     android:src="@drawable/personal_arrow" />
+
+                <ImageView
+                    android:id="@+id/imageNote"
+                    android:layout_width="60dp"
+                    android:layout_height="60dp"
+                    android:layout_marginLeft="13dp"
+                    android:gravity="center_vertical"
+                    android:src="@drawable/ic_launcher" />
             </RelativeLayout>
 
             <TextView
@@ -268,8 +268,8 @@
 
                 <ImageView
                     android:id="@+id/imageWeather"
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
+                    android:layout_width="60dp"
+                    android:layout_height="60dp"
                     android:layout_marginLeft="13dp"
                     android:gravity="center_vertical"
                     android:src="@drawable/ic_launcher" />
@@ -305,8 +305,8 @@
 
                 <ImageView
                     android:id="@+id/imageEmoticon"
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
+                    android:layout_width="60dp"
+                    android:layout_height="60dp"
                     android:layout_marginLeft="13dp"
                     android:gravity="center_vertical"
                     android:src="@drawable/ic_launcher" />
@@ -343,8 +343,8 @@
 
                 <ImageView
                     android:id="@+id/imageUpdate"
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
+                    android:layout_width="60dp"
+                    android:layout_height="60dp"
                     android:layout_marginLeft="13dp"
                     android:gravity="center_vertical"
                     android:src="@drawable/ic_launcher" />
@@ -380,8 +380,8 @@
 
                 <ImageView
                     android:id="@+id/imageDonate"
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
+                    android:layout_width="60dp"
+                    android:layout_height="60dp"
                     android:layout_marginLeft="13dp"
                     android:gravity="center_vertical"
                     android:src="@drawable/ic_launcher" />
@@ -417,8 +417,8 @@
 
                 <ImageView
                     android:id="@+id/imageClearCache"
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
+                    android:layout_width="60dp"
+                    android:layout_height="60dp"
                     android:layout_marginLeft="13dp"
                     android:gravity="center_vertical"
                     android:src="@drawable/ic_launcher" />

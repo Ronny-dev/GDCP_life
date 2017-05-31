@@ -18,10 +18,9 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="0dp"
+        android:layout_height="120dp"
         android:layout_marginLeft="50dp"
         android:layout_marginTop="20dp"
-        android:layout_weight="2"
         android:orientation="vertical">
 
         <TextView
@@ -62,12 +61,21 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="4">
+        android:layout_height="300dp">
 
         <lecho.lib.hellocharts.view.LineChartView
             android:id="@+id/fragment_card_linechart"
             android:layout_width="match_parent"
             android:layout_height="match_parent" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="300dp">
+
+        <ListView
+            android:id="@+id/card_activity_today_listview"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"></ListView>
     </LinearLayout>
 </LinearLayout>

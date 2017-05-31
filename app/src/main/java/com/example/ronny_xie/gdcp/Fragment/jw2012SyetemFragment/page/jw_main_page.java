@@ -19,7 +19,6 @@ import com.example.ronny_xie.gdcp.loginActivity.ConnInterface;
 import com.example.ronny_xie.gdcp.loginActivity.LoginPage;
 import com.example.ronny_xie.gdcp.util.ProgressDialogUtil;
 import com.example.ronny_xie.gdcp.util.ToastUtil;
-import com.example.ronny_xie.gdcp.view.ListViewForScrollView;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -40,8 +39,10 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.ListView;
 import android.widget.PopupWindow;
 import android.widget.PopupWindow.OnDismissListener;
+import android.widget.ScrollView;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.AdapterView.OnItemClickListener;
@@ -62,15 +63,17 @@ public class jw_main_page extends Activity {
     private ArrayList<String> xw_titleUrl;
     private ArrayList<String> jj_title;
     private ArrayList<String> jj_titleUrl;
-    private ListViewForScrollView listview1;
+    private ListView listview1;
     private TextView tv1;
     private TextView tv2;
-    private ListViewForScrollView listview2;
+    private ListView listview2;
     private HttpClient httpclient;
     public static List<String> values;
     public static String[] user;
     private ImageView image_back;
     private static final String TAG = "jw_main_page";
+    private ScrollView scrollView;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         requestWindowFeature(Window.FEATURE_NO_TITLE);
@@ -88,6 +91,7 @@ public class jw_main_page extends Activity {
                             jw_main_page.this));
                     tv2.setVisibility(View.VISIBLE);
                 }
+                scrollView.scrollTo(0, 0);
                 super.handleMessage(msg);
             }
         };
@@ -247,15 +251,16 @@ public class jw_main_page extends Activity {
     }
 
     private void initView() {
+        scrollView = (ScrollView) findViewById(R.id.scroll);
         httpclient = ConnInterface.getHttpclient();
         values = jwFragment.values;
         user = LoginPage.getUser(jw_main_page.this);
-        image_back = (ImageView) findViewById(R.id.jw_main_back);
+        image_back = (ImageView) findViewById(R.id.back);
         list_pager = (ViewPager) findViewById(R.id.list_pager);
         tv1 = (TextView) findViewById(R.id.jw_textView1);
         tv2 = (TextView) findViewById(R.id.jw_textView2);
-        listview1 = (ListViewForScrollView) findViewById(R.id.jw_listView1);
-        listview2 = (ListViewForScrollView) findViewById(R.id.jw_listView2);
+        listview1 = (ListView) findViewById(R.id.jw_listView1);
+        listview2 = (ListView) findViewById(R.id.jw_listView2);
         xw_title = new ArrayList<String>();
         xw_titleUrl = new ArrayList<String>();
         jj_title = new ArrayList<String>();

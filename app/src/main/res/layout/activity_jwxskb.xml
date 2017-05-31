@@ -78,11 +78,10 @@
                 android:text="一二三四五六七八"
                 android:textSize="18sp" />
 
-            <view.ListViewForScrollView
+            <com.example.ronny_xie.gdcp.view.ListViewForScrollView
                 android:id="@+id/jwxskb_listview"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent" >
-            </view.ListViewForScrollView>
+                android:layout_height="match_parent" />
         </LinearLayout>
     </LinearLayout>
 

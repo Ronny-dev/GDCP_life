@@ -20,7 +20,7 @@ public class jw_main_adapter extends BaseAdapter {
 
 	@Override
 	public int getCount() {
-		return title.size();
+		return 9;
 	}
 
 	@Override

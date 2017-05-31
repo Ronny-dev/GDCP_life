@@ -9,6 +9,7 @@ import android.os.Message;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.ListView;
 import android.widget.TextView;
 
 import com.example.ronny_xie.gdcp.Fragment.card.javabean.todayData_javabean;
@@ -61,11 +62,17 @@ public class TodayActivity extends Activity{
                     todayData_javabean todayDataJavabean= (todayData_javabean)fromJson;
                     String moneyData = todayDataJavabean.getTotalMoney();
                     solveData();
+                    initListView();
                     initView(moneyData);
                 }
                 return true;
             }
         });
+    }
+
+    private void initListView() {
+        ListView listView = (ListView) findViewById(R.id.card_activity_today_listview);
+        listView.setAdapter(new TodayListViewAdapter(TodayActivity.this, arr));
     }
 
     private void solveData() {

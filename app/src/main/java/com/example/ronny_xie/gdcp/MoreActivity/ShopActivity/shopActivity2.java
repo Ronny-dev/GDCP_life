@@ -10,7 +10,9 @@ import android.os.Handler;
 import android.os.Message;
 import android.view.View;
 import android.view.Window;
+import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import com.example.ronny_xie.gdcp.R;
 
@@ -40,8 +42,16 @@ public class shopActivity2 extends Activity {
 		};
 		Intent intent = getIntent();
 		String uri = intent.getStringExtra("data");
-		System.out.println(uri);
 
+		TextView textView = (TextView) findViewById(R.id.title);
+		textView.setText("值得买");
+		ImageView imageView = (ImageView) findViewById(R.id.back);
+		imageView.setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				finish();
+			}
+		});
 		lv = (ListView) findViewById(R.id.shop_lv);
 		dialog = new ProgressDialog(this);
 		dialog.setTitle("信息正在获取中");

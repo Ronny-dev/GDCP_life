@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<com.gc.materialdesign.views.ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:materialdesign="http://schemas.android.com/apk/res-auto"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/scroll"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
@@ -10,31 +9,9 @@
         android:layout_height="wrap_content"
         android:orientation="vertical">
 
-        <RelativeLayout
-            android:id="@+id/title_bar_layout"
-            android:layout_width="match_parent"
-            android:layout_height="45dp"
-            android:background="@drawable/title_bar_bg">
-
-            <ImageView
-                android:id="@+id/jw_main_back"
-                android:layout_width="50dp"
-                android:layout_height="50dp"
-                android:layout_alignParentLeft="true"
-                android:layout_centerVertical="true"
-                android:onClick="back"
-                android:padding="15dp"
-                android:src="@drawable/white_back" />
-
-            <TextView
-                android:id="@+id/title"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerInParent="true"
-                android:text="广交教务"
-                android:textColor="@color/white"
-                android:textSize="18sp" />
-        </RelativeLayout>
+        <include
+            layout="@layout/main_bar_include"
+            android:id="@+id/title_bar" />
 
         <android.support.v4.view.ViewPager
             android:id="@+id/list_pager"
@@ -80,8 +57,7 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="8"
+            android:layout_height="match_parent"
             android:orientation="vertical">
 
             <TextView
@@ -93,10 +69,10 @@
                 android:textSize="24dp"
                 android:visibility="invisible" />
 
-            <com.example.ronny_xie.gdcp.view.ListViewForScrollView
+            <ListView
                 android:id="@+id/jw_listView1"
                 android:layout_width="match_parent"
-                android:layout_height="300dp"></com.example.ronny_xie.gdcp.view.ListViewForScrollView>
+                android:layout_height="300dp"></ListView>
 
             <TextView
                 android:id="@+id/jw_textView2"
@@ -107,11 +83,11 @@
                 android:textSize="24dp"
                 android:visibility="invisible" />
 
-            <com.example.ronny_xie.gdcp.view.ListViewForScrollView
+            <ListView
                 android:id="@+id/jw_listView2"
                 android:layout_width="match_parent"
-                android:layout_height="300dp"></com.example.ronny_xie.gdcp.view.ListViewForScrollView>
+                android:layout_height="300dp"></ListView>
         </LinearLayout>
     </LinearLayout>
 
-</com.gc.materialdesign.views.ScrollView>
+</ScrollView>

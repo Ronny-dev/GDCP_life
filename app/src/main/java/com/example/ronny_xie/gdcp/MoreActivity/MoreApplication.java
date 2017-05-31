@@ -25,7 +25,7 @@ public class MoreApplication extends Activity implements View.OnClickListener {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.fragment_moreview_page);
         CollapsingToolbarLayout collapsingToolbarLayout = (CollapsingToolbarLayout) findViewById(R.id.more_activity_collapsing);
-        collapsingToolbarLayout.setTitle("nihao");
+        collapsingToolbarLayout.setTitle("更多");
         collapsingToolbarLayout.setCollapsedTitleTextColor(Color.WHITE);
         collapsingToolbarLayout.setExpandedTitleColor(Color.rgb(205, 133, 63));
         initViews();
