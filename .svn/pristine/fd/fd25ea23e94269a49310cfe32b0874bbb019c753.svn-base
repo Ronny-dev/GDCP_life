@@ -1,0 +1,359 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <ImageView
+        android:id="@+id/menu_background_image"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scaleType="fitXY" />
+
+    <RelativeLayout
+        android:id="@+id/menu_top"
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:layout_gravity="center"
+        android:background="#1E96E5"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="16dp"
+            android:layout_marginTop="44dp"
+            android:orientation="horizontal">
+
+            <view.CicrcularImageView
+                android:id="@+id/menu_image"
+                android:layout_width="80dp"
+                android:layout_height="80dp"
+                android:scaleType="centerCrop"
+                android:src="@drawable/ic_launcher" />
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:id="@+id/menu_text"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginLeft="30dp"
+                    android:text="name"
+                    android:textColor="#ffffff"
+                    android:textSize="18sp" />
+
+                <TextView
+                    android:id="@+id/menu_id"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginRight="16dp"
+                    android:layout_marginTop="30dp"
+                    android:text="151315"
+                    android:textColor="#ffffff"
+                    android:textSize="12sp" />
+            </RelativeLayout>
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/menu_text_sign"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="15dp"
+            android:text="个性签名"
+            android:textColor="#ffffff" />
+    </RelativeLayout>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/menu_top">
+
+        <LinearLayout
+            android:id="@+id/menu_middle"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <RelativeLayout
+                android:id="@+id/menu_rl"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/login_button_selector"
+                android:gravity="left">
+
+                <ImageView
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:layout_marginLeft="-12dp"
+                    android:layout_centerVertical="true"
+                    android:src="@drawable/slide_chat" />
+
+                <Button
+                    android:id="@+id/bt_chat"
+                    style="@android:style/Holo.Light.ButtonBar"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:layout_marginLeft="96dp"
+                    android:background="@drawable/login_button_selector"
+                    android:gravity="center_vertical"
+                    android:onClick="btn_chat"
+                    android:text="聊天"
+                    android:textColor="#202020" />
+
+                <TextView
+                    android:id="@+id/new_msg_tip"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="96dp"
+                    android:background="@drawable/tab_unread_bg"
+                    android:gravity="center"
+                    android:text="1"
+                    android:textColor="@color/white" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <ImageView
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="32dp"
+                    android:src="@drawable/slide_friend" />
+
+                <Button
+                    android:id="@+id/bt_friend"
+                    style="@android:style/Holo.Light.ButtonBar"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="96dp"
+                    android:background="@drawable/login_button_selector"
+                    android:gravity="center_vertical"
+                    android:onClick="btn_friend"
+                    android:text="好友"
+                    android:textColor="#202020" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <ImageView
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="32dp"
+                    android:src="@drawable/menu_3" />
+
+                <Button
+                    android:id="@+id/bt7"
+                    style="@android:style/Holo.Light.ButtonBar"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="96dp"
+                    android:background="@drawable/login_button_selector"
+                    android:gravity="center_vertical"
+                    android:onClick="btn_7"
+                    android:text="日程"
+                    android:textColor="#202020" />
+            </RelativeLayout>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:background="@drawable/bar_shadow" />
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <ImageView
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="32dp"
+                    android:src="@drawable/menu_4" />
+
+                <Button
+                    android:id="@+id/bt1"
+                    style="@android:style/Holo.Light.ButtonBar"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="96dp"
+                    android:background="@drawable/login_button_selector"
+                    android:gravity="center_vertical"
+                    android:onClick="btn_1"
+                    android:text="天气"
+                    android:textColor="#202020" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <ImageView
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="32dp"
+                    android:src="@drawable/slide_mission" />
+
+                <Button
+                    android:id="@+id/bt3"
+                    style="@android:style/Holo.Light.ButtonBar"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="96dp"
+                    android:background="@drawable/login_button_selector"
+                    android:clickable="true"
+                    android:gravity="center_vertical"
+                    android:onClick="btn_3"
+                    android:text="出行"
+                    android:textColor="#202020" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <ImageView
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="32dp"
+                    android:src="@drawable/menu_6" />
+
+                <Button
+                    android:id="@+id/bt4"
+                    style="@android:style/Holo.Light.ButtonBar"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="96dp"
+                    android:background="@drawable/login_button_selector"
+                    android:clickable="true"
+                    android:gravity="center_vertical"
+                    android:onClick="btn_4"
+                    android:text="购物"
+                    android:textColor="#202020" />
+            </RelativeLayout>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:background="@drawable/bar_shadow" />
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <ImageView
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="32dp"
+                    android:src="@drawable/slide_jw" />
+
+                <Button
+                    android:id="@+id/bt2"
+                    style="@android:style/Holo.Light.ButtonBar"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="96dp"
+                    android:background="@drawable/login_button_selector"
+                    android:gravity="center_vertical"
+                    android:onClick="btn_2"
+                    android:text="课程"
+                    android:textColor="#202020" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <ImageView
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="32dp"
+                    android:src="@drawable/slide_card" />
+
+                <Button
+                    android:id="@+id/bt5"
+                    style="@android:style/Holo.Light.ButtonBar"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="96dp"
+                    android:background="@drawable/login_button_selector"
+                    android:clickable="true"
+                    android:gravity="center_vertical"
+                    android:onClick="btn_5"
+                    android:text="教务"
+                    android:textColor="#202020" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <ImageView
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="32dp"
+                    android:src="@drawable/menu_9" />
+
+                <Button
+                    android:id="@+id/bt6"
+                    style="@android:style/Holo.Light.ButtonBar"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="96dp"
+                    android:background="@drawable/login_button_selector"
+                    android:clickable="true"
+                    android:gravity="center_vertical"
+                    android:onClick="btn_6"
+                    android:text="卡务"
+                    android:textColor="#202020" />
+            </RelativeLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="30dp"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/menu_text_set"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="设置"
+                    android:textColor="#202020"
+                    android:textSize="24sp" />
+
+                <TextView
+                    android:id="@+id/menu_text_exit"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="退出"
+                    android:textColor="#202020"
+                    android:textSize="24sp" />
+            </LinearLayout>
+        </LinearLayout>
+    </ScrollView>
+
+
+</RelativeLayout>

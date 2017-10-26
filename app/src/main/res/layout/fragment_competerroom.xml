@@ -1,0 +1,192 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:orientation="vertical">
+    <!--显示时间-->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@android:color/white">
+        <Spinner
+            android:id="@+id/fragment_comperter_spinner1"
+            android:layout_width="0dp"
+            android:layout_weight="2"
+            android:entries="@array/spinner1"
+            android:layout_height="match_parent"/>
+
+        <Spinner
+            android:id="@+id/fragment_comperter_spinner2"
+            android:layout_width="0dp"
+            android:layout_weight="4"
+            android:entries="@array/spinner2"
+            android:layout_height="match_parent"/>
+
+        <Spinner
+            android:id="@+id/fragment_comperter_spinner3"
+            android:layout_width="0dp"
+            android:layout_weight="2"
+            android:entries="@array/spinner3"
+            android:layout_height="match_parent"/>
+        <!--下拉方式选周数-->
+        <Spinner
+            android:layout_weight="2"
+            android:id="@+id/switchWeek"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:gravity="center"/>
+
+        <Button
+            android:layout_weight="1"
+            android:id="@+id/btn_search"
+            android:text="查询"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"/>
+
+
+
+    </LinearLayout>
+    <!--分隔线-->
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="#00FF7F"/>
+    <!--显示星期-->
+    <LinearLayout
+
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@android:color/white"
+        android:gravity="center">
+
+        <TextView
+            android:layout_width="25dp"
+            android:layout_height="30dp"/>
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="30dp"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text="星期一"/>
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="30dp"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text="星期二"/>
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="30dp"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text="星期三"/>
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="30dp"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text="星期四"/>
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="30dp"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text="星期五"/>
+    </LinearLayout>
+    <!--显示课表详细信息-->
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+            <!--显示多少节课-->
+            <LinearLayout
+                android:layout_width="25dp"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="110dp"
+                    android:gravity="center"
+                    android:text="一"
+                    android:textSize="10dp"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="110dp"
+                    android:gravity="center"
+                    android:text="二"
+                    android:textSize="12dp"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="110dp"
+                    android:gravity="center"
+                    android:text="三"
+                    android:textSize="12dp"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="110dp"
+                    android:gravity="center"
+                    android:text="四"
+                    android:textSize="12dp"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="110dp"
+                    android:gravity="center"
+                    android:text="五"
+                    android:textSize="12dp"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="110dp"
+                    android:gravity="center"
+                    android:text="六"
+                    android:textSize="12dp"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="110dp"
+                    android:gravity="center"
+                    android:text="七"
+                    android:textSize="12dp"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="110dp"
+                    android:gravity="center"
+                    android:text="八"
+                    android:textSize="12dp"/>
+
+            </LinearLayout>
+
+            <View
+                android:layout_width="1dp"
+                android:layout_height="match_parent"
+                android:background="#E5E5E5"/>
+
+            <GridView
+                android:id="@+id/courceDetail"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="#E5E5E5"
+                android:horizontalSpacing="1dp"
+                android:numColumns="5"
+                android:stretchMode="columnWidth"
+                android:verticalSpacing="1dp">
+            </GridView>
+        </LinearLayout>
+    </ScrollView>
+
+</LinearLayout>

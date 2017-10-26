@@ -1,0 +1,173 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.percent.PercentRelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:card_view="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@mipmap/jw_back">
+
+    <TextView
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:alpha="0.6"
+        android:gravity="center"
+        android:text="教务系统"
+        android:textSize="23sp"
+        app:layout_heightPercent="10%"
+        app:layout_marginLeftPercent="33%"
+        app:layout_marginTopPercent="10%"
+        app:layout_widthPercent="30%" />
+
+    <android.support.percent.PercentFrameLayout
+        android:id="@+id/fl_choice"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_margin="5dp"
+        android:orientation="vertical"
+        app:layout_heightPercent="70%"
+        app:layout_marginTopPercent="20%">
+
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:orientation="horizontal"
+            app:layout_heightPercent="50%"
+            app:layout_widthPercent="100%">
+
+            <android.support.v7.widget.CardView
+                android:id="@+id/cv_news"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_marginRight="2dp"
+                android:layout_weight="1"
+                app:cardBackgroundColor="#3A5FCD"
+                app:cardCornerRadius="16dp"
+                app:cardElevation="8dp"
+                app:contentPadding="5dp">
+
+                <ImageView
+
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginRight="1dp"
+                    android:layout_weight="1"
+                    android:background="#3A5FCD"
+                    android:src="@drawable/news_s" />
+
+                <Button
+                    android:id="@+id/btn_news"
+                    android:layout_width="60dp"
+                    android:layout_height="25dp"
+                    android:layout_gravity="bottom|center"
+                    android:layout_marginBottom="3dp"
+                    android:background="@drawable/jw_choice_btn_selector"
+                    android:text="浏览"
+                    android:textColor="@color/jw_choice_btn_txt"
+                    android:textSize="14sp" />
+            </android.support.v7.widget.CardView>
+
+            <android.support.v7.widget.CardView
+                android:id="@+id/cv_cj"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="2dp"
+                android:layout_weight="1"
+                app:cardBackgroundColor="#3A5FCD"
+                app:cardCornerRadius="16dp"
+                app:cardElevation="8dp"
+                app:contentPadding="5dp">
+
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:background="#3A5FCD"
+                    android:src="@drawable/cj" />
+
+                <Button
+                    android:id="@+id/btn_cj"
+                    android:layout_width="60dp"
+                    android:layout_height="25dp"
+                    android:layout_gravity="bottom|center"
+                    android:layout_marginBottom="3dp"
+                    android:background="@drawable/jw_choice_btn_selector"
+                    android:text="查询"
+                    android:textColor="@color/jw_choice_btn_txt"
+                    android:textSize="14sp" />
+            </android.support.v7.widget.CardView>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:orientation="horizontal"
+            app:layout_heightPercent="50%"
+            app:layout_marginTopPercent="51%"
+            app:layout_widthPercent="100%">
+
+            <android.support.v7.widget.CardView
+                android:id="@+id/cv_kc"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_marginRight="2dp"
+                android:layout_weight="1"
+                app:cardBackgroundColor="#3A5FCD"
+                app:cardCornerRadius="16dp"
+                app:cardElevation="8dp"
+                app:contentPadding="4dp">
+
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:background="#3A5FCD"
+                    android:src="@drawable/kc" />
+
+                <Button
+                    android:id="@+id/btn_kc"
+                    android:layout_width="60dp"
+                    android:layout_height="25dp"
+                    android:layout_gravity="bottom|center"
+                    android:layout_marginBottom="3dp"
+                    android:background="@drawable/jw_choice_btn_selector"
+                    android:text="查询"
+                    android:textColor="@color/jw_choice_btn_txt"
+                    android:textSize="14sp" />
+            </android.support.v7.widget.CardView>
+
+            <android.support.v7.widget.CardView
+                android:id="@+id/cv_more"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="2dp"
+                android:layout_weight="1"
+                app:cardBackgroundColor="#3A5FCD"
+                app:cardCornerRadius="16dp"
+                app:cardElevation="8dp"
+                app:contentPadding="4dp">
+
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:background="#3A5FCD"
+                    android:src="@drawable/more_l" />
+
+                <Button
+                    android:id="@+id/btn_more"
+                    android:layout_width="60dp"
+                    android:layout_height="25dp"
+                    android:layout_gravity="bottom|center"
+                    android:layout_marginBottom="3dp"
+                    android:background="@drawable/jw_choice_btn_selector"
+                    android:text="更多"
+                    android:textColor="@color/jw_choice_btn_txt"
+                    android:textSize="14sp" />
+            </android.support.v7.widget.CardView>
+        </LinearLayout>
+
+
+    </android.support.percent.PercentFrameLayout>
+</android.support.percent.PercentRelativeLayout>

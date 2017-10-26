@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/nav_message"
+            android:icon="@drawable/slide_chat"
+            android:title="聊天" />
+        <item
+            android:id="@+id/nav_contacts"
+            android:icon="@drawable/slide_friend"
+            android:title="好友" />
+    </group>
+    <group android:id="@+id/g2">
+
+        <item
+            android:id="@+id/nav_computerroom"
+            android:icon="@drawable/slide_mission"
+            android:title="课程" />
+        <item
+            android:id="@+id/nav_jw2012"
+            android:icon="@drawable/slide_jw"
+            android:title="教务" />
+        <item
+            android:id="@+id/nav_card"
+            android:icon="@drawable/slide_card"
+            android:title="卡务" />
+        <item
+            android:id="@+id/nav_lib"
+            android:icon="@drawable/slide_lib"
+            android:title="图书馆" />
+        <item
+            android:id="@+id/nav_more"
+            android:icon="@drawable/ic_launcher"
+            android:title="更多" />
+    </group>
+</menu>

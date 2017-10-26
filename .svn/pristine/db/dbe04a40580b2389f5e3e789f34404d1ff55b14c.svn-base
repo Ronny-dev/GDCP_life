@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/gray_light"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:orientation="vertical"
+        android:padding="8dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:text="切换栏目"/>
+
+        <com.example.ronny_xie.gdcp.Fragment.jw2012SyetemFragment.tag.widget.DragDropGirdView
+            android:id="@+id/tagdrag_view"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:divider="@null"
+            android:fadingEdge="none"
+            android:horizontalSpacing="12dp"
+            android:nestedScrollingEnabled="true"
+            android:numColumns="4"
+            android:verticalSpacing="10dp"
+            app:fixed_type="true"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:orientation="vertical"
+        android:padding="8dp">
+
+        <TextView
+            android:id="@+id/more_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="22dp"
+            android:text="点击添加更多栏目"/>
+
+        <GridView
+            android:id="@+id/add_gridview"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_below="@+id/more_tv"
+            android:layout_marginTop="8dp"
+            android:layout_weight="1"
+            android:divider="@null"
+            android:fadingEdge="none"
+            android:horizontalSpacing="12dp"
+            android:nestedScrollingEnabled="true"
+            android:numColumns="4"
+            android:verticalSpacing="10dp"/>
+
+    </LinearLayout>
+
+    <!-- Host container for the tile drag shadow -->
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:id="@+id/tile_drag_shadow_overlay"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:importantForAccessibility="no"
+            android:visibility="gone"/>
+
+    </FrameLayout>
+
+</LinearLayout>

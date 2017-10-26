@@ -1,0 +1,158 @@
+package com.example.ronny_xie.gdcp.loginActivity;
+
+import android.graphics.Bitmap;
+import android.os.Handler;
+import android.os.Message;
+import android.util.Log;
+import android.widget.ImageView;
+
+import com.lzy.okgo.OkGo;
+import com.lzy.okgo.callback.BitmapCallback;
+
+import org.jsoup.Jsoup;
+import org.jsoup.nodes.Document;
+import org.jsoup.nodes.Element;
+import org.jsoup.select.Elements;
+
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
+
+import okhttp3.Call;
+import okhttp3.Response;
+
+/**
+ * Created by LinJiaRong on 2017/7/19.
+ * TODO：
+ */
+
+public class ConnInterByOkGo {
+    private static final String TAG = "ConnInterfaceByOkgo";
+    private static Response response;
+    private static String realName;
+
+    public static List<String> Conn() {
+        List<String> values = null;
+        try {
+            response = OkGo.get("http://jw2012.gdcp.cn/").execute();
+            String tempHtml = response.body().string();
+            Log.e(TAG, "Conn: tempHtml"+tempHtml);
+            List<QueryEntity> keyWords = new ArrayList<QueryEntity>();
+            // 添加查询元素信息，这里新定义了一个实例类
+            keyWords.add(new QueryEntity("input[name=__VIEWSTATE]", "val", null));
+            values = getValuesByKeyWords(tempHtml, keyWords);
+            Log.e(TAG, "Conn: viewstate:"+values.get(0));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return values;
+    }
+
+
+    public static int ClickIn(String[] arr, List<String> value, Handler handler) {
+        String dataFromHtml = null;
+        try {
+            response = OkGo.post("http://jw2012.gdcp.cn/default2.aspx")
+                    .headers("Accept",
+                            "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8")
+                    .headers("Content-Type",
+                            "application/x-www-form-urlencoded")
+                    .headers("Referer", "http://jw2012.gdcp.cn/")
+                    .params("__VIEWSTATE", value.get(0))
+                    .params("TextBox1", arr[0])
+                    .params("TextBox2", arr[1])
+                    .params("TextBox3", arr[2])
+                    .params("RadioButtonList1", "%D1%A7%C9%FA")
+                    .params("Button1", "")
+                    .params("lbLanguage", "")
+                    .params("hidPdrs", "")
+                    .params("hidsc", "")
+                    .execute();
+
+            Log.e(TAG, "ClickIn: viewstate:"+value.get(0) );
+            Log.e(TAG, "ClickIn: 信息："+arr[0]);
+            Log.e(TAG, "ClickIn: 信息："+arr[1]);
+            Log.e(TAG, "ClickIn: 信息："+arr[2]);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        if (response.code() == 200) {
+            try {
+                dataFromHtml = response.body().string();
+                Log.e(TAG, "ClickIn: dataFromHrml============:" + dataFromHtml);
+                List<QueryEntity> keyWords = new ArrayList<QueryEntity>();
+                keyWords.add(new QueryEntity("span#xhxm", "text", null));
+                realName = getValuesByKeyWords(dataFromHtml, keyWords).get(0);
+                Log.e(TAG, "ClickIn: realName" + realName);
+                if (realName == null) {
+                    Log.e(TAG, "ClickIn: realName == null");
+                    return -1;
+                } else {
+                    Log.e(TAG, "ClickIn: realName != null");
+                    Message msg = Message.obtain();
+                    msg.what = LoginPage.NAMEEXIST;
+                    msg.obj = realName;
+                    handler.sendMessage(msg);
+                    return 1;
+                }
+            } catch (Exception e) {
+                Document doc = Jsoup.parse(dataFromHtml + "");
+                Elements elementsByTag = doc.getElementsByTag("script");
+                Log.e(TAG, "ClickIn: elementsByTag: " + elementsByTag);
+                // System.out.println(dataFromHtml);
+                if (elementsByTag.size() == 1) {
+                    String a = elementsByTag.get(1).toString();
+                    Log.e(TAG, "ClickIn: ++++++++++++" + a);
+                    Message msg = Message.obtain();
+                    msg.obj = a;
+                    msg.what = LoginPage.SCRIPTTAG;
+                    handler.sendMessage(msg);
+                }
+                e.printStackTrace();
+            }
+        } else {
+            Log.e(TAG, "ClickIn: error++++++++++++++++++++++++++++");
+        }
+        return -1;
+    }
+
+    public static List<String> getValuesByKeyWords(String html,
+                                                   List<QueryEntity> queryEntities) throws Exception {
+        List<String> values = new ArrayList<String>();
+        Element body = Jsoup.parse(html).select("body").get(0);
+        Log.e(TAG, "getValuesByKeyWords: body:=="+body);
+        for (QueryEntity entity : queryEntities) {
+            Element element = body.select(entity.targetSelector).get(0);
+            Log.e(TAG, "getValuesByKeyWords: element====="+element);
+            java.lang.reflect.Method method = null;
+            String value = null;
+            Class<?> clazz = element.getClass();
+            if (entity.methodParms == null) {
+                method = clazz.getMethod(entity.methodName);
+                value = (String) method.invoke(element, new Object[]{});
+                Log.e(TAG, "getValuesByKeyWords: entity.methodParms == null=====value:  "+value);
+            } else {
+                method = clazz.getMethod(entity.methodName,
+                        new Class[]{String.class});
+                value = (String) method.invoke(element,
+                        new Object[]{entity.methodParms});
+                Log.e(TAG, "getValuesByKeyWords: value:  "+value);
+            }
+            values.add(value);
+        }
+
+        return values;
+    }
+    public static void GetImageCode(final ImageView view){
+        OkGo.get("http://jw2012.gdcp.cn/CheckCode.aspx")
+                .execute(new BitmapCallback() {
+                    @Override
+                    public void onSuccess(Bitmap bitmap, Call call, Response response) {
+                        Log.e(TAG, "onSuccess: ");
+                        view.setImageBitmap(bitmap);
+                    }
+
+                });
+    }
+
+}

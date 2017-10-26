@@ -1,0 +1,42 @@
+<resources>
+    <string name="app_name">掌上广交</string>
+    <string name="action_settings">Settings</string>
+    <string name="text_ack_msg">已读</string>
+    <string name="text_delivered_msg">已发送</string>
+    <string name="input_class">班级(15软件技术(1) )</string>
+    <string name="serivice_dialog">掌上广交软件服务条款</string>
+
+    <string name="service_content">\t\t\t欢迎你使用掌上广交软件及服务！\n
+        \t\t\t为使用掌上广交软件(一下统称"本软件")及服务，请您务必审慎阅读、充分理解各条款内容，
+        特别是免除或者限制责任的条款、管辖与法律适用条款，以及开通或使用某项服务的单独协议。
+        限制、免责条款。除非您已阅读并接受本协议所有条款，
+        否则您无权使用腾讯提供的服务。您使用腾讯的服务即视为您已阅读并同意上述协议的约束。
+        \n\t\t\t如果您未满18周岁，请在法定监护人的陪同下阅读本协议，并特别注意未成年人使用条款。
+        \n\n\t\t\t一、【协议的范围】
+        \n\t\t\t1.1本协议是您与掌上广交之间关于用户使用掌上广交相关服务所订立的协议。
+        "用户"是指使用掌上广交相关服务的使用人，在本协议中更多地称为“您”。
+        \n\t\t\t1.2本协议项下的服务是指掌上广交向用户提供的包括但不限于即时通讯、网络媒体、互联网增值、
+        互动娱乐、电子商务和广告等产品及服务（以下简称"本服务"）。
+        \n\n\t\t\t二、【帐号与密码安全】
+        \n\t\t\t2.1掌上广交特别提醒您应妥善保管您的帐号和密码。当您使用完毕后，
+        应安全退出。因您保管不善可能导致遭受盗号或密码失窃，责任由您自行承担。
+        \n\n\t\t\t三、【用户个人信息保护】
+        \n\t\t\t3.1保护用户个人信息是掌上广交的一项基本原则。掌上广交将按照本协议及《隐私政策》
+        的规定收集、使用、储存和分享您的个人信息。本协议对个人信息保护规定的内容与上述《隐私政策》有相冲突的，
+        及本协议对个人信息保护相关内容未作明确规定的，均应以《隐私政策》的内容为准。
+        \n\t\t\t3.2您在注册帐号或使用本服务的过程中，可能需要填写一些必要的信息。若国家法律法规有特殊规定的，您需要填写真实的身份信息。
+        若您填写的信息不完整，则无法使用本服务或在使用过程中受到限制。
+        \n\t\t\t3.4掌上广交将运用各种安全技术和程序建立完善的管理制度来保护您的个人信息，以免遭受未经授权的访问、使用或披露。
+        \n\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t掌上广交
+        </string>
+
+
+    <string name="title_alert">title_alert</string>
+
+    <style name="PopupAnimation" mce_bogus="1" parent="android:Animation">
+        <item name="android:windowEnterAnimation">@anim/slide_in_from_bottom</item>
+        <item name="android:windowExitAnimation">@anim/slide_out_to_bottom</item>
+    </style>
+
+
+</resources>

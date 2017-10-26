@@ -1,0 +1,140 @@
+package com.example.ronny_xie.gdcp.Fragment.card;
+
+import android.app.Activity;
+import android.graphics.Color;
+import android.os.Build;
+import android.os.Bundle;
+import android.view.View;
+import android.view.Window;
+import android.view.WindowManager;
+import android.widget.Button;
+import android.widget.ListView;
+import android.widget.TextView;
+import android.widget.Toast;
+
+import com.example.ronny_xie.gdcp.Fragment.card.javabean.todayData_javabean;
+import com.example.ronny_xie.gdcp.MoreActivity.ScheduleActivity.editorView;
+import com.example.ronny_xie.gdcp.R;
+import com.gc.materialdesign.views.CheckBox;
+
+import org.feezu.liuli.timeselector.TimeSelector;
+
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.List;
+
+import lecho.lib.hellocharts.gesture.ZoomType;
+import lecho.lib.hellocharts.model.Axis;
+import lecho.lib.hellocharts.model.AxisValue;
+import lecho.lib.hellocharts.model.Line;
+import lecho.lib.hellocharts.model.LineChartData;
+import lecho.lib.hellocharts.model.PointValue;
+import lecho.lib.hellocharts.model.ValueShape;
+import lecho.lib.hellocharts.model.Viewport;
+import lecho.lib.hellocharts.view.LineChartView;
+
+/**
+ * Created by Ronny on 2017/5/8.
+ */
+
+public class HistoryActivity extends Activity{
+    private String no;
+    private Button btnStart;
+    private Button btnEnd;
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        setContentView(R.layout.activity_card_history_main);
+        super.onCreate(savedInstanceState);
+        no = getIntent().getStringExtra("no");
+        initBar();//设置无标题
+        initView();
+    }
+
+    private void initListView(final todayData_javabean moneyData) {
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                ListView listView = (ListView) findViewById(R.id.card_activity_today_listview);
+                listView.setAdapter(new TodayListViewAdapter(HistoryActivity.this, moneyData));
+            }
+        });
+    }
+
+
+    private void initView() {
+        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+
+        btnStart = (Button) findViewById(R.id.activity_card_history_start);
+        btnEnd = (Button) findViewById(R.id.activity_card_history_end);
+        Button btnSearch = (Button) findViewById(R.id.activity_card_history_search);
+
+        String thisMonth = format.format(new Date(System.currentTimeMillis()));
+
+        final TimeSelector timeSelector1 = new TimeSelector(HistoryActivity.this, new TimeSelector.ResultHandler() {
+            @Override
+            public void handle(String time) {
+                btnStart.setText(time.split(" ")[0]);
+            }
+        }, "2017-09-01 00:00", thisMonth);
+        timeSelector1.setMode(TimeSelector.MODE.YMD);
+
+        final TimeSelector timeSelector2 = new TimeSelector(HistoryActivity.this, new TimeSelector.ResultHandler() {
+            @Override
+            public void handle(String time) {
+                btnEnd.setText(time.split(" ")[0]);
+            }
+        }, "2017-09-01 00:00", thisMonth);
+        timeSelector2.setMode(TimeSelector.MODE.YMD);
+
+        btnStart.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                timeSelector1.show();
+            }
+        });
+        btnEnd.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                timeSelector2.show();
+            }
+        });
+
+        btnSearch.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                initData();
+            }
+        });
+    }
+
+    private void initData() {
+        Thread thread = new Thread(new Runnable() {
+            @Override
+            public void run() {
+                String start = btnStart.getText().toString();
+                String end = btnEnd.getText().toString();
+                if(!start.equals("") || !end.equals("")){
+                    todayData_javabean bean = cardClient.getTodayTransact(start, end, no);
+                    initListView(bean);
+                }
+            }
+        });
+        thread.start();
+    }
+
+    private void initBar() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+            Window window = getWindow();
+            // Translucent status bar
+            window.setFlags(
+                    WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS,
+                    WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
+        }
+        getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
+        getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION);
+    }
+
+}

@@ -1,0 +1,133 @@
+package com.example.ronny_xie.gdcp.styleInActivity;
+
+import android.app.Activity;
+import android.content.Context;
+import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.RecyclerView;
+import android.util.Log;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.BaseAdapter;
+import android.widget.TextView;
+
+import com.example.ronny_xie.gdcp.R;
+import com.example.ronny_xie.gdcp.util.ToastUtil;
+import com.example.ronny_xie.gdcp.util.menu_backgroundUtils;
+
+import java.util.ArrayList;
+import java.util.Collections;
+
+/**
+ * Created by Administrator on 2017/7/18.
+ */
+
+public class MyListViewAdapter extends BaseAdapter {
+
+
+    private Activity context;
+    private ArrayList<Photos> photos;
+    private ArrayList<PhotoType> titles;
+    private ArrayList<Photos> bulids;
+    private ArrayList<Photos> scenerys;
+    private ArrayList<Photos> animals;
+    private ArrayList<Photos> others;
+    private ArrayList<ArrayList> lists;
+    private PhotoType[] photoTypes;
+    private RecycleViewAdapter adapter;
+
+
+    public MyListViewAdapter(Activity context, ArrayList<Photos> photos, ArrayList<PhotoType> titles) {
+        this.context = context;
+        this.photos = photos;
+        this.titles = titles;
+        //对从服务器请求的数据进行排版
+        initData();
+    }
+
+    private void initData() {
+        //图片数据
+        bulids = new ArrayList<>();
+        scenerys = new ArrayList<>();
+        animals = new ArrayList<>();
+        others = new ArrayList<>();
+        for (Photos photose : photos) {
+            if (Integer.parseInt(photose.getType()) == 0) {
+                scenerys.add(photose);
+            } else if (Integer.parseInt(photose.getType()) == 1) {
+                bulids.add(photose);
+            } else if (Integer.parseInt(photose.getType()) == 2) {
+                animals.add(photose);
+            } else {
+                others.add(photose);
+            }
+        }
+        lists = new ArrayList<>();
+        lists.add(scenerys);
+        lists.add(bulids);
+        lists.add(animals);
+        lists.add(others);
+        //标题数据
+        photoTypes = new PhotoType[titles.size()];
+        for (PhotoType title : titles) {
+            photoTypes[Integer.parseInt(title.getType())] = title;
+        }
+    }
+
+    @Override
+    public int getCount() {
+        return titles == null ? 0 : titles.size();
+    }
+
+    @Override
+    public Object getItem(int i) {
+        return null;
+    }
+
+    @Override
+    public long getItemId(int i) {
+        return 0;
+    }
+
+    @Override
+    public View getView(final int i, View convertView, ViewGroup viewGroup) {
+        ViewHolder holder;
+        if (convertView == null) {
+            holder = new ViewHolder();
+            convertView = View.inflate(context, R.layout.style_list_item, null);
+            holder.tvTitle = (TextView) convertView.findViewById(R.id.tv_title);
+            holder.rvStyle = (RecyclerView) convertView.findViewById(R.id.rv_style);
+            convertView.setTag(holder);
+        } else {
+            holder = (ViewHolder) convertView.getTag();
+        }
+        holder.tvTitle.setText(photoTypes[i].getContent());
+        holder.rvStyle.setLayoutManager(new GridLayoutManager(context, 3));
+        adapter = new RecycleViewAdapter(context, lists.get(i));
+        holder.rvStyle.setAdapter(adapter);
+        adapter.setOnItemClickListener(new RecycleViewAdapter.MyItemClickListener() {
+            @Override
+            public void onItemClickListener(View view, int postion) {
+                Photos photo = (Photos)lists.get(i).get(postion);
+
+                ToastUtil.show(context,photo.getUrl());
+                menu_backgroundUtils.setMenuBackground(context, photo.getUrl());
+                context.finish();
+            }
+        });
+        return convertView;
+    }
+
+
+    public void setOnRecycleViewItemClickListener(RecycleViewAdapter.MyItemClickListener listener) {
+        if (adapter != null && listener != null) {
+            adapter.setOnItemClickListener(listener);
+        }
+    }
+
+    static class ViewHolder {
+        TextView tvTitle;
+        RecyclerView rvStyle;
+    }
+
+
+}

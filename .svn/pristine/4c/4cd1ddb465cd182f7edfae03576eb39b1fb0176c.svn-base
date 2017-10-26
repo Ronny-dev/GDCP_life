@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#5875bf</color>
+    <color name="colorPrimaryDark">#2a4995</color>
+    <color name="colorAccent">#FF4081</color>
+    <color name="color_contact_room1">#ebebeb</color>
+    <color name="color_contact_room2">#FFFFFF</color>
+    <color name="app_color">#5875bf</color>
+    <color name="black">#000000</color>
+    <color name="error_item_color">#F6EBE6</color>
+    <color name="tab_bg_color">#eeeeeeee</color>
+    <color name="white">#ffffff</color>
+    <color name="gray">#808080</color>
+    <color name="item_click_color">#f5f5f5</color>
+    <color name="whitegrey">#C0C0C0</color>
+    <color name="scbackground">#bdaeae</color>
+
+    <color name="tab_text_checked">#f00</color>
+    <color name="tab_text_normal">#ABABAB</color>
+    <color name="edit_text">#FFA2B8DD</color>
+    <color name="gray_light">#f3f3f3</color>
+    <color name="gray_item">#FFECECEC</color>
+    <color name="gray_item_press">#dad8d8</color>
+    <color name="gray_deep">#9E9E9E</color>
+
+    <color name="sweet_dialog_bg_color">#FFFFFF</color>
+</resources>

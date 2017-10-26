@@ -1,0 +1,518 @@
+package com.example.ronny_xie.gdcp.Fragment.jw2012SyetemFragment.page;
+
+import android.app.Activity;
+import android.content.DialogInterface;
+import android.content.Intent;
+import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
+import android.support.v7.app.AlertDialog;
+import android.util.Log;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.View.OnClickListener;
+import android.view.Window;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
+import android.widget.ArrayAdapter;
+import android.widget.ImageView;
+import android.widget.ListView;
+import android.widget.Spinner;
+
+import com.daimajia.slider.library.SliderLayout;
+import com.daimajia.slider.library.SliderTypes.TextSliderView;
+import com.example.ronny_xie.gdcp.Fragment.jw2012SyetemFragment.MywebView;
+import com.example.ronny_xie.gdcp.Fragment.jw2012SyetemFragment.adapter.jw_main_adapter;
+import com.example.ronny_xie.gdcp.Fragment.jwFragment;
+import com.example.ronny_xie.gdcp.MoreActivity.MoreApplication;
+import com.example.ronny_xie.gdcp.R;
+import com.example.ronny_xie.gdcp.bean.NewsItem;
+import com.example.ronny_xie.gdcp.loginActivity.ConnInterByOkGo;
+import com.example.ronny_xie.gdcp.loginActivity.ConnInterface;
+import com.example.ronny_xie.gdcp.loginActivity.LoginPage;
+import com.example.ronny_xie.gdcp.util.ProgressDialogUtil;
+import com.example.ronny_xie.gdcp.util.ToastUtil;
+import com.oguzdev.circularfloatingactionmenu.library.FloatingActionButton;
+import com.oguzdev.circularfloatingactionmenu.library.FloatingActionMenu;
+import com.oguzdev.circularfloatingactionmenu.library.SubActionButton;
+
+import org.apache.http.client.HttpClient;
+import org.jsoup.Jsoup;
+import org.jsoup.nodes.Document;
+import org.jsoup.nodes.Element;
+import org.jsoup.select.Elements;
+
+import java.net.URL;
+import java.util.ArrayList;
+import java.util.List;
+
+public class jw_main_page extends Activity {
+    private Document doc;
+    private com.gc.materialdesign.views.ButtonRectangle ib1;
+    private com.gc.materialdesign.views.ButtonRectangle ib2;
+    private com.gc.materialdesign.views.ButtonRectangle ib3;
+    private ArrayList<String> imageurl;
+    private ArrayList<String> imageclickurl;
+    private Handler handler;
+    private ArrayList<NewsItem> newsItems;
+    private ArrayList<String> urlList;
+    private ListView listview;
+    private HttpClient httpclient;
+    public static List<String> values;
+    public static String[] user;
+    private ImageView image_back;
+    private String[] vp_title = {
+            "启航从广交开始",
+            "祝17届毕业生前程似锦",
+            "第七届全国大学生市场调查与分析大赛总决赛",
+            "2017年全国高校商业精英挑战赛",
+            "记亮平院士来我校开展学术讲座",
+    };
+    private int firstLength;
+    private SubActionButton button1;
+    private SubActionButton button2;
+    private SubActionButton button3;
+    private static final String TAG = "jw_main_page";
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        requestWindowFeature(Window.FEATURE_NO_TITLE);
+        handler = new Handler() {
+            @Override
+            public void handleMessage(Message msg) {
+                if (msg.what == 1) {// 设置新闻的适配器
+                    listview.setAdapter(new jw_main_adapter(newsItems, jw_main_page.this));
+                }
+            }
+        };
+        ProgressDialogUtil.showProgress(this, "请稍后...");
+        setContentView(R.layout.activity_jw_mian);
+        super.onCreate(savedInstanceState);
+        initView();// 初始化控件
+        initGDCPhtmldata();// 获取广交官网上的数据
+        initFloatActionButton();
+        initClickView();// 获取点击的view
+        onClickListener();// 监听点击事件
+    }
+
+    private void initFloatActionButton() {
+        ImageView icon = new ImageView(jw_main_page.this);
+        icon.setImageDrawable(getResources().getDrawable(R.drawable.fab_floatmain));
+        final FloatingActionButton actionButton = new FloatingActionButton
+                .Builder(jw_main_page.this).setContentView(icon).build();
+        SubActionButton.Builder itemBUilder = new SubActionButton.Builder(jw_main_page.this);
+        ImageView itemIcon1 = new ImageView(jw_main_page.this);
+        itemIcon1.setImageResource(R.drawable.weather_ziwaixian);
+        button1 = itemBUilder.setContentView(itemIcon1).build();
+
+        ImageView itemIcon2 = new ImageView(jw_main_page.this);
+        button2 = itemBUilder.setContentView(itemIcon2).build();
+        itemIcon2.setImageResource(R.drawable.fab_moresearch);
+
+        ImageView itemIcon3 = new ImageView(jw_main_page.this);
+        button3 = itemBUilder.setContentView(itemIcon3).build();
+        itemIcon3.setImageResource(R.drawable.fab_searchfriend);
+
+        final FloatingActionMenu actionMenu = new FloatingActionMenu
+                .Builder(jw_main_page.this)
+                .addSubActionView(button1)
+                .addSubActionView(button2)
+                .addSubActionView(button3)
+                .attachTo(actionButton).build();
+        final Thread[] thread = {null};
+        final boolean[] isThread_run = {false};
+        actionButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (!actionMenu.isOpen()) {
+                    actionMenu.open(true);
+                } else {
+                    actionMenu.close(true);
+                    return;
+                }
+                isThread_run[0] = true;
+                thread[0] = new Thread(new Runnable() {
+                    @Override
+                    public void run() {
+                        try {
+                            Thread.sleep(3000);
+                            runOnUiThread(new Runnable() {
+                                @Override
+                                public void run() {
+                                    if (actionMenu.isOpen()) {
+                                        actionMenu.close(true);
+                                        isThread_run[0] = false;
+                                    }
+                                }
+                            });
+                        } catch (InterruptedException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                });
+                thread[0].start();
+            }
+        });
+    }
+
+    // 每一个listview项的点击跳转网页的事件侦听
+    private void onClickListener() {
+        listview.setOnItemClickListener(new OnItemClickListener() {
+
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view,
+                                    int position, long id) {
+                Intent intent = new Intent(jw_main_page.this, MywebView.class);
+                intent.putExtra("url", newsItems.get(position-1).getUrl());
+                startActivity(intent);
+            }
+        });
+        image_back.setOnClickListener(new OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
+    }
+
+    // 拿到标题特殊的图片和点击地址
+    private void initImage() {
+        Element elementById2 = doc.getElementById("header");
+        Elements elementsByTag2 = elementById2.getElementsByTag("img");
+        String src = elementsByTag2.get(0).attr("src");
+        Elements elementsByTag = elementById2.getElementsByTag("a");
+        String href = elementsByTag.get(0).attr("href");
+        imageurl.add(src + "\"");
+        imageclickurl.add(href + "\"");
+        // 拿到script里面的图片和点击地址
+        Element elementById = doc.getElementById("header");
+        Elements TagScript = elementById.getElementsByTag("script").eq(1);
+        for (Element element : TagScript) {
+            String[] data = element.data().toString().split("var");
+            String[] dataTem = new String[2];
+            dataTem = getdata(data[1]);
+            imageurl.add(dataTem[0]);
+            dataTem = getdata(dataTem[1]);
+            imageclickurl.add(dataTem[0]);
+            dataTem = getdata(dataTem[1]);
+            imageurl.add(dataTem[0]);
+            dataTem = getdata(dataTem[1]);
+            imageclickurl.add(dataTem[0]);
+            dataTem = getdata(dataTem[1]);
+            imageurl.add(dataTem[0]);
+            dataTem = getdata(dataTem[1]);
+            imageclickurl.add(dataTem[0]);
+            dataTem = getdata(dataTem[1]);
+            imageurl.add(dataTem[0]);
+            dataTem = getdata(dataTem[1]);
+            imageclickurl.add(dataTem[0]);
+            dataTem = getdata(dataTem[1]);
+            imageurl.add(dataTem[0]);
+            dataTem = getdata(dataTem[1]);
+            imageclickurl.add(dataTem[0]);
+        }
+        System.out.println("加载完毕");
+    }
+
+    // 拿到交院首页的新闻html和处理图片信息
+    private void initGDCPhtmldata() {
+        Thread thread = new Thread(new Runnable() {
+            URL url;
+
+            @Override
+            public void run() {
+                try {
+                    url = new URL("http://a1.gdcp.cn/index.shtml");
+                    doc = Jsoup.parse(url, 3000);
+                    initImage();// 获取title的图片信息
+                    ProgressDialogUtil.dismiss();
+                    // 首页的title加载图片
+                    handler.post(new Runnable() {
+                        @Override
+                        public void run() {
+                            View headerView = LayoutInflater.from(jw_main_page.this).inflate(R.layout.list_view_header, listview, false);
+                            SliderLayout sliderLayout = (SliderLayout) headerView.findViewById(R.id.slider_layout);
+                            for (int i = 0; i < 5; i++) {
+                                if (i == 0) {
+                                    TextSliderView textSliderView = new TextSliderView(jw_main_page.this);
+                                    textSliderView.description(vp_title[i]).image(R.drawable.qhgj);
+                                    sliderLayout.addSlider(textSliderView);
+                                    continue;
+                                }
+                                String substring = imageurl.get(i).substring(0,
+                                        imageurl.get(i).length() - 1);
+                                TextSliderView textSliderView = new TextSliderView(jw_main_page.this);
+                                textSliderView.description(vp_title[i]).image("http://a1.gdcp.cn" + substring);
+                                sliderLayout.addSlider(textSliderView);
+                            }
+                            listview.addHeaderView(headerView);
+                            handler.sendEmptyMessage(1);
+                        }
+                    });
+                    initData(doc);// 拿到首页的新闻内容
+                } catch (Exception e) {
+                    handler.post(new Runnable() {
+
+                        @Override
+                        public void run() {
+                            ToastUtil.show(jw_main_page.this, "出现未知错误，请重新认证登录");
+                            finish();
+                        }
+                    });
+                    e.printStackTrace();
+                }
+            }
+        });
+        thread.start();
+    }
+
+    private void initItemData() {
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                for (NewsItem ni : newsItems){
+                    URL url = null;
+                    try {
+                        url = new URL(ni.getUrl());
+                        Document doc = Jsoup.parse(url, 3000);
+                        Elements wzbjxx = doc.getElementsByClass("wzbjxx");
+                        ni.setImg("http://a1.gdcp.cn" + doc.select("img[onClick]").get(0).attr("src"));
+                        String data = wzbjxx.get(0).text().toString().trim();
+                        splitData(ni, data);
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                }
+                handler.sendEmptyMessage(1);
+            }
+        }).start();
+    }
+
+    private void splitData(NewsItem ni, String s) {
+        String[] split = s.split("    ");
+        String s1;
+        for(int i = 0; i < split.length; i++){
+            if(i == 0){
+                s1 = split[i];
+                ni.setDate(s1.substring(5));
+            }else if(i == 1){
+                s1 = split[i];
+                ni.setSource(s1.substring(4));
+            }
+        }
+    }
+
+    private void initView() {
+        httpclient = ConnInterface.getHttpclient();
+        values = jwFragment.values;
+        user = LoginPage.getUser(jw_main_page.this);
+        image_back = (ImageView) findViewById(R.id.back);
+        listview = (ListView) findViewById(R.id.jw_listView);
+        imageclickurl = new ArrayList<String>();
+        imageurl = new ArrayList<String>();
+        newsItems = new ArrayList<NewsItem>();
+        urlList = new ArrayList<String>();
+    }
+
+    // 获取广交官网首页的网页新闻信息
+    private void initData(final Document doc) {
+        Thread thread = new Thread(new Runnable() {
+            @Override
+            public void run() {
+                // --------------------------拿到广交新闻里面的标题和地址
+                firstLength = parseData(doc, "jyxw_wz", 0);
+
+                // --------------------------拿到媒体聚焦里面的标题和地址
+                parseData(doc, "mtjj_wz", firstLength);
+                for (int i = 0; i < urlList.size(); i++){
+                    newsItems.get(i).setUrl(urlList.get(i));
+                }
+                initItemData();
+            }
+        });
+        thread.start();
+    }
+
+    //解析广交官网首页的网页新闻数据封装
+    private int parseData(Document doc, String name, int index){
+        Elements elementsByClass = doc.getElementsByClass(name);
+        Element element = elementsByClass.get(0);
+        Elements elementsByTag = element.getElementsByTag("td");
+        for (Element elementtd : elementsByTag) {
+            if (elementtd.text() != null) {
+                if (!elementtd.text().toString().equals("")) {
+                    NewsItem newsItem = new NewsItem();
+                    newsItem.setTitle(elementtd.text().toString().trim());
+                    newsItems.add(newsItem);
+                }
+            }
+            if (elementtd.getElementsByTag("a") != null) {
+                if (!elementtd.getElementsByTag("a").attr("href").equals("")) {
+                    urlList.add(elementtd.getElementsByTag("a").attr("href"));
+                }
+            }
+        }
+        return newsItems.size();
+    }
+
+    // tab点击事件侦听
+    private void initClickView() {
+        button1.setOnClickListener(new OnClickListener() {
+
+            @Override
+            public void onClick(final View v) {
+                Log.e(TAG, "onClick: button1+++++");
+                // 拿到httpclient配置的信息
+                ProgressDialogUtil.showProgress(jw_main_page.this, "请稍后...");
+                Thread thread = new Thread(new Runnable() {
+
+                    @Override
+                    public void run() {
+                        // 连接教务系统，拿到spinner
+                       /* values = ConnInterface.getClickXSCJfromHTML(httpclient,
+                                values, user[0], "谢");*/
+                        values = ConnInterByOkGo.getClickXSCJfromHTML(user[0]);
+                        Log.e(TAG, "run: button1:"+values.get(1));
+                        handler.post(new Runnable() {
+                            @Override
+                            public void run() {
+                                show_jwxs_dialog(1);
+                                initSpinnerData();
+                                ProgressDialogUtil.dismiss();
+                            }
+                        });
+                    }
+                });
+                thread.start();
+            }
+        });
+        button2.setOnClickListener(new OnClickListener() {
+
+            @Override
+            public void onClick(final View v) {
+                Log.e(TAG, "onClick: ++++++=button2");
+                ProgressDialogUtil.showProgress(jw_main_page.this, "请稍后...");
+
+                Thread thread = new Thread(new Runnable() {
+
+                    @Override
+                    public void run() {
+                       // values = ConnInterface.getClickXSCJfromHTML(httpclient, values, user[0], "谢");
+                        values = ConnInterByOkGo.getClickXSCJfromHTML(user[0]);
+                        handler.post(new Runnable() {
+
+                            @Override
+                            public void run() {
+                                show_jwxs_dialog(2);
+                                initSpinnerData();
+                                ProgressDialogUtil.dismiss();
+                            }
+                        });
+                    }
+                });
+                thread.start();
+            }
+        });
+        button3.setOnClickListener(new OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                Log.e(TAG, "onClick: ++++++=button3");
+                Intent intent = new Intent(jw_main_page.this, MoreApplication.class);
+                startActivity(intent);
+            }
+        });
+    }
+
+    private void show_jwxs_dialog(final int tem) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(jw_main_page.this);
+        View view = LayoutInflater.from(jw_main_page.this).inflate(R.layout.popwindow_jwxw, null);
+        sp1_jwxs = (Spinner) view.findViewById(R.id.xsxw_sp1);
+        sp2_jwxs = (Spinner) view.findViewById(R.id.xsxw_sp2);
+        String s;
+        if (tem == 1){
+            s = "查询成绩";
+        }else{
+            s = "查询课表";
+        }
+        builder.setTitle(s)
+                .setView(view)
+                .setPositiveButton("查询", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        inquiryInfo(tem);
+                    }
+                })
+                .setNegativeButton("取消", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+                    }
+                })
+                .show();
+    }
+
+    private void inquiryInfo(int tem) {
+        Intent intent;
+        if (tem == 2) {
+            intent = new Intent(jw_main_page.this, jwxskb_page.class);
+        } else {
+            intent = new Intent(jw_main_page.this, jwxscj_page.class);
+        }
+        if (sp1_jwxs.getSelectedItem().toString().equals("") || sp2_jwxs.getSelectedItem().toString().equals("")) {
+            ToastUtil.show(getApplicationContext(), "请选择...");
+            return;
+        }
+        intent.putExtra("xueqi", sp1_jwxs.getSelectedItem()
+                .toString());
+        intent.putExtra("xuenian", sp2_jwxs.getSelectedItem()
+                .toString());
+        startActivity(intent);
+    }
+
+    // 拿到script里面的网址
+    public String[] getdata(String data) {
+        String[] arr = new String[2];
+        String sub_attr_last = data.substring(data.indexOf("attr"));
+        String getData = sub_attr_last.substring(sub_attr_last.indexOf("/"),
+                sub_attr_last.indexOf(")"));
+        String sub_fenhao_last = sub_attr_last.substring(sub_attr_last
+                .indexOf(";"));
+        arr[0] = getData;
+        arr[1] = sub_fenhao_last;
+        return arr;
+    }
+
+    private Spinner sp1_jwxs;
+    private Spinner sp2_jwxs;
+
+    // 初始化spinner1
+    private void initSpinnerData() {
+        ArrayList<String> loadSpinner1Data = LoadSpinnerData();
+        ArrayAdapter<String> adapter1 = new ArrayAdapter<String>(jw_main_page.this,
+                android.R.layout.simple_spinner_item, loadSpinner1Data);
+        adapter1.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        sp1_jwxs.setAdapter(adapter1);
+        ArrayList<String> Sp2_arr = new ArrayList<String>();
+        Sp2_arr.add("1");
+        Sp2_arr.add("2");
+        ArrayAdapter<String> adapter2 = new ArrayAdapter<String>(jw_main_page.this,
+                android.R.layout.simple_spinner_item, Sp2_arr);
+        adapter2.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        sp2_jwxs.setAdapter(adapter2);
+    }
+
+    // 读取Spinner的数据
+    private ArrayList<String> LoadSpinnerData() {
+        ArrayList<String> Sp1_arr = new ArrayList<String>();
+        Document doc = Jsoup.parse(values.get(2));
+        Element elementById = doc.getElementById("ddlXN");
+        Elements elementsByTag = elementById.getElementsByTag("option");
+        for (int i = 1; i < elementsByTag.size(); i++) {
+            String a = elementsByTag.get(i).text().toString();
+            Sp1_arr.add(a);
+        }
+        return Sp1_arr;
+    }
+
+}

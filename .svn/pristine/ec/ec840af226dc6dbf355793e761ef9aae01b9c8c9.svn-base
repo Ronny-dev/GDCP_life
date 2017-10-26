@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:orientation="vertical"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent">
+
+
+    <RelativeLayout
+        android:id="@+id/title_bar"
+        android:layout_width="match_parent"
+        android:layout_height="58dp"
+        android:background="@color/app_color">
+
+        <ImageView
+            android:id="@+id/back"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_alignParentLeft="true"
+            android:layout_centerVertical="true"
+            android:onClick="back"
+            android:padding="15dp"
+            android:background="@drawable/common_tab_bg"
+            android:src="@drawable/white_back" />
+        <TextView
+            android:id="@+id/title"
+            android:text="@string/emotion_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="16dp"
+            android:layout_toRightOf="@id/back"
+            android:textColor="@color/white"
+            android:textSize="20sp" />
+
+        </RelativeLayout>
+
+    <com.tencent.smtt.sdk.WebView
+        android:layout_below="@id/title_bar"
+        android:id="@+id/tbs_webview"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+    </com.tencent.smtt.sdk.WebView>
+
+
+
+</RelativeLayout>

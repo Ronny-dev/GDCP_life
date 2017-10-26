@@ -1,0 +1,124 @@
+package com.example.ronny_xie.gdcp.Fragment.jw2012SyetemFragment;
+
+import android.content.Context;
+import android.os.AsyncTask;
+import android.widget.ListView;
+
+import org.jsoup.Jsoup;
+import org.jsoup.nodes.Document;
+
+import java.net.URL;
+
+/**
+ * Created by WYF on 2017/7/24.
+ */
+
+public class MyAsyncTask extends AsyncTask<Integer, Void, Void> {
+
+    private final Context ctx;
+    private final ListView listView;
+    private final ChangeNewsItemContent cnis;
+    private LoadGDCPData loadGDCPData;
+    private Document doc;
+
+    public MyAsyncTask(Context ctx, ListView listView, ChangeNewsItemContent cnis) {
+        this.ctx = ctx;
+        loadGDCPData = new LoadGDCPData(ctx);
+        this.listView = listView;
+        this.cnis = cnis;
+    }
+
+    @Override
+    protected Void doInBackground(Integer... params) {
+        selectTab(params[0]);
+        return null;
+    }
+
+    private Document getDoc(String s) {
+        URL url = null;
+        try {
+            url = new URL(s);
+            return Jsoup.parse(url, 3000);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    private void selectTab(int sign) {
+        switch (sign) {
+            case 0:
+                doc = getDoc("http://a1.gdcp.cn/index.shtml");
+
+                loadGDCPData.initHomeImage(doc);// 获取首页vp图片地址
+
+                loadGDCPData.initHomeViewPager(listView);// 首页vp图片填充
+                cnis.addSliderLayout();
+                cnis.onChangeItemContent(loadGDCPData.initHomeNewsData(doc));
+                break;
+            case 1:
+                doc = getDoc("http://glxy.gdcp.cn/");
+                loadGDCPData.initInputViewPager(doc, listView, 17, "http://glxy.gdcp.cn");
+                cnis.addSliderLayout();
+                loadGDCPData.initNewsData(doc, "a[target]", 0, 10);
+                cnis.onChangeItemContent(loadGDCPData.fillItemImg("http://glxy.gdcp.cn"));
+                break;
+            case 2:
+                doc = getDoc("http://qcxy.gdcp.cn/");
+                loadGDCPData.initScriptViewPager(doc, listView, 1, 18, "http://qcxy.gdcp.cn");
+                cnis.addSliderLayout();
+                loadGDCPData.initNewsData(doc, "a[target=_blank]", 0, 8);
+                cnis.onChangeItemContent(loadGDCPData.fillItemImg("http://qcxy.gdcp.cn"));
+                break;
+            case 3:
+                doc = getDoc("http://tem.gdcp.cn/");
+                loadGDCPData.initInputViewPager(doc, listView, 12, "http://tem.gdcp.cn");
+                cnis.addSliderLayout();
+                loadGDCPData.initNewsData(doc, "a[target=_blank]", 0, 10);
+                cnis.onChangeItemContent(loadGDCPData.fillItemImg("http://wlysxy.gdcp.cn"));
+                break;
+            case 4:
+                doc = getDoc("http://jsxy.gdcp.cn/");
+                loadGDCPData.initScriptViewPager(doc, listView, 0, 9, "http://jsxy.gdcp.cn");
+                cnis.addSliderLayout();
+                loadGDCPData.initNewsData(doc, "a[target=_blank]", 9, 16);
+                cnis.onChangeItemContent(loadGDCPData.fillItemImg("http://jsxy.gdcp.cn"));
+                break;
+            case 5:
+                doc = getDoc("http://gdxy.gdcp.cn/");
+                loadGDCPData.initScriptViewPager(doc, listView, 6, 15, "http://gdxy.gdcp.cn");
+                cnis.addSliderLayout();
+                loadGDCPData.initNewsData(doc, "a[target=_blank]", 0, 9);
+                cnis.onChangeItemContent(loadGDCPData.fillItemImg("http://gdxy.gdcp.cn"));
+                break;
+            case 6:
+                doc = getDoc("http://hsxy.gdcp.cn/");
+                loadGDCPData.initScriptViewPager(doc, listView, 1, 18, "http://hsxy.gdcp.cn");
+                cnis.addSliderLayout();
+                loadGDCPData.initNewsData(doc, "a[target=_blank]", 0, 9);
+                cnis.onChangeItemContent(loadGDCPData.fillItemImg("http://hsxy.gdcp.cn"));
+                break;
+            case 7:
+                doc = getDoc("http://smxy.gdcp.cn/");
+                loadGDCPData.initInputViewPager(doc, listView, 15, "http://smxy.gdcp.cn");
+                cnis.addSliderLayout();
+                loadGDCPData.initNewsData(doc, "a[target=_blank]", 0, 8);
+                cnis.onChangeItemContent(loadGDCPData.fillItemImg("http://smxy.gdcp.cn"));
+                break;
+            case 8:
+                doc = getDoc("http://xxxy.gdcp.cn/");
+                loadGDCPData.initScriptViewPager(doc, listView, 0, 18, "http://xxxy.gdcp.cn");
+                cnis.addSliderLayout();
+                loadGDCPData.initNewsData(doc, "a[target=_blank]", 0, 8);
+                cnis.onChangeItemContent(loadGDCPData.fillItemImg("http://xxxy.gdcp.cn"));
+                break;
+            case 9:
+                doc = getDoc("http://jdxy.gdcp.cn/");
+                loadGDCPData.initInputViewPager(doc, listView, 15, "http://jdxy.gdcp.cn");
+                cnis.addSliderLayout();
+                loadGDCPData.initNewsData(doc, "a[target=_blank]", 0, 9);
+                cnis.onChangeItemContent(loadGDCPData.fillItemImg("http://jdxy.gdcp.cn"));
+                break;
+        }
+    }
+}

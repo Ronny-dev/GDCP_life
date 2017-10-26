@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <FrameLayout
+        android:id="@+id/fl_fail"
+        android:visibility="gone"
+        android:layout_width="match_parent"
+        android:layout_height="50dp">
+
+        <TextView
+            android:textSize="18sp"
+            android:background="@color/colorAccent"
+            android:text="数据请求失败"
+            android:gravity="center"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+        <ImageView
+            android:id="@+id/iv_fail"
+            android:layout_gravity="center_vertical"
+            android:src="@drawable/msg_state_fail_resend_pressed"
+            android:layout_width="45dp"
+            android:layout_height="45dp" />
+
+    </FrameLayout>
+    <FrameLayout
+        android:id="@+id/fl_refrsh"
+        android:layout_width="match_parent"
+        android:layout_height="50dp">
+
+        <TextView
+            android:textSize="18sp"
+            android:text="正在加载数据...."
+            android:gravity="center"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+        <ProgressBar
+            android:id="@+id/pb_refresh"
+            android:layout_width="45dp"
+            android:indeterminateDrawable="@drawable/style_progressbar"
+            android:layout_gravity="center_vertical"
+            android:visibility="visible"
+            android:layout_height="45dp" />
+    </FrameLayout>
+</LinearLayout>

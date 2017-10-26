@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:layout_width="wrap_content"
+              android:layout_height="wrap_content"
+              android:layout_centerInParent="true"
+              android:layout_gravity="center"
+              android:layout_marginLeft="20dp"
+              android:layout_marginRight="20dp"
+              android:background="@drawable/white_edit_bg"
+              android:gravity="center"
+              android:orientation="horizontal">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="30dp"
+        android:gravity="center"
+        android:layout_marginLeft="20dp"
+        android:text="学期："/>
+
+    <Spinner
+        android:id="@+id/xsxw_sp1"
+        android:layout_width="wrap_content"
+        android:layout_height="40dp"
+        android:gravity="center"
+        android:spinnerMode="dialog"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="30dp"
+        android:gravity="center"
+        android:text="学期："/>
+
+    <Spinner
+        android:id="@+id/xsxw_sp2"
+        android:layout_width="wrap_content"
+        android:layout_height="40dp"
+        android:gravity="center"
+        android:spinnerMode="dialog"/>
+
+    <Button
+        android:id="@+id/jwxw_popwindow_button"
+        android:layout_width="50dp"
+        android:layout_height="20dp"
+        android:layout_margin="10dp"
+        android:background="@drawable/black_btn_bg"
+        android:text="查询"
+        android:textColor="#FFFFFF"
+        android:textSize="15sp"/>
+
+</LinearLayout>

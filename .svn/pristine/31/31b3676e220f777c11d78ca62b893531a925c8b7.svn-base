@@ -1,0 +1,167 @@
+package com.example.ronny_xie.gdcp.Fragment.card;
+
+import com.bumptech.glide.Glide;
+import com.example.ronny_xie.gdcp.Fragment.card.javabean.personData_Javabean;
+import com.example.ronny_xie.gdcp.R;
+import android.app.Activity;
+import android.content.Intent;
+import android.os.Build;
+import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
+import android.view.View;
+import android.view.Window;
+import android.view.WindowManager;
+import android.widget.ImageView;
+import android.widget.RelativeLayout;
+import android.widget.TextView;
+
+import java.text.DecimalFormat;
+
+public class CardActivity extends Activity implements View.OnClickListener{
+    private personData_Javabean personData_javabean;
+    private Handler handler;
+    private int SET_PERSON_DATA = 1001;
+    private Intent intentCardManager;
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        requestWindowFeature(Window.FEATURE_NO_TITLE);
+        setContentView(R.layout.activity_card_main);
+        super.onCreate(savedInstanceState);
+        initBar();
+        initHandler();//设置回调
+        initData();//获取内容，布局内容
+    }
+
+    private void initHandler() {
+        handler = new Handler(new Handler.Callback() {
+            @Override
+            public boolean handleMessage(Message msg) {
+                if (msg.what == SET_PERSON_DATA) {
+                    initViewData();
+                }
+                return true;
+            }
+        });
+    }
+
+    private void initData() {
+        onResume();
+    }
+
+    private void LoadImageToTitle() {
+        ImageView image_Title = (ImageView) findViewById(R.id.card_activity_image);
+        Glide.with(CardActivity.this)
+                .load("http://img.hb.aicdn.com/4ae6629f4be1fd5ba818eb09e3d52afecc7fc79b42b72-Tp58cK_fw658")
+//                .load("http://upload.ouliu.net/i/20170922214127890iy.jpeg")
+//                .load("http://upload.ouliu.net/i/20170922214551hn7d8.jpeg")
+                .into(image_Title);
+    }
+
+    private void initViewData() {
+        TextView tv_name = (TextView) findViewById(R.id.fragment_card_name);
+        TextView tv_num = (TextView) findViewById(R.id.fragment_card_num);
+        TextView tv_belond = (TextView) findViewById(R.id.fragment_card_belone);
+        TextView yue = (TextView) findViewById(R.id.fragment_card_money);
+        TextView kazhuangtai = (TextView) findViewById(R.id.kazhuangtai);
+        TextView dongjiezhuangtai = (TextView) findViewById(R.id.dongjiezhuangtai);
+
+
+        String money = personData_javabean.getCard().get(0).getDb_balance();
+        String tem_money = personData_javabean.getCard().get(0).getUnsettle_amount();
+        tv_name.setText(personData_javabean.getCard().get(0).getName());
+        tv_num.setText("卡号："+personData_javabean.getCard().get(0).getAccount());
+        tv_belond.setText("绑定卡号："+personData_javabean.getCard().get(0).getBankacc());
+        if(Integer.parseInt(money) != 0)
+            yue.setText(new StringBuffer(money).insert(money.length() - 2, money.length() == 2 ? "0." : "."));
+        else
+            yue.setText("0");
+        if(Integer.parseInt(tem_money)!= 0)
+            dongjiezhuangtai.setText(new StringBuffer(tem_money).insert(tem_money.length() - 2, tem_money.length() == 2 ? "0." : "."));
+        else
+            dongjiezhuangtai.setText("0");
+        kazhuangtai.setText(personData_javabean.getCard().get(0).getAcc_status().equals("0")?"正常":"异常");
+        LoadImageToTitle();// 获取title的图片加载入iamge
+
+        RelativeLayout re1 = (RelativeLayout) findViewById(R.id.card_activity_today);
+        RelativeLayout re2 = (RelativeLayout) findViewById(R.id.card_activity_history);
+        RelativeLayout re3 = (RelativeLayout) findViewById(R.id.card_activity_lost);
+        RelativeLayout re4 = (RelativeLayout) findViewById(R.id.card_activity_lostclick);
+        RelativeLayout re5 = (RelativeLayout) findViewById(R.id.card_activity_topup);
+        RelativeLayout re6 = (RelativeLayout) findViewById(R.id.card_activity_exit);
+
+        re1.setOnClickListener(this);
+        re2.setOnClickListener(this);
+        re3.setOnClickListener(this);
+        re4.setOnClickListener(this);
+        re5.setOnClickListener(this);
+        re6.setOnClickListener(this);
+    }
+
+    private void initBar() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+            Window window = getWindow();
+            // Translucent status bar
+            window.setFlags(
+                    WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS,
+                    WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
+        }
+        getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
+        getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION);
+    }
+
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()){
+            case R.id.card_activity_today:
+                Intent intentToday = new Intent(this,TodayActivity.class);
+                intentToday.putExtra("no", personData_javabean.getCard().get(0).getAccount());
+                startActivity(intentToday);
+                break;
+            case R.id.card_activity_history:
+                Intent intentHistory = new Intent(this,HistoryActivity.class);
+                intentHistory.putExtra("no", personData_javabean.getCard().get(0).getAccount());
+                startActivity(intentHistory);
+                break;
+            case R.id.card_activity_lost:
+                intentCardManager = new Intent(this,CardManager.class);
+                intentCardManager.putExtra("cardManager_javabean", "校园卡挂失");
+                intentCardManager.putExtra("no", personData_javabean.getCard().get(0).getAccount());
+                startActivity(intentCardManager);
+                break;
+            case R.id.card_activity_lostclick:
+                intentCardManager = new Intent(this,CardManager.class);
+                intentCardManager.putExtra("cardManager_javabean", "校园卡解挂");
+                intentCardManager.putExtra("no", personData_javabean.getCard().get(0).getAccount());
+                startActivity(intentCardManager);
+                break;
+            case R.id.card_activity_topup:
+                Intent intentCardTopUp = new Intent(this, CardTopUp.class);
+                intentCardTopUp.putExtra("no", personData_javabean.getCard().get(0).getAccount());
+                startActivity(intentCardTopUp);
+                break;
+            case R.id.card_activity_exit:
+                finish();
+                break;
+        }
+    }
+
+    @Override
+    protected void onResume() {
+        Thread thread = new Thread(new Runnable() {
+            @Override
+            public void run() {
+                personData_javabean = cardClient.check();
+                handler.sendEmptyMessage(SET_PERSON_DATA);
+            }
+        });
+        thread.start();
+        super.onResume();
+    }
+
+
+    public void back(View view) {
+        finish();
+    }
+}

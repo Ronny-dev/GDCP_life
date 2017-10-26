@@ -1,0 +1,151 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.example.ronny_xie.gdcp">
+
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+    <uses-permission android:name="android.permission.VIBRATE" />
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.GET_TASKS" />
+    <uses-permission android:name="android.permission.RECORD_AUDIO" />
+    <uses-permission android:name="android.permission.READ_CONTACTS" />
+    <uses-permission android:name="android.permission.WRITE_SETTINGS" />
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+    <uses-permission android:name="android.permission.CHANGE_WIFI_STATE" />
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
+    <uses-permission android:name="android.permission.CHANGE_CONFIGURATION" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.CHANGE_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
+
+    <application
+        android:name=".loginActivity.MyApplication"
+        android:allowBackup="true"
+        android:icon="@drawable/app_icon"
+        android:label="@string/app_name"
+        android:persistent="true"
+        android:launchMode="singleTask"
+        android:screenOrientation="portrait"
+        android:theme="@style/AppTheme">
+        <meta-data
+            android:name="com.amap.api.v2.apikey"
+            android:value="d4ec5d2359e3e95d514df027a5602d51" />
+
+        <activity android:name=".loginActivity.Splash">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity android:name=".Fragment.jw2012SyetemFragment.tag.SelectTabActivity" />
+        <activity
+            android:name=".loginActivity.LoginPage"
+            android:label="@string/app_name"
+            android:screenOrientation="portrait" />
+        <activity android:name=".styleInActivity.styleActivity" />
+        <activity
+            android:name=".mainActivity.MainActivity"
+            android:label="@string/app_name"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".Fragment.chat.CreateGroupSelectUser"
+            android:label="@string/app_name"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateHidden|adjustResize" />
+        <activity
+            android:name=".Fragment.chat.page.GroupRoomListPage"
+            android:label="@string/app_name"
+            android:launchMode="singleTask"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateHidden|adjustResize" />
+        <activity
+            android:name=".Fragment.chat.page.GroupInfoPage"
+            android:label="@string/app_name"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateHidden|adjustResize" />
+        <activity
+            android:name=".Fragment.chat.page.UserInfoPage"
+            android:label="@string/app_name"
+            android:launchMode="singleTask"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateHidden|adjustResize" />
+        <activity
+            android:name=".Fragment.chat.page.RoomInfoPage"
+            android:label="@string/app_name"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateHidden|adjustResize" />
+        <activity
+            android:name=".Fragment.chat.page.ChatPage"
+            android:label="@string/app_name"
+            android:launchMode="singleTask"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateHidden|adjustResize" />
+        <activity
+            android:name=".Fragment.chat.page.SearchPage"
+            android:label="@string/app_name"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateHidden|adjustResize" />
+        <activity
+            android:name=".Fragment.chat.page.NotifyListPage"
+            android:label="@string/app_name"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateHidden|adjustResize" />
+        <activity
+            android:name=".Fragment.chat.ShowBigImage"
+            android:label="@string/app_name"
+            android:launchMode="singleTop"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".MoreActivity.ShopActivity.shopActivity2" />
+        <activity android:name=".Fragment.jw2012SyetemFragment.page.jw_main_page" />
+        <activity android:name=".Fragment.jw2012SyetemFragment.MywebView" />
+        <activity android:name=".Fragment.card.CardActivity" />
+        <activity android:name=".Fragment.jw2012SyetemFragment.page.jwxscj_page" />
+        <activity android:name=".Fragment.jw2012SyetemFragment.page.jwxskb_page" />
+        <activity android:name=".Fragment.jw2012SyetemFragment.page.jwxsxx_page" />
+        <activity android:name=".Fragment.cardFragment" />
+        <activity android:name=".MoreActivity.ScheduleActivity.schedule_fragment" />
+        <activity android:name=".Fragment.WeatherActivity.fragment_weather" />
+        <activity android:name=".MoreActivity.ShopActivity.fragment_shop" />
+        <activity android:name=".Fragment.jwFragment" />
+        <activity android:name=".MoreActivity.ScheduleActivity.editorView" />
+        <activity android:name=".Fragment.card.TodayActivity" />
+        <activity android:name=".Fragment.card.HistoryActivity"/>
+        <activity android:name=".Fragment.card.CardManager"/>
+        <activity android:name=".Fragment.card.CardTopUp"/>
+        <activity
+            android:name=".Fragment.EmotionActivity.fragment_emotion"
+            android:configChanges="orientation|screenSize|keyboardHidden"
+            android:hardwareAccelerated="true"
+            android:theme="@style/MyTheme" />
+        <activity
+            android:name="com.tencent.smtt.sdk.VideoActivity"
+            android:alwaysRetainTaskState="true"
+            android:configChanges="orientation|screenSize|keyboardHidden"
+            android:exported="false"
+            android:launchMode="singleTask">
+            <intent-filter>
+                <action android:name="com.tencent.smtt.tbs.video.PLAY" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+
+        <receiver android:name=".loginActivity.StartServiceReceiver">
+            <intent-filter android:priority="1000">
+                <action android:name="android.intent.action.BOOT_COMPLETED" />
+                <action android:name="android.intent.action.QUICKBOOT_POWERON" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </receiver>
+
+        <service android:name=".loginActivity.GotyeService" />
+
+        <activity android:name=".Fragment.jw2012SyetemFragment.page.jw_choice_page"></activity>
+    </application>
+
+</manifest>

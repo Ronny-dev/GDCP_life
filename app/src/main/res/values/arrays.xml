@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="weather_qu">
+        <item>---请选择区名---</item>
+        <item>天河区</item>
+        <item>白云区</item>
+        <item>越秀区</item>
+        <item>海珠区</item>
+        <item>荔湾区</item>
+        <item>番禺区</item>
+        <item>萝岗区</item>
+        <item>南沙区</item>
+        <item>增城区</item>
+        <item>花都区</item>
+        <item>从化区</item>
+    </string-array>
+
+    <string-array name="spinner1">
+        <item>15</item>
+        <item>16</item>
+        <item>17</item>
+    </string-array>
+
+    <string-array name="spinner2">
+        <item>软件技术</item>
+        <item>网络技术</item>
+        <item>智能交通</item>
+        <item>数字媒体</item>
+        <item>城市轨道</item>
+        <item>报关</item>
+    </string-array>
+
+    <string-array name="spinner3">
+        <item>1</item>
+        <item>2</item>
+        <item>3</item>
+        <item>4</item>
+        <item>5</item>
+        <item>6</item>
+    </string-array>
+</resources>

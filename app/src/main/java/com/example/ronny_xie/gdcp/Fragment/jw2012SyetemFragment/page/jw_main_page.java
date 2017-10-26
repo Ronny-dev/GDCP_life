@@ -1,0 +1,401 @@
+package com.example.ronny_xie.gdcp.Fragment.jw2012SyetemFragment.page;
+
+import android.content.DialogInterface;
+import android.content.Intent;
+import android.content.SharedPreferences;
+import android.os.Bundle;
+import android.os.Handler;
+import android.support.design.widget.TabLayout;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentActivity;
+import android.support.v4.app.FragmentPagerAdapter;
+import android.support.v4.view.ViewPager;
+import android.support.v7.app.AlertDialog;
+import android.util.Log;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.View.OnClickListener;
+import android.view.Window;
+import android.widget.ArrayAdapter;
+import android.widget.Button;
+import android.widget.ImageView;
+import android.widget.Spinner;
+
+import com.example.ronny_xie.gdcp.Fragment.jw2012SyetemFragment.NewsItemFragment;
+import com.example.ronny_xie.gdcp.Fragment.jw2012SyetemFragment.tag.SelectTabActivity;
+import com.example.ronny_xie.gdcp.Fragment.jwFragment;
+import com.example.ronny_xie.gdcp.R;
+import com.example.ronny_xie.gdcp.loginActivity.ConnInterface;
+import com.example.ronny_xie.gdcp.loginActivity.LoginPage;
+import com.example.ronny_xie.gdcp.util.ToastUtil;
+import com.oguzdev.circularfloatingactionmenu.library.FloatingActionButton;
+import com.oguzdev.circularfloatingactionmenu.library.FloatingActionMenu;
+import com.oguzdev.circularfloatingactionmenu.library.SubActionButton;
+
+import org.apache.http.client.HttpClient;
+import org.jsoup.Jsoup;
+import org.jsoup.nodes.Document;
+import org.jsoup.nodes.Element;
+import org.jsoup.select.Elements;
+
+import java.util.ArrayList;
+import java.util.List;
+
+public class jw_main_page extends FragmentActivity {
+    private static final String TAG = "jw_main_page";
+    private Handler handler;
+    private HttpClient httpclient;
+    public static List<String> values;
+    public static String[] user;
+    private ImageView image_back;
+    private SubActionButton button1;
+    private SubActionButton button2;
+    private SubActionButton button3;
+    private ViewPager viewPager;
+    private TabLayout tabLayout;
+    private ArrayList<NewsItemFragment> fragment_list;
+    private Button btnSelect;
+    private ArrayList<String> titles;
+    private SharedPreferences sp;
+    private static final String IS_FIRST = "IS_FIRST";
+    private static final String DRAG_DATA = "DRAG_DATA";
+    private static final String ADD_DATA = "ADD_DATA";
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        requestWindowFeature(Window.FEATURE_NO_TITLE);
+        titles = new ArrayList<>();
+        titles.add("首页");
+        sp = getSharedPreferences("info", MODE_PRIVATE);
+        boolean isFirst = sp.getBoolean(IS_FIRST, true);
+        if (isFirst){
+            //第一次进入
+            initFirstTag();
+        }else{
+            initTagFromSp();
+        }
+        handler = new Handler();
+        setContentView(R.layout.activity_jw_mian);
+        super.onCreate(savedInstanceState);
+        initView();// 初始化控件
+        initViewPager();//初始化ViewPager
+//        initFloatActionButton();//初始化FloatActionButton
+        initClickView();// 获取点击的view
+    }
+
+    private void initTagFromSp() {
+        String data = sp.getString(DRAG_DATA, "");
+        String[] drag_arr = data.split("#Z&#");
+        for (String s : drag_arr){
+            titles.add(s);
+        }
+    }
+
+    private void initFirstTag() {
+        titles.add("土木");
+        titles.add("汽车");
+        titles.add("运输");
+        titles.add("信息");
+
+        StringBuffer sb = new StringBuffer();
+        for (int i = 1; i < titles.size(); i++) {
+            sb.append(titles.get(i)).append("#Z&#");
+        }
+        sp.edit().putString(DRAG_DATA, sb.toString()).commit();
+
+        String s = new StringBuffer().append("轨道").append("#Z&#")
+                .append("海事").append("#Z&#")
+                .append("商贸").append("#Z&#")
+                .append("电子").append("#Z&#")
+                .append("机电").append("#Z&#").toString();
+        sp.edit().putString(ADD_DATA, s).commit();
+
+        sp.edit().putBoolean(IS_FIRST, false).commit();
+    }
+
+    private void initViewPager() {
+        viewPager = (ViewPager) findViewById(R.id.view_pager);
+        tabLayout = (TabLayout) findViewById(R.id.tab_layout);
+        tabLayout.setTabMode(TabLayout.MODE_SCROLLABLE);
+        fragment_list = new ArrayList<>();
+        for (int i = 0; i < titles.size(); i++) {
+            NewsItemFragment newsItemFragment = new NewsItemFragment();
+            newsItemFragment.setSign(getSign(i));
+            fragment_list.add(newsItemFragment);
+        }
+        viewPager.setAdapter(new FragmentPagerAdapter(getSupportFragmentManager()) {
+            @Override
+            public Fragment getItem(int position) {
+                return fragment_list.get(position);
+            }
+
+            @Override
+            public int getCount() {
+                return fragment_list.size();
+            }
+
+            @Override
+            public CharSequence getPageTitle(int position) {
+                return titles.get(position);
+            }
+        });
+        tabLayout.setupWithViewPager(viewPager);
+    }
+
+    //获取对应标识号
+    private int getSign(int i) {
+        String title = titles.get(i);
+        if ("首页".equals(title)) {
+            return 0;
+        } else if ("土木".equals(title)) {
+            return 1;
+        } else if ("汽车".equals(title)) {
+            return 2;
+        } else if ("运输".equals(title)) {
+            return 3;
+        } else if ("信息".equals(title)) {
+            return 4;
+        } else if ("轨道".equals(title)) {
+            return 5;
+        } else if ("海事".equals(title)) {
+            return 6;
+        } else if ("商贸".equals(title)) {
+            return 7;
+        } else if ("电子".equals(title)) {
+            return 8;
+        } else{
+            return 9;
+        }
+    }
+
+    private void initFloatActionButton() {
+        ImageView icon = new ImageView(jw_main_page.this);
+        final FloatingActionButton actionButton = new FloatingActionButton
+                .Builder(jw_main_page.this).setContentView(icon).build();
+        SubActionButton.Builder itemBUilder = new SubActionButton.Builder(jw_main_page.this);
+        ImageView itemIcon1 = new ImageView(jw_main_page.this);
+        itemIcon1.setImageResource(R.drawable.weather_ziwaixian);
+        button1 = itemBUilder.setContentView(itemIcon1).build();
+
+        ImageView itemIcon2 = new ImageView(jw_main_page.this);
+        button2 = itemBUilder.setContentView(itemIcon2).build();
+        itemIcon2.setImageResource(R.drawable.fab_moresearch);
+
+        ImageView itemIcon3 = new ImageView(jw_main_page.this);
+        button3 = itemBUilder.setContentView(itemIcon3).build();
+        itemIcon3.setImageResource(R.drawable.fab_searchfriend);
+
+        final FloatingActionMenu actionMenu = new FloatingActionMenu
+                .Builder(jw_main_page.this)
+                .addSubActionView(button1)
+                .addSubActionView(button2)
+                .addSubActionView(button3)
+                .attachTo(actionButton).build();
+        final Thread[] thread = {null};
+        final boolean[] isThread_run = {false};
+        actionButton.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (!actionMenu.isOpen()) {
+                    actionMenu.open(true);
+                } else {
+                    actionMenu.close(true);
+                    return;
+                }
+                isThread_run[0] = true;
+                thread[0] = new Thread(new Runnable() {
+                    @Override
+                    public void run() {
+                        try {
+                            Thread.sleep(3000);
+                            runOnUiThread(new Runnable() {
+                                @Override
+                                public void run() {
+                                    if (actionMenu.isOpen()) {
+                                        actionMenu.close(true);
+                                        isThread_run[0] = false;
+                                    }
+                                }
+                            });
+                        } catch (InterruptedException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                });
+                thread[0].start();
+            }
+        });
+    }
+
+    private void initView() {
+      //  httpclient = ConnInterface.getHttpclient();
+        values = jwFragment.values;
+        if(values!=null){
+            for (int i = 0; i <values.size(); i++) {
+                String s = values.get(i);
+                Log.e(TAG, "onCreate: value"+s);
+            }
+
+        }else{
+            Log.e(TAG, "onCreate:value为空 " );
+        }
+        user = LoginPage.getUser(jw_main_page.this);
+        image_back = (ImageView) findViewById(R.id.back);
+        btnSelect = (Button) findViewById(R.id.btn_select);
+    }
+
+    // tab点击事件侦听
+    private void initClickView() {
+        btnSelect.setBackgroundResource(R.drawable.ic_launcher);
+        btnSelect.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(jw_main_page.this, SelectTabActivity.class));
+                finish();
+            }
+        });
+        image_back.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
+//        button1.setOnClickListener(new OnClickListener() {
+//
+//            @Override
+//            public void onClick(final View v) {
+//                // 拿到httpclient配置的信息
+//                ProgressDialogUtil.showProgress(jw_main_page.this, "请稍后...");
+//                Thread thread = new Thread(new Runnable() {
+//
+//                    @Override
+//                    public void run() {
+//                        // 连接教务系统，拿到spinner
+//                        values = ConnInterByOkGo.getClickXSCJfromHTML(user[0]);
+//                        handler.post(new Runnable() {
+//                            @Override
+//                            public void run() {
+//                                show_jwxs_dialog(1);
+//                                initSpinnerData();
+//                                ProgressDialogUtil.dismiss();
+//                            }
+//                        });
+//                    }
+//                });
+//                thread.start();
+//            }
+//        });
+//        button2.setOnClickListener(new OnClickListener() {
+//
+//            @Override
+//            public void onClick(final View v) {
+//                ProgressDialogUtil.showProgress(jw_main_page.this, "请稍后...");
+//
+//                Thread thread = new Thread(new Runnable() {
+//
+//                    @Override
+//                    public void run() {
+//                        values = ConnInterByOkGo.getClickXSCJfromHTML(user[0]);
+//                        handler.post(new Runnable() {
+//
+//                            @Override
+//                            public void run() {
+//                                show_jwxs_dialog(2);
+//                                initSpinnerData();
+//                                ProgressDialogUtil.dismiss();
+//                            }
+//                        });
+//                    }
+//                });
+//                thread.start();
+//            }
+//        });
+//        button3.setOnClickListener(new OnClickListener() {
+//
+//            @Override
+//            public void onClick(View v) {
+//                Intent intent = new Intent(jw_main_page.this, MoreApplication.class);
+//                startActivity(intent);
+//            }
+//        });
+    }
+
+    //显示查询成绩课表的输入框
+    private void show_jwxs_dialog(final int tem) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(jw_main_page.this);
+        View view = LayoutInflater.from(jw_main_page.this).inflate(R.layout.popwindow_jwxw, null);
+        sp1_jwxs = (Spinner) view.findViewById(R.id.xsxw_sp1);
+        sp2_jwxs = (Spinner) view.findViewById(R.id.xsxw_sp2);
+        String s;
+        if (tem == 1) {
+            s = "查询成绩";
+        } else {
+            s = "查询课表";
+        }
+        builder.setTitle(s)
+                .setView(view)
+                .setPositiveButton("查询", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        inquiryInfo(tem);
+                    }
+                })
+                .setNegativeButton("取消", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+                    }
+                })
+                .show();
+    }
+
+    private void inquiryInfo(int tem) {
+        Intent intent;
+        if (tem == 2) {
+            intent = new Intent(jw_main_page.this, jwxskb_page.class);
+        } else {
+            intent = new Intent(jw_main_page.this, jwxscj_page.class);
+        }
+        if (sp1_jwxs.getSelectedItem().toString().equals("") || sp2_jwxs.getSelectedItem().toString().equals("")) {
+            ToastUtil.show(getApplicationContext(), "请选择...");
+            return;
+        }
+        intent.putExtra("xueqi", sp1_jwxs.getSelectedItem()
+                .toString());
+        intent.putExtra("xuenian", sp2_jwxs.getSelectedItem()
+                .toString());
+        startActivity(intent);
+    }
+
+    private Spinner sp1_jwxs;
+    private Spinner sp2_jwxs;
+
+    // 初始化spinner1
+    private void initSpinnerData() {
+        ArrayAdapter<String> adapter1 = new ArrayAdapter<String>(jw_main_page.this,
+                android.R.layout.simple_spinner_item, LoadSpinnerData());
+        adapter1.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        sp1_jwxs.setAdapter(adapter1);
+        ArrayList<String> Sp2_arr = new ArrayList<String>();
+        Sp2_arr.add("1");
+        Sp2_arr.add("2");
+        ArrayAdapter<String> adapter2 = new ArrayAdapter<String>(jw_main_page.this,
+                android.R.layout.simple_spinner_item, Sp2_arr);
+        adapter2.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        sp2_jwxs.setAdapter(adapter2);
+    }
+
+    // 读取Spinner的数据
+    private ArrayList<String> LoadSpinnerData() {
+        ArrayList<String> Sp1_arr = new ArrayList<String>();
+        Document doc = Jsoup.parse(values.get(1));
+        Element elementById = doc.getElementById("ddlXN");
+        Elements elementsByTag = elementById.getElementsByTag("option");
+        for (int i = 1; i < elementsByTag.size(); i++) {
+            String a = elementsByTag.get(i).text().toString();
+            Sp1_arr.add(a);
+        }
+        return Sp1_arr;
+    }
+
+}
